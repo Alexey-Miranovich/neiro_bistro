@@ -1,0 +1,1906 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neiro Bistro</title>
+    <style>
+        /* --- ОБЩИЕ СТИЛИ --- */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+        *, *:before, *:after {
+            box-sizing: inherit;
+        }
+        h1, h2, h3, p, h4 {
+            margin: 0;
+        }
+        img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+        a {
+            text-decoration: none;
+        }
+
+        /* --- СТИЛИ ДЛЯ КНОПКИ ДОСТУПА И МОДАЛОК --- */
+        
+        .btn-access-fixed {
+            position: fixed; top: 20px; right: 20px; z-index: 9999;
+            background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff; padding: 12px 24px; border-radius: 50px; cursor: pointer;
+            font-weight: 900; transition: 0.3s; font-size: 14px;
+        }
+        .btn-access-fixed:hover { background: #7a9ad1; border-color: #fff; }
+
+        .custom-modal { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.9); backdrop-filter: blur(15px); 
+            display: none; align-items: center; justify-content: center; z-index: 10000;
+        }
+        .modal-body { 
+            background: #111; padding: 40px; border-radius: 30px; 
+            max-width: 450px; width: 90%; border: 1px solid #333; text-align: center; 
+        }
+        .modal-body h2 { color: #fff; margin-bottom: 20px; text-transform: uppercase; }
+        .modal-input { 
+            width: 100%; padding: 15px; margin-bottom: 15px; 
+            border-radius: 12px; border: 1px solid #333; background: #000; color: #fff; 
+            box-sizing: border-box; outline: none;
+        }
+        .modal-input:focus { border-color: #7a9ad1; }
+        
+        .modal-btn { 
+            width: 100%; padding: 15px; background: #7a9ad1; 
+            border: none; color: #fff; font-weight: bold; border-radius: 12px; cursor: pointer; 
+            transition: 0.3s;
+        }
+        .modal-btn:hover { background: #5f82c0; }
+
+        /* --- СТИЛИ БЛОКОВ --- */
+
+        /* ================= БЛОК 1 ================= */
+        .block-1 {
+            width: 100%;
+            min-height: 60vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url('images/fon1.jpg'); /* ОБНОВЛЕНО */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            padding: 20px;
+        }
+
+        .block-1__logo {
+            max-width: 80%;
+            max-height: 50vh;     
+            object-fit: contain;
+        }
+
+        /* ================= БЛОК 2 ================= */
+        .block-2 {
+            width: 100%;
+            min-height: 60vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            background-image: url('images/fon2.jpg'); /* ОБНОВЛЕНО */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .block-2__content {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 50px;
+            align-items: center;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .block-2__logo {
+            width: 250px;
+            max-width: 100%; 
+        }
+
+        .block-2__text-box {
+            background-color: rgba(154, 189, 58, 0.60);
+            color: #ffffff;
+            padding: 40px 50px;
+            border-radius: 40px;
+            font-size: 16px;
+            line-height: 1.5;
+            font-weight: bold;
+        }
+        .block-2__text-box p {
+            margin-bottom: 15px;
+        }
+        .block-2__text-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ================= БЛОК 3 ================= */
+        .block-3 {
+            width: 100%;
+            min-height: 50vh; 
+            background-image: url('images/fon3.jpg'); /* ОБНОВЛЕНО */
+            background-size: cover;
+            background-position: center bottom;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 15px;
+        }
+
+        .block-3__header {
+            width: 100%;
+            padding-top: 20px;
+            padding-left: 15%; 
+        }
+
+        .block-3__title {
+            font-size: 64px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #ffffff;
+        }
+
+        .block-3__people {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end; 
+            gap: 50px;
+            width: 100%;
+            margin-top: 30px; 
+            flex-grow: 1;
+        }
+
+        .person-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 300px;
+        }
+
+        .card-visual {
+            position: relative;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .card-visual__arch {
+            display: block;
+            width: 100%;
+            z-index: 1;
+            opacity: 0.8;
+        }
+
+        .card-visual__avatar {
+            position: absolute;
+            width: 76%;
+            aspect-ratio: 1 / 1;
+            border-radius: 50%;
+            object-fit: cover;
+            z-index: 2;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 10%;
+        }
+
+        .person-card__name {
+            position: absolute;
+            z-index: 3;
+            width: 100%; 
+            text-align: center;
+            bottom: 8%; 
+            margin: 0;
+            font-weight: bold;
+            font-size: 24px;
+            color: #ffffff;
+            text-transform: uppercase;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            line-height: 1.2;
+        }
+
+        /* ================= БЛОК 4 и 5 ================= */
+        .block-4, .block-5 {
+            width: 100%;
+            min-height: 80vh;
+            background-color: #bfbfbf;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 20px;
+            box-sizing: border-box;
+        }
+
+        .block-container {
+            max-width: 1200px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .block-left {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .block-main-title {
+            align-self: flex-start;
+            font-size: 64px;
+            font-weight: 900; 
+            color: #ffffff;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+
+        .block-image-wrapper {
+            width: 450px;
+            height: 450px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .block-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .block-right {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .block-name {
+            font-size: 48px;
+            font-weight: 900;
+            color: #ffffff;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        .block-text {
+            font-size: 18px;
+            line-height: 1.5;
+            color: #1d1d1d;
+            margin-bottom: 20px;
+            max-width: 550px;
+        }
+        
+        .block-text:last-of-type {
+             margin-bottom: 40px;
+        }
+
+        .block-tag {
+            background-color: #d16b88;
+            color: #000000;
+            font-weight: 900;
+            font-size: 24px;
+            padding: 15px 30px;
+            display: inline-block;
+            text-transform: uppercase;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        /* ================= БЛОК 6 ================= */
+        .block-6 {
+            width: 100%;
+            min-height: 80vh; 
+            background-image: url('images/fon6.jpg'); /* ОБНОВЛЕНО */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 20px;
+            box-sizing: border-box;
+            overflow: hidden; 
+        }
+
+        .block-6__content {
+            max-width: 1200px;
+            width: 100%;
+            display: flex; 
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .block-6__image {
+            width: 45%;
+            max-width: 550px; 
+            height: auto;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+        
+        .block-6__image:hover {
+             transform: scale(1.02);
+        }
+
+        .block-6__title {
+            flex: 1;
+            font-size: 80px; 
+            font-weight: 900; 
+            color: #ffffff;
+            text-transform: uppercase;
+            line-height: 1.1;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        /* ================= БЛОК 7 и 8 (МОДУЛИ ПЛИТКА) ================= */
+        .block-7, .block-8 {
+            width: 100%;
+            min-height: 80vh;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 20px;
+        }
+
+        .block-7 { background-image: url('images/fon7.jpg'); /* ОБНОВЛЕНО */
+        }
+        .block-8 { background-image: url('images/fon8.jpg'); /* ОБНОВЛЕНО */
+        }
+
+        .block-7__content, .block-8__content {
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between; 
+            align-items: flex-end; 
+            gap: 40px;
+        }
+
+        .block-7__logo, .block-8__logo {
+            width: 300px;
+            max-width: 100%;
+            object-fit: contain;
+        }
+
+        .block-7__grid, .block-8__grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 20px;
+            max-width: 800px; 
+        }
+
+        .module-card {
+            width: 220px;
+            height: 140px;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(5px); 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #1d1d1d; 
+            font-size: 20px;
+            font-weight: 900; 
+            text-transform: uppercase;
+            box-sizing: border-box;
+            padding: 10px;
+        }
+
+        .block-7 .module-card {
+            color: #ffffff;
+            font-size: 24px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .block-8 .module-card { color: #2b4b7c;
+        }
+
+        .module-card--active {
+            background-color: rgba(154, 189, 58, 0.85);
+            border: none;
+            color: #ffffff !important;
+        }
+
+        .module-card--active-pink {
+            background-color: #c04d92;
+            border: none;
+            color: #ffffff !important;
+        }
+
+        /* ================= БЛОК 9 (МОДУЛЬ 1) ================= */
+        .block-9 {
+            width: 100%;
+            min-height: 70vh; 
+            background-color: #bfbfbf; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 20px;
+            box-sizing: border-box;
+        }
+
+        .block-9__content {
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 60px;
+        }
+
+        .block-9__visual {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end; 
+        }
+
+        .block-9__img {
+            max-width: 500px;
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .block-9__info {
+            flex: 1;
+            color: #ffffff; 
+            text-align: left;
+        }
+
+        .block-9__title {
+            font-size: 64px;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            line-height: 1;
+        }
+
+        .block-9__subtitle {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            line-height: 1.3;
+        }
+
+        .block-9__lesson {
+            margin-bottom: 30px;
+        }
+
+        .block-9__lesson:last-child {
+            margin-bottom: 0;
+        }
+
+        .block-9__lesson-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .block-9__lesson-text {
+            font-size: 18px;
+            line-height: 1.5;
+            opacity: 0.9;
+        }
+
+        /* ================= БЛОКИ С УРОКАМИ (10-37) ================= */
+        .block-10, .block-11, .block-12, .block-14, .block-15, .block-16, .block-17, .block-19, .block-20, .block-21, .block-23, .block-24, .block-25, .block-26, .block-28, .block-29, .block-30, .block-31, .block-32, .block-33, .block-35, .block-36, .block-37 {
+            width: 100%;
+            min-height: 70vh; 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 20px;
+            box-sizing: border-box;
+        }
+
+        .block-10 { background-image: url('images/fon10.jpg'); } /* ОБНОВЛЕНО */
+        .block-11 { background-image: url('images/fon11.jpg'); } /* ОБНОВЛЕНО */
+        .block-12 { background-image: url('images/fon12.jpg'); } /* ОБНОВЛЕНО */
+        .block-14 { background-image: url('images/fon14.jpg'); } /* ОБНОВЛЕНО */
+        .block-15 { background-image: url('images/fon15.jpg'); } /* ОБНОВЛЕНО */
+        .block-16 { background-image: url('images/fon16.jpg'); } /* ОБНОВЛЕНО */
+        .block-17 { background-image: url('images/fon17.jpg'); } /* ОБНОВЛЕНО */
+        .block-19 { background-image: url('images/fon19.jpg'); } /* ОБНОВЛЕНО */
+        .block-20 { background-image: url('images/fon20.jpg'); } /* ОБНОВЛЕНО */
+        .block-21 { background-image: url('images/fon21.jpg'); } /* ОБНОВЛЕНО */
+        .block-23 { background-image: url('images/fon23.jpg'); } /* ОБНОВЛЕНО */
+        .block-24 { background-image: url('images/fon24.jpg'); } /* ОБНОВЛЕНО */
+        .block-25 { background-image: url('images/fon25.jpg'); } /* ОБНОВЛЕНО */
+        .block-26 { background-image: url('images/fon26.jpg'); } /* ОБНОВЛЕНО */
+        .block-28 { background-image: url('images/fon28.jpg'); } /* ОБНОВЛЕНО */
+        .block-29 { background-image: url('images/fon29.jpg'); } /* ОБНОВЛЕНО */
+        .block-30 { background-image: url('images/fon30.jpg'); } /* ОБНОВЛЕНО */
+        .block-31 { background-image: url('images/fon31.jpg'); } /* ОБНОВЛЕНО */
+        .block-32 { background-image: url('images/fon32.jpg'); } /* ОБНОВЛЕНО */
+        .block-33 { background-image: url('images/fon33.jpg'); } /* ОБНОВЛЕНО */
+        .block-35 { background-image: url('images/fon35.jpg'); } /* ОБНОВЛЕНО */
+        .block-36 { background-image: url('images/fon36.jpg'); } /* ОБНОВЛЕНО */
+        .block-37 { background-image: url('images/fon37.jpg'); } /* ОБНОВЛЕНО */
+
+        .block-10__content, .block-11__content, .block-12__content, .block-14__content, .block-15__content, .block-16__content, .block-17__content, .block-19__content, .block-20__content, .block-21__content, .block-23__content, .block-24__content, .block-25__content, .block-26__content, .block-28__content, .block-29__content, .block-30__content, .block-31__content, .block-32__content, .block-33__content, .block-35__content, .block-36__content, .block-37__content {
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .block-10__text-area, .block-11__text-area, .block-12__text-area, .block-14__text-area, .block-15__text-area, .block-16__text-area, .block-17__text-area, .block-19__text-area, .block-20__text-area, .block-21__text-area, .block-23__text-area, .block-24__text-area, .block-25__text-area, .block-26__text-area, .block-28__text-area, .block-29__text-area, .block-30__text-area, .block-31__text-area, .block-32__text-area, .block-33__text-area, .block-35__text-area, .block-36__text-area, .block-37__text-area {
+            color: #ffffff;
+            max-width: 600px;
+        }
+
+        .block-10__module-title, .block-11__module-title, .block-12__module-title, .block-14__module-title, .block-15__module-title, .block-16__module-title, .block-17__module-title, .block-19__module-title, .block-20__module-title, .block-21__module-title, .block-23__module-title, .block-24__module-title, .block-25__module-title, .block-26__module-title, .block-28__module-title, .block-29__module-title, .block-30__module-title, .block-31__module-title, .block-32__module-title, .block-33__module-title, .block-35__module-title, .block-36__module-title, .block-37__module-title {
+            font-size: 64px;
+            font-weight: 900;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            line-height: 1;
+        }
+
+        .block-10__lesson-title, .block-11__lesson-title, .block-12__lesson-title, .block-14__lesson-title, .block-15__lesson-title, .block-16__lesson-title, .block-17__lesson-title, .block-19__lesson-title, .block-20__lesson-title, .block-21__lesson-title, .block-23__lesson-title, .block-24__lesson-title, .block-25__lesson-title, .block-26__lesson-title, .block-28__lesson-title, .block-29__lesson-title, .block-30__lesson-title, .block-31__lesson-title, .block-32__lesson-title, .block-33__lesson-title, .block-35__lesson-title, .block-36__lesson-title, .block-37__lesson-title {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        .block-10__description, .block-11__description, .block-12__description, .block-14__description, .block-15__description, .block-16__description, .block-17__description, .block-19__description, .block-20__description, .block-21__description, .block-23__description, .block-24__description, .block-25__description, .block-26__description, .block-28__description, .block-29__description, .block-30__description, .block-31__description, .block-32__description, .block-33__description, .block-35__description, .block-36__description, .block-37__description {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .block-10__details, .block-11__details, .block-12__details, .block-14__details, .block-15__details, .block-16__details, .block-17__details, .block-19__details, .block-20__details, .block-21__details, .block-23__details, .block-24__details, .block-25__details, .block-26__details, .block-28__details, .block-29__details, .block-30__details, .block-31__details, .block-32__details, .block-33__details, .block-35__details, .block-36__details, .block-37__details {
+            font-size: 20px;
+            line-height: 1.4;
+            opacity: 0.9;
+        }
+
+        .block-10__btn, .block-11__btn, .block-12__btn, .block-14__btn, .block-15__btn, .block-16__btn, .block-17__btn, .block-19__btn, .block-20__btn, .block-21__btn, .block-23__btn, .block-24__btn, .block-25__btn, .block-26__btn, .block-28__btn, .block-29__btn, .block-30__btn, .block-31__btn, .block-32__btn, .block-33__btn, .block-35__btn, .block-36__btn, .block-37__btn {
+            background-color: #7a9ad1;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 25px 50px;
+            border-radius: 50px;
+            border: 2px solid rgba(255,255,255,0.6);
+            cursor: pointer;
+            transition: transform 0.2s ease, background-color 0.2s;
+            white-space: nowrap;
+        }
+
+        .block-10__btn:hover, .block-11__btn:hover, .block-12__btn:hover, .block-14__btn:hover, .block-15__btn:hover, .block-16__btn:hover, .block-17__btn:hover, .block-19__btn:hover, .block-20__btn:hover, .block-21__btn:hover, .block-23__btn:hover, .block-24__btn:hover, .block-25__btn:hover, .block-26__btn:hover, .block-28__btn:hover, .block-29__btn:hover, .block-30__btn:hover, .block-31__btn:hover, .block-32__btn:hover, .block-33__btn:hover, .block-35__btn:hover, .block-36__btn:hover, .block-37__btn:hover {
+            transform: scale(1.05);
+            background-color: #5f82c0;
+        }
+
+        /* ================= БЛОК 13, 18, 22, 27, 34 (МОДУЛИ СПЛИТ) ================= */
+        .block-13, .block-18, .block-22, .block-27, .block-34 {
+            width: 100%;
+            min-height: 70vh; 
+            display: flex;
+            padding: 0;
+        }
+
+        .block-13__content, .block-18__content, .block-22__content, .block-27__content, .block-34__content {
+            width: 100%;
+            display: flex;
+            align-items: stretch; 
+        }
+
+        /* Левая половина (Фото) */
+        .block-13__image-side, .block-18__image-side, .block-22__image-side, .block-27__image-side, .block-34__image-side {
+            flex: 1;
+            position: relative;
+            min-height: 50vh; 
+        }
+
+        .block-13__img, .block-18__img, .block-22__img, .block-27__img, .block-34__img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            display: block;
+            position: absolute; 
+            left: 0;
+            top: 0;
+        }
+
+        /* Правая половина (Текст) */
+        .block-13__text-side, .block-22__text-side {
+            flex: 1;
+            background-color: #c75b8a; /* Розовый */
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px; 
+            box-sizing: border-box;
+        }
+
+        .block-18__text-side, .block-27__text-side, .block-34__text-side {
+            flex: 1;
+            background-color: #bfbfbf; /* Серый */
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            box-sizing: border-box;
+        }
+        
+        .block-13__text-wrapper, .block-18__text-wrapper, .block-22__text-wrapper, .block-27__text-wrapper, .block-34__text-wrapper {
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .block-13__title, .block-18__title, .block-22__title, .block-27__title, .block-34__title {
+            font-size: 56px;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            line-height: 1;
+        }
+
+        .block-13__subtitle, .block-18__subtitle, .block-22__subtitle, .block-27__subtitle, .block-34__subtitle {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 40px;
+            line-height: 1.2;
+        }
+
+        .block-13__lesson, .block-18__lesson, .block-22__lesson, .block-27__lesson, .block-34__lesson {
+            margin-bottom: 25px;
+        }
+        .block-13__lesson:last-child, .block-18__lesson:last-child, .block-22__lesson:last-child, .block-27__lesson:last-child, .block-34__lesson:last-child { margin-bottom: 0;
+        }
+
+        .block-13__lesson-title, .block-18__lesson-title, .block-22__lesson-title, .block-27__lesson-title, .block-34__lesson-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .block-13__lesson-text, .block-18__lesson-text, .block-22__lesson-text, .block-27__lesson-text, .block-34__lesson-text {
+            font-size: 16px;
+            line-height: 1.4;
+            opacity: 0.95;
+        }
+
+        /* ================= БЛОК 38 (ФИНАЛ: ЦЕНА) ================= */
+        .block-38 {
+            position: relative;
+            width: 100%; min-height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+            background-image: url('images/fon38.jpg'); /* ОБНОВЛЕНО */
+            background-size: cover; background-position: center;
+            padding: 80px 20px;
+            overflow: hidden;
+        }
+        .block-38__overlay { position: absolute; top: 0; left: 0; width: 100%;
+            height: 100%; background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.9) 100%); z-index: 1;
+        }
+        .block-38__content { position: relative; z-index: 2; text-align: center; max-width: 800px; width: 100%;
+        }
+
+        .block-38__card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            padding: 50px 40px; border-radius: 40px; border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 40px; cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .block-38__card:hover {
+            transform: translateY(-20px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(199, 91, 138, 0.4);
+            border-color: #c75b8a;
+        }
+
+        .block-38__badge { background: #9abd3a; color: #000; padding: 10px 25px; border-radius: 50px;
+            font-weight: 900; display: inline-block; margin-bottom: 20px; }
+        .block-38__old-price { font-size: 28px; text-decoration: line-through;
+            color: #888; margin-right: 15px; }
+        .block-38__new-price { font-size: 64px; color: #c75b8a; font-weight: 900;
+        }
+        .block-38__buy-btn { width: 100%; margin-top: 25px; padding: 20px; background: #c75b8a; color: #fff;
+            border: none; border-radius: 20px; font-size: 24px; font-weight: 900; cursor: pointer;
+        }
+
+        /* --- ОБЩИЙ АДАПТИВ (ВСЕ БЛОКИ) --- */
+        @media (max-width: 900px) {
+            
+            /* Блок 2 */
+            .block-2__content { grid-template-columns: 1fr;
+            text-align: center; }
+            .block-2__logo { display: none;
+            }
+            .block-2__text-box { width: 100%; padding: 30px 20px;
+            }
+
+            /* Блок 3 */
+            .block-3__header { padding-left: 0;
+            text-align: center; padding-top: 20px; }
+            .block-3__title { font-size: 36px;
+            }
+            .block-3__people { flex-direction: row; gap: 15px;
+            padding: 0 10px; margin-top: 20px; }
+            .person-card { width: 48%;
+            }
+            .person-card__name { font-size: 14px; bottom: 6%;
+            }
+
+            /* Блок 4 и 5 */
+            .block-4, .block-5 { padding: 40px 15px;
+            }
+            .block-container { grid-template-columns: 1fr; text-align: center; gap: 30px;
+            }
+            .block-left { align-items: center;
+            }
+            .block-main-title { align-self: center; padding-left: 0; font-size: 48px;
+            }
+            .block-image-wrapper { width: 300px; height: 300px;
+            }
+            .block-right { align-items: center;
+            }
+            .block-name { font-size: 32px; text-align: center;
+            }
+            .block-text { font-size: 16px; text-align: center;
+            }
+            .block-tag { font-size: 18px;
+            }
+
+            /* Блок 6 */
+            .block-6 { min-height: 60vh;
+            }
+            .block-6__content { flex-direction: column; text-align: center; gap: 30px;
+            }
+            .block-6__image { width: 70%; max-width: 350px;
+            }
+            .block-6__title { font-size: 40px; width: 100%;
+            }
+
+            /* Блок 7 и 8 */
+            .block-7__content, .block-8__content { flex-direction: column;
+            align-items: center; gap: 30px; }
+            .block-7__grid, .block-8__grid { grid-template-columns: repeat(2, 1fr);
+            width: 100%; max-width: 400px; }
+            .module-card { width: 100%;
+            height: 100px; font-size: 16px !important; border-radius: 20px; }
+
+            /* Блок 9 */
+            .block-9 { padding: 40px 15px;
+            min-height: auto; }
+            .block-9__content { flex-direction: column; gap: 30px;
+            text-align: center; }
+            .block-9__visual { justify-content: center;
+            }
+            .block-9__img { max-width: 300px;
+            }
+            .block-9__info { text-align: center;
+            }
+            .block-9__title { font-size: 48px;
+            }
+            .block-9__subtitle { font-size: 22px; margin-bottom: 30px;
+            }
+            .block-9__lesson-text { font-size: 16px;
+            }
+
+            /* Блоки с уроками */
+            .block-10__content, .block-11__content, .block-12__content, .block-14__content, .block-15__content, .block-16__content, .block-17__content, .block-19__content, .block-20__content, .block-21__content, .block-23__content, .block-24__content, .block-25__content, .block-26__content, .block-28__content, .block-29__content, .block-30__content, .block-31__content, .block-32__content, .block-33__content, .block-35__content, .block-36__content, .block-37__content { flex-direction: column;
+            text-align: center; gap: 40px; }
+            .block-10__module-title, .block-11__module-title, .block-12__module-title, .block-14__module-title, .block-15__module-title, .block-16__module-title, .block-17__module-title, .block-19__module-title, .block-20__module-title, .block-21__module-title, .block-23__module-title, .block-24__module-title, .block-25__module-title, .block-26__module-title, .block-28__module-title, .block-29__module-title, .block-30__module-title, .block-31__module-title, .block-32__module-title, .block-33__module-title, .block-35__module-title, .block-36__module-title, .block-37__module-title { font-size: 48px;
+            }
+            .block-10__lesson-title, .block-11__lesson-title, .block-12__lesson-title, .block-14__lesson-title, .block-15__lesson-title, .block-16__lesson-title, .block-17__lesson-title, .block-19__lesson-title, .block-20__lesson-title, .block-21__lesson-title, .block-23__lesson-title, .block-24__lesson-title, .block-25__lesson-title, .block-26__lesson-title, .block-28__lesson-title, .block-29__lesson-title, .block-30__lesson-title, .block-31__lesson-title, .block-32__lesson-title, .block-33__lesson-title, .block-35__lesson-title, .block-36__lesson-title, .block-37__lesson-title { font-size: 32px;
+            }
+            .block-10__description, .block-11__description, .block-12__description, .block-14__description, .block-15__description, .block-16__description, .block-17__description, .block-19__description, .block-20__description, .block-21__description, .block-23__description, .block-24__description, .block-25__description, .block-26__description, .block-28__description, .block-29__description, .block-30__description, .block-31__description, .block-32__description, .block-33__description, .block-35__description, .block-36__description, .block-37__description { font-size: 24px;
+            }
+            .block-10__btn, .block-11__btn, .block-12__btn, .block-14__btn, .block-15__btn, .block-16__btn, .block-17__btn, .block-19__btn, .block-20__btn, .block-21__btn, .block-23__btn, .block-24__btn, .block-25__btn, .block-26__btn, .block-28__btn, .block-29__btn, .block-30__btn, .block-31__btn, .block-32__btn, .block-33__btn, .block-35__btn, .block-36__btn, .block-37__btn { width: 100%;
+            text-align: center; }
+
+            /* Блоки Сплит (Адаптив) */
+            .block-13, .block-18, .block-22, .block-27, .block-34 { min-height: auto;
+            display: block; } 
+            .block-13__content, .block-18__content, .block-22__content, .block-27__content, .block-34__content { flex-direction: column;
+            display: block; }
+            
+            .block-13__image-side, .block-18__image-side, .block-22__image-side, .block-27__image-side, .block-34__image-side { 
+                width: 100%;
+                height: 50vh; 
+                position: relative;
+            }
+            .block-13__img, .block-18__img, .block-22__img, .block-27__img, .block-34__img {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+            }
+
+            .block-13__text-side, .block-18__text-side, .block-22__text-side, .block-27__text-side, .block-34__text-side { 
+                width: 100%;
+                padding: 40px 20px; 
+                text-align: center; 
+                min-height: auto; 
+            }
+            
+            .block-13__title, .block-18__title, .block-22__title, .block-27__title, .block-34__title { font-size: 48px;
+            }
+            .block-13__subtitle, .block-18__subtitle, .block-22__subtitle, .block-27__subtitle, .block-34__subtitle { font-size: 28px;
+            margin-bottom: 30px; }
+            .block-13__lesson-title, .block-18__lesson-title, .block-22__lesson-title, .block-27__lesson-title, .block-34__lesson-title { font-size: 20px;
+            }
+            .block-13__lesson-text, .block-18__lesson-text, .block-22__lesson-text, .block-27__lesson-text, .block-34__lesson-text { font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <button class="btn-access-fixed" onclick="openModal('modal-auth')">У МЕНЯ ЕСТЬ ДОСТУП</button>
+
+    <section class="block-1">
+        <img src="images/logo1.png" alt="Neiro Bistro Logo" class="block-1__logo"> </section>
+
+    <section class="block-2">
+        <div class="block-2__content">
+            <img src="images/logo2.png" alt="Neiro Bistro Small Logo" class="block-2__logo"> <div class="block-2__text-box">
+                <p>Добро пожаловать на кухню NEIRO BISTRO — пространство для всех, кто хочет изучать нейросети с нуля и углублять свои знания в области искусственного интеллекта!</p>
+                <p>Мы — AI-артисты Алла Леонова и Ася Бабковская.</p>
+                <p>Здесь вы найдёте понятные объяснения, пошаговые инструкции по созданию визуала в ИИ.
+                Курс NEIRO BISTRO создан на основе нашего опыта как креаторов и содержит только самый СОК.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-3">
+    <div class="block-3__header">
+        <h2 class="block-3__title">КТО МЫ?</h2>
+    </div>
+    
+    <div class="block-3__people">
+        <div class="person-card">
+            <div class="card-visual">
+                <img src="images/arch3.png" alt="" class="card-visual__arch"> <img src="images/alla3.png" alt="Alla Leonova" class="card-visual__avatar"> <h3 class="person-card__name">ALLA<br>LEONOVA</h3>
+            </div>
+        </div>
+
+        <div class="person-card">
+            <div class="card-visual">
+                <img src="images/arch3.png" alt="" class="card-visual__arch"> <img src="images/asya3.png" alt="Asya Babkovskaia" class="card-visual__avatar"> <h3 class="person-card__name">ASYA<br>BABKOVSKAIA</h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <section class="block-4">
+        <div class="block-container">
+            <div class="block-left">
+                <h2 class="block-main-title">КТО МЫ</h2>
+                <div class="block-image-wrapper">
+                    <img src="images/alla4.png" alt="Alla Leonova" class="block-image"> </div>
+            </div>
+            <div class="block-right">
+                <h3 class="block-name">АЛЛА ЛЕОНОВА</h3>
+                <p class="block-text">
+                    Леонова Алла, AI-артист, архитектор и сценарист.
+                    Создаю клипы на свои стихи, сотрудничаю с режиссерами и брендами по ии-визуализации.
+                    Работала с режиссером Дарьей Лебедевой, а мою рекламу для BARRY GROUP, созданную в ai, транслировали на больших экранах.
+                </p>
+                <div class="block-tag">курс по нейросетям</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-5">
+        <div class="block-container">
+            <div class="block-left">
+                <h2 class="block-main-title">КТО МЫ</h2>
+                <div class="block-image-wrapper">
+                    <img src="images/ASYA_BABKOVSKA5.png" alt="Asya Babkovskaia" class="block-image"> </div>
+            </div>
+
+            <div class="block-right">
+                <h3 class="block-name">АСЯ БАБКОВСКАЯ</h3>
+                <p class="block-text">
+                    ИИ-артист и креатор с 7-летним опытом по созданию визуала для брендов.
+                    Основные направления в моей работе: нейросети/генеративный арт, моушн, графический дизайн. Режиссерский опыт: постановка и режиссура рекламных и творческих роликов.
+                </p>
+                <p class="block-text">
+                    География проектов: Россия — Москва, Санкт-Петербург, Крым, Пятигорск, Сочи;
+                    ОАЭ — Дубай, Латинская Америка.
+                </p>
+                <div class="block-tag">курс по нейросетям</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-6">
+        <div class="block-6__content">
+            <img src="images/vaza6.png" alt="Ваза" class="block-6__image"> <h2 class="block-6__title">ЧТО БУДЕТ<br>НА КУРСЕ?</h2>
+        </div>
+    </section>
+
+    <section class="block-7">
+        <div class="block-7__content">
+            <img src="images/logo7.png" alt="Neiro Bistro" class="block-7__logo"> <div class="block-7__grid">
+                <div class="module-card module-card--active">МОДУЛЬ 1</div>
+                <div class="module-card">МОДУЛЬ 2</div>
+                <div class="module-card">МОДУЛЬ 3</div>
+                <div class="module-card">МОДУЛЬ 4</div>
+                <div class="module-card">МОДУЛЬ 5</div>
+                <div class="module-card">МОДУЛЬ 6</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-8">
+        <div class="block-8__content">
+            <img src="images/logo8.png" alt="Neiro Bistro" class="block-8__logo"> <div class="block-8__grid">
+                <div class="module-card module-card--active-pink">GPT</div>
+                <div class="module-card">FLUX/<br>HIGSFIELD</div>
+                <div class="module-card">MIDJOURNEY</div>
+                <div class="module-card">NANO<br>BANANA<br>& ...</div>
+                <div class="module-card">VIDEO</div>
+                <div class="module-card">AUDIO</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-9">
+        <div class="block-9__content">
+            <div class="block-9__visual">
+                <img src="images/tarelka9.png" alt="Neiro Bistro Plate" class="block-9__img"> </div>
+            <div class="block-9__info">
+                <h2 class="block-9__title">МОДУЛЬ 1</h2>
+                <p class="block-9__subtitle">Чат GPT.
+                Создание структуры промпта.</p>
+                
+                <div class="block-9__lesson">
+                    <h4 class="block-9__lesson-title">Урок 1</h4>
+                    <p class="block-9__lesson-text">Навигация по платформе syntx.
+                    Альтернативы. Какой gpt лучше использовать и почему.</p>
+                </div>
+
+                <div class="block-9__lesson">
+                    <h4 class="block-9__lesson-title">Урок 2</h4>
+                    <p class="block-9__lesson-text">От идеи до сценария - как использовать чат gpt для рекламы/мультика/цельной истории как личного сценарного ассистента.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-10">
+        <div class="block-10__content">
+            <div class="block-10__text-area">
+                <h2 class="block-10__module-title">МОДУЛЬ 1</h2>
+                <h3 class="block-10__lesson-title">УРОК 1</h3>
+                
+                <p class="block-10__description">
+                    Чат GPT.
+                    Создание структуры промпта.
+                </p>
+                
+                <p class="block-10__details">
+                    Навигация по платформе syntx.<br>
+                    Альтернативы.<br>
+                    Какой gpt лучше использовать и почему.
+                </p>
+            </div>
+            
+            <div class="block-10__button-wrapper">
+                <a href="https://mail.google.com/" class="block-10__btn">СМОТРЕТЬ УРОК</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-11">
+        <div class="block-11__content">
+            <div class="block-11__text-area">
+                <h2 class="block-11__module-title">МОДУЛЬ 1</h2>
+                <h3 class="block-11__lesson-title">УРОК 2 |
+                ЧАСТЬ 1</h3>
+                
+                <p class="block-11__description">
+                    Чат GPT.
+                    Создание структуры промпта.
+                </p>
+                
+                <p class="block-11__details">
+                    От идеи до сценария - как использовать чат gpt для рекламы/мультика/цельной истории как личного сценарного ассистента.
+                </p>
+            </div>
+            
+            <div class="block-11__button-wrapper">
+                <a href="https://mail.google.com/" class="block-11__btn">СМОТРЕТЬ УРОК</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-12">
+        <div class="block-12__content">
+            <div class="block-12__text-area">
+                <h2 class="block-12__module-title">МОДУЛЬ 1</h2>
+                <h3 class="block-12__lesson-title">УРОК 2 |
+                ЧАСТЬ 2</h3>
+                
+                <p class="block-12__description">
+                    Чат GPT.
+                    Создание структуры промпта.
+                </p>
+                
+                <p class="block-12__details">
+                    От идеи до сценария - как использовать чат gpt для рекламы/мультика/цельной истории как личного сценарного ассистента.
+                </p>
+            </div>
+            
+            <div class="block-12__button-wrapper">
+                <a href="https://mail.google.com/" class="block-12__btn">СМОТРЕТЬ УРОК</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-13">
+        <div class="block-13__image-side">
+            <img src="images/foto13.png" alt="Нейрофотосессия" class="block-13__img"> </div>
+        <div class="block-13__text-side">
+            <div class="block-13__text-wrapper">
+                <h2 class="block-13__title">МОДУЛЬ 2</h2>
+                <p class="block-13__subtitle">Нейрофотосессия</p>
+                
+                <div class="block-13__lesson">
+                    <h4 class="block-13__lesson-title">Урок 1</h4>
+                    <p class="block-13__lesson-text">Создание LORA во FLUX</p>
+                </div>
+
+                <div class="block-13__lesson">
+                    <h4 class="block-13__lesson-title">Урок 2</h4>
+                    <p class="block-13__lesson-text">Создание Lora в Higsfield</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-14">
+        <div class="block-14__content">
+            <div class="block-14__text-area">
+                <h2 class="block-14__module-title">МОДУЛЬ 2</h2>
+                <h3 class="block-14__lesson-title">УРОК 1 |
+                ЧАСТЬ 1</h3>
+                
+                <p class="block-14__description">
+                    НЕЙРОФОТОСЕССИЯ
+                </p>
+                
+                <p class="block-14__details">
+                    Создание LORA во FLUX
+                </p>
+            </div>
+            
+            <div class="block-14__button-wrapper">
+                <a href="https://mail.google.com/" class="block-14__btn">СМОТРЕТЬ УРОК</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-15">
+        <div class="block-15__content">
+            <div class="block-15__text-area">
+                <h2 class="block-15__module-title">МОДУЛЬ 2</h2>
+                <h3 class="block-15__lesson-title">УРОК 1 |
+                ЧАСТЬ 2</h3>
+                
+                <p class="block-15__description">
+                    НЕЙРОФОТОСЕССИЯ
+                </p>
+                
+                <p class="block-15__details">
+                    Создание LORA во FLUX
+                </p>
+            </div>
+            
+            <div class="block-15__button-wrapper">
+                <a href="https://mail.google.com/" class="block-15__btn">СМОТРЕТЬ УРОК</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-16">
+        <div class="block-16__content">
+            <div class="block-16__text-area">
+                <h2 class="block-16__module-title">МОДУЛЬ 2</h2>
+                <h3 class="block-16__lesson-title">УРОК 2 |
+                ЧАСТЬ 1</h3>
+                
+                <p class="block-16__description">
+                    НЕЙРОФОТОСЕССИЯ
+                </p>
+                
+                <p class="block-16__details">
+                    Создание LORA в HIGSFIELD
+                </p>
+            </div>
+            
+            <div class="block-16__button-wrapper">
+                <a href="https://mail.google.com/" class="block-16__btn">СМОТРЕТЬ УРОК</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-17">
+        <div class="block-17__content">
+            <div class="block-17__text-area">
+                <h2 class="block-17__module-title">МОДУЛЬ 2</h2>
+                <h3 class="block-17__lesson-title">УРОК 2 |
+                ЧАСТЬ 2</h3>
+                
+                <p class="block-17__description">
+                    НЕЙРОФОТОСЕССИЯ
+                </p>
+                
+                <p class="block-17__details">
+                    Создание LORA в HIGSFIELD
+                </p>
+            </div>
+            
+            <div class="block-17__button-wrapper">
+                <a href="https://mail.google.com/" class="block-17__btn">СМОТРЕТЬ УРОК</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-18">
+        <div class="block-18__image-side">
+            <img src="images/foto18.png" alt="Midjourney" class="block-18__img"> </div>
+        <div class="block-18__text-side">
+            <div class="block-18__text-wrapper">
+                <h2 class="block-18__title">МОДУЛЬ 3</h2>
+                <p class="block-18__subtitle">Midjourney - нейронка,<br>которая задает стиль.</p>
+                
+                <div class="block-18__lesson">
+                    <h4 class="block-18__lesson-title">Урок 1</h4>
+                    <p class="block-18__lesson-text">Навигация по midjourney на базе syntx.<br>Редактор, описатель, хранитель изображений.</p>
+                </div>
+
+                <div class="block-18__lesson">
+                    <h4 class="block-18__lesson-title">Урок 2</h4>
+                    <p class="block-18__lesson-text">Структура промпта.<br>Создание вашего уникального стильного контента на базе кодов стиля, референсов стиля.</p>
+                </div>
+
+                <div class="block-18__lesson">
+                    <h4 class="block-18__lesson-title">Урок 3</h4>
+                    <p class="block-18__lesson-text">Создание и сохранение персонажа на базе omnireference<br>Возможность создавать нейрофотосессии на базе midjourney</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-19">
+        <div class="block-19__content">
+            <div class="block-19__text-area">
+                <h2 class="block-19__module-title">МОДУЛЬ 3</h2>
+                <h3 class="block-19__lesson-title">УРОК 1</h3>
+                
+                <p class="block-19__description">
+                    Midjourney - нейронка, которая задает стиль.
+                </p>
+                
+                <p class="block-19__details">
+                    Навигация по midjourney на базе syntx.<br>
+                    Редактор, описатель, хранитель изображений.
+                </p>
+            </div>
+            
+            <div class="block-19__button-wrapper">
+                <a href="https://mail.google.com/" class="block-19__btn">СМОТРЕТЬ УРОК</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-20">
+        <div class="block-20__content">
+            <div class="block-20__text-area">
+                <h2 class="block-20__module-title">МОДУЛЬ 3</h2>
+                <h3 class="block-20__lesson-title">УРОК 2</h3>
+                
+                <p class="block-20__description">
+                    Midjourney - нейронка, которая 
+                    задает стиль.
+                </p>
+                
+                <p class="block-20__details">
+                    Структура промпта.<br>
+                    Создание вашего уникального стильного контента на базе кодов стиля, референсов стиля.
+                </p>
+            </div>
+            
+            <div class="block-20__button-wrapper">
+                <a href="https://mail.google.com/" class="block-20__btn">СМОТРЕТЬ УРОК</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-21">
+        <div class="block-21__content">
+            <div class="block-21__text-area">
+                <h2 class="block-21__module-title">МОДУЛЬ 3</h2>
+                <h3 class="block-21__lesson-title">УРОК 3</h3>
+                
+                <p class="block-21__description">
+                    Midjourney - нейронка, которая 
+                    задает стиль.
+                </p>
+                
+                <p class="block-21__details">
+                    Создание и сохранение персонажа на базе omnireference.<br>
+                    Возможность создавать нейрофотосессии на базе midjourney.
+                </p>
+            </div>
+            
+            <div class="block-21__button-wrapper">
+                <a href="https://mail.google.com/" class="block-21__btn">СМОТРЕТЬ УРОК</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-22">
+        <div class="block-22__image-side">
+            <img src="images/foto22.png" alt="Модуль 4" class="block-22__img"> </div>
+        <div class="block-22__text-side">
+            <div class="block-22__text-wrapper">
+                <h2 class="block-22__title">МОДУЛЬ 4</h2>
+                <p class="block-22__subtitle">Сохранение персонажа, коммерческие возможности.
+                Nano banana, seedream, runway.</p>
+                
+                <div class="block-22__lesson">
+                    <h4 class="block-22__lesson-title">Урок 1</h4>
+                    <p class="block-22__lesson-text">Навигация по midjourney на базе 
+                    syntx. Редактор, описатель, хранитель изображений.</p>
+                </div>
+
+                <div class="block-22__lesson">
+                    <h4 class="block-22__lesson-title">Урок 2</h4>
+                    <p class="block-22__lesson-text">Структура промпта.
+                    Создание вашего уникального стильного контента на базе кодов стиля, референсов стиля.</p>
+                </div>
+
+                <div class="block-22__lesson">
+                    <h4 class="block-22__lesson-title">Урок 3</h4>
+                    <p class="block-22__lesson-text">Создание и сохранение персонажа на базе omnireference. Возможность создавать нейрофотосессии на базе midjourney</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-23">
+        <div class="block-23__content">
+            <div class="block-23__text-area">
+                <h2 class="block-23__module-title">МОДУЛЬ 4</h2>
+                <h3 class="block-23__lesson-title">УРОК 1</h3>
+                
+                <p class="block-23__description">
+                    Сохранение персонажа, коммерческие возможности.
+                    Nano banana, seedream, runway.
+                </p>
+                
+                <p class="block-23__details">
+                    Навигация в syntax.<br>
+                    Альтернатива(где брать бесплатно)<br>
+                    работа с коммерческими заказами - легкий перенос продукта с сохранением шрифтов.
+                    Примеры и различия
+                </p>
+            </div>
+            
+            <div class="block-23__button-wrapper">
+                <a href="https://mail.google.com/" class="block-23__btn">СМОТРЕТЬ УРОК</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-24">
+        <div class="block-24__content">
+            <div class="block-24__text-area">
+                <h2 class="block-24__module-title">МОДУЛЬ 4</h2>
+                <h3 class="block-24__lesson-title">УРОК 2</h3>
+                
+                <p class="block-24__description">
+                    Сохранение персонажа, коммерческие возможности.
+                    Nano banana, seedream, runway.
+                </p>
+                
+                <p class="block-24__details">
+                    Создание фотосессий с множеством героев пошагово.
+                </p>
+            </div>
+            
+            <div class="block-24__button-wrapper">
+                <a href="https://mail.google.com/" class="block-24__btn">СМОТРЕТЬ УРОК</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-25">
+        <div class="block-25__content">
+            <div class="block-25__text-area">
+                <h2 class="block-25__module-title">МОДУЛЬ 4</h2>
+                <h3 class="block-25__lesson-title">УРОК 3</h3>
+                
+                <p class="block-25__description">
+                    Сохранение персонажа, коммерческие возможности.
+                    Nano banana, seedream, runway.
+                </p>
+                
+                <p class="block-25__details">
+                    Как сохранить персонажа в разных ракурсах/местах.<br>
+                    Смена ракурсов позирования модели.<br>
+                    Изменение фона/сцены с одинаковым персонажем.
+                </p>
+            </div>
+            
+            <div class="block-25__button-wrapper">
+                <a href="https://mail.google.com/" class="block-25__btn">СМОТРЕТЬ УРОК</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-26">
+        <div class="block-26__content">
+            <div class="block-26__text-area">
+                <h2 class="block-26__module-title">МОДУЛЬ 4</h2>
+                <h3 class="block-26__lesson-title">УРОК 4</h3>
+                
+                <p class="block-26__description">
+                    Сохранение персонажа, коммерческие возможности.
+                    Nano banana, seedream, runway.
+                </p>
+                
+                <p class="block-26__details">
+                    Альтернативный способ сохранения персонажа: runway frames.
+                </p>
+            </div>
+            
+            <div class="block-26__button-wrapper">
+                <a href="https://mail.google.com/" class="block-26__btn">СМОТРЕТЬ УРОК</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-27">
+        <div class="block-27__image-side">
+            <img src="images/foto27.png" alt="Модуль 5" class="block-27__img"> </div>
+        <div class="block-27__text-side">
+            <div class="block-27__text-wrapper">
+                <h2 class="block-27__title">МОДУЛЬ 5</h2>
+                <p class="block-27__subtitle">Видео блок</p>
+                
+                <div class="block-27__lesson">
+                    <h4 class="block-27__lesson-title">Урок 1</h4>
+                    <p class="block-27__lesson-text">Навигация по видео нейросетям в syntx</p>
+                </div>
+
+                <div class="block-27__lesson">
+                    <h4 class="block-27__lesson-title">Урок 2</h4>
+                    <p class="block-27__lesson-text">Шаг 1. Veo 3.1 - text to video.
+                    Структура промпта, позволяющая создавать видео по тексту без референса.</p>
+                </div>
+
+                <div class="block-27__lesson">
+                    <h4 class="block-27__lesson-title">Урок 3</h4>
+                    <p class="block-27__lesson-text">Kling. Морфинг и пролеты камеры. Оживление и работа с двумя кадрами.</p>
+                </div>
+
+                <div class="block-27__lesson">
+                    <h4 class="block-27__lesson-title">Урок 4</h4>
+                    <p class="block-27__lesson-text">Sora, seedance, luma. Создание рекламы в sora. Танцы/движения в seedance.
+                    Luma.</p>
+                </div>
+
+                <div class="block-27__lesson">
+                    <h4 class="block-27__lesson-title">Урок 5</h4>
+                    <p class="block-27__lesson-text">Midjourney video.</p>
+                </div>
+
+                <div class="block-27__lesson">
+                    <h4 class="block-27__lesson-title">Урок 6</h4>
+                    <p class="block-27__lesson-text">Липсинг.
+                    Говорящие аватары. Общие принципы создания видео высокого качества даже на телефоне.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-28">
+        <div class="block-28__content">
+            <div class="block-28__text-area">
+                <h2 class="block-28__module-title">МОДУЛЬ 5</h2>
+                <h3 class="block-28__lesson-title">УРОК 1</h3>
+                
+                <p class="block-28__description">
+                    Видео блок
+                </p>
+                
+                <p class="block-28__details">
+                    Навигация по видео нейросетям в syntx
+                </p>
+            </div>
+            
+            <div class="block-28__button-wrapper">
+                <a href="https://mail.google.com/" class="block-28__btn">СМОТРЕТЬ УРОК</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-29">
+        <div class="block-29__content">
+            <div class="block-29__text-area">
+                <h2 class="block-29__module-title">МОДУЛЬ 5</h2>
+                <h3 class="block-29__lesson-title">УРОК 2</h3>
+                
+                <p class="block-29__description">
+                    Видео блок
+                </p>
+                
+                <p class="block-29__details">
+                    Veo 3.1 - text to video.<br>
+                    структура промпта, позволяющая создавать видео по тексту без референса.
+                </p>
+            </div>
+            
+            <div class="block-29__button-wrapper">
+                <a href="https://mail.google.com/" class="block-29__btn">СМОТРЕТЬ УРОК</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-30">
+        <div class="block-30__content">
+            <div class="block-30__text-area">
+                <h2 class="block-30__module-title">МОДУЛЬ 5</h2>
+                <h3 class="block-30__lesson-title">УРОК 3</h3>
+                
+                <p class="block-30__description">
+                    Видео блок
+                </p>
+                
+                <p class="block-30__details">
+                    Kling: Морфинг и пролеты камеры.<br>
+                    Оживление и работа с двумя кадрами.
+                </p>
+            </div>
+            
+            <div class="block-30__button-wrapper">
+                <a href="https://mail.google.com/" class="block-30__btn">СМОТРЕТЬ УРОК</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-31">
+        <div class="block-31__content">
+            <div class="block-31__text-area">
+                <h2 class="block-31__module-title">МОДУЛЬ 5</h2>
+                <h3 class="block-31__lesson-title">УРОК 4</h3>
+                
+                <p class="block-31__description">
+                    Видео блок
+                </p>
+                
+                <p class="block-31__details">
+                    Sora, Seedance, Luma.<br>
+                    Создание рекламы в Sora.<br>
+                    Танцы/движения в Seedance, Luma.
+                </p>
+            </div>
+            
+            <div class="block-31__button-wrapper">
+                <a href="https://mail.google.com/" class="block-31__btn">СМОТРЕТЬ УРОК</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-32">
+        <div class="block-32__content">
+            <div class="block-32__text-area">
+                <h2 class="block-32__module-title">МОДУЛЬ 5</h2>
+                <h3 class="block-32__lesson-title">УРОК 5</h3>
+                
+                <p class="block-32__description">
+                    Видео блок
+                </p>
+                
+                <p class="block-32__details">
+                    MIDJOURNEY VIDEO
+                </p>
+            </div>
+            
+            <div class="block-32__button-wrapper">
+                <a href="https://mail.google.com/" class="block-32__btn">СМОТРЕТЬ УРОК</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-33">
+        <div class="block-33__content">
+            <div class="block-33__text-area">
+                <h2 class="block-33__module-title">МОДУЛЬ 5</h2>
+                <h3 class="block-33__lesson-title">УРОК 6</h3>
+                
+                <p class="block-33__description">
+                    Видео блок
+                </p>
+                
+                <p class="block-33__details">
+                    Липсинг.
+                    Говорящие аватары.<br>
+                    Общие принципы создания видео высокого качества даже на телефоне.
+                </p>
+            </div>
+            
+            <div class="block-33__button-wrapper">
+                <a href="https://mail.google.com/" class="block-33__btn">СМОТРЕТЬ УРОК</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-34">
+        <div class="block-34__image-side">
+            <img src="images/foto34.png" alt="Модуль 6" class="block-34__img"> </div>
+        <div class="block-34__text-side">
+            <div class="block-34__text-wrapper">
+                <h2 class="block-34__title">МОДУЛЬ 6</h2>
+                <p class="block-34__subtitle">Озвучка, финальный монтаж, выход на продакшн</p>
+                
+                <div class="block-34__lesson">
+                    <h4 class="block-34__lesson-title">Урок 1</h4>
+                    <p class="block-34__lesson-text">Обзор озвучки в syntax. Генератор звуков.
+                    Синтез речи - озвучка текста.</p>
+                </div>
+
+                <div class="block-34__lesson">
+                    <h4 class="block-34__lesson-title">Урок 2</h4>
+                    <p class="block-34__lesson-text">Создание музыки в suno.
+                    Создание инструментальной композиции без слов для ролика или фильма.</p>
+                    <p class="block-34__lesson-text" style="margin-top: 10px;">Создание песни.
+                    Способы управления музыкальным стилем. Как сделать песню для вашего мини кино, рекламы, клипа.</p>
+                </div>
+
+                <div class="block-34__lesson">
+                    <h4 class="block-34__lesson-title">Урок 3</h4>
+                    <p class="block-34__lesson-text">Финальный монтаж ролика. От стартового кадра до полного продакшна.
+                    Стильные фишки для монтажа.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-35">
+        <div class="block-35__content">
+            <div class="block-35__text-area">
+                <h2 class="block-35__module-title">МОДУЛЬ 6</h2>
+                <h3 class="block-35__lesson-title">УРОК 1</h3>
+                
+                <p class="block-35__description">
+                    Озвучка, финальный монтаж, выход на продакшн
+                </p>
+                
+                <p class="block-35__details">
+                    Обзор озвучки в syntax.<br>
+                    Генератор звуков.<br>
+                    Синтез речи - 
+                    озвучка текста.
+                </p>
+            </div>
+            
+            <div class="block-35__button-wrapper">
+                <a href="https://mail.google.com/" class="block-35__btn">СМОТРЕТЬ УРОК</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-36">
+        <div class="block-36__content">
+            <div class="block-36__text-area">
+                <h2 class="block-36__module-title">МОДУЛЬ 6</h2>
+                <h3 class="block-36__lesson-title">УРОК 2</h3>
+                
+                <p class="block-36__description">
+                    Озвучка, финальный 
+                    монтаж, выход на продакшн
+                </p>
+                
+                <p class="block-36__details">
+                    Создание музыки в SUNO.<br>
+                    Создание инструментальной композиции без слов 
+                    для ролика или фильма.<br>
+                    Создание песни.
+                    Способы управления музыкальным стилем.<br>
+                    Как сделать песню для вашего мини кино, рекламы, клипа.
+                </p>
+            </div>
+            
+            <div class="block-36__button-wrapper">
+                <a href="https://mail.google.com/" class="block-36__btn">СМОТРЕТЬ УРОК</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-37">
+        <div class="block-37__content">
+            <div class="block-37__text-area">
+                <h2 class="block-37__module-title">МОДУЛЬ 6</h2>
+                <h3 class="block-37__lesson-title">УРОК 3</h3>
+                
+                <p class="block-37__description">
+                    Озвучка, финальный монтаж, выход 
+                    на продакшн
+                </p>
+                
+                <p class="block-37__details">
+                    Финальный монтаж ролика.<br>
+                    От стартового кадра до полного продакшна.<br>
+                    Стильные фишки для монтажа.
+                </p>
+            </div>
+            
+            <div class="block-37__button-wrapper">
+                <a href="https://mail.google.com/" class="block-37__btn">СМОТРЕТЬ УРОК</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-38" id="section-pay">
+        <div class="block-38__overlay"></div>
+        <div class="block-38__content">
+            <div class="block-38__card" onclick="openModal('modal-pay')">
+                <div class="block-38__badge">СТАРТ КУРСА: 29 ДЕКАБРЯ</div>
+                <p style="color:#aaa; margin-bottom:10px;">Цена до конца января:</p>
+                <div>
+                    <span class="block-38__old-price">7.000</span>
+                    <span class="block-38__new-price">4.999 руб</span>
+                </div>
+                <button class="block-38__buy-btn">КУПИТЬ</button>
+            </div>
+            
+            <h2 style="font-size: 40px; font-weight: 900; margin-bottom: 20px; color: #c75b8a;">ПРИСОЕДИНЯЙСЯ К НАМ</h2>
+            <div style="display:flex; gap:20px; justify-content:center;">
+                <a href="https://t.me/NEIRO_BISTRO_bot" target="_blank" style="color:#7a9ad1; font-weight:bold;">TELEGRAM</a>
+                <a href="https://www.instagram.com/neirobistro/" target="_blank" style="color:#c75b8a; font-weight:bold;">INSTAGRAM</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="custom-modal" id="modal-pay">
+        <div class="modal-body">
+            <h2>ОФОРМЛЕНИЕ</h2>
+            <input type="text" id="pay-name" class="modal-input" placeholder="Имя">
+            <input type="tel" id="pay-phone" class="modal-input" placeholder="Телефон (например: +7 999 000-00-00)">
+            <input type="email" id="pay-email" class="modal-input" placeholder="Email">
+            <button class="modal-btn" onclick="sendToN8N()">ОПЛАТИТЬ</button>
+            <p style="color:#555; margin-top:15px; cursor:pointer;" onclick="closeModals()">Закрыть</p>
+        </div>
+    </div>
+
+    <div class="custom-modal" id="modal-auth">
+        <div class="modal-body">
+            <h2>ВХОД В ЛИЧНЫЙ КАБИНЕТ</h2>
+            <input type="email" id="auth-email" class="modal-input" placeholder="Ваш Email (который указывали при оплате)">
+            <input type="text" id="auth-pass" class="modal-input" placeholder="Ваш пароль из письма">
+            <button class="modal-btn" onclick="checkPass()">ВОЙТИ</button>
+            <p style="color:#555; margin-top:15px; cursor:pointer;" onclick="closeModals()">Закрыть</p>
+        </div>
+    </div>
+
+    <script>
+        let hasAccess = localStorage.getItem('neiro_access') === 'true';
+
+        // 1. Блокировка уроков
+        document.addEventListener('DOMContentLoaded', () => {
+            const allLessonBtns = document.querySelectorAll('a[class*="__btn"]:not(.block-38__buy-btn)');
+            allLessonBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    if (!hasAccess) {
+                        e.preventDefault();
+                        document.getElementById('section-pay').scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        });
+
+        // 2. Модальные окна
+        function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+        function closeModals() { document.querySelectorAll('.custom-modal').forEach(m => m.style.display = 'none'); }
+
+        // --- ФУНКЦИИ-ПОМОЩНИКИ ДЛЯ КНОПОК ---
+        function setBtnError(btn, text, originalText, originalColor) {
+            btn.innerText = text;
+            btn.style.background = "#ff4444"; // Красный
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.style.background = originalColor;
+                btn.disabled = false;
+            }, 2000);
+        }
+
+        function setBtnSuccess(btn, text) {
+            btn.innerText = text;
+            btn.style.background = "#00C851"; // Зеленый
+        }
+
+
+        // 3. ПРОВЕРКА ПАРОЛЯ (КРАСИВАЯ ВЕРСИЯ)
+        async function checkPass() {
+            const email = document.getElementById('auth-email').value.trim();
+            const pass = document.getElementById('auth-pass').value.trim();
+            const btn = document.querySelector('#modal-auth .modal-btn');
+            
+            const originalText = btn.innerText;
+            const originalColor = btn.style.background;
+
+            // Валидация пустоты
+            if (!email || !pass) {
+                setBtnError(btn, "ЗАПОЛНИТЕ ПОЛЯ", originalText, originalColor);
+                return;
+            }
+
+            // Визуализация загрузки
+            btn.innerText = "ПРОВЕРКА...";
+            btn.disabled = true;
+
+            // БОЕВАЯ ССЫЛКА N8N
+            const webhookUrl = 'https://n8n.biomedika.shop/webhook/check-access'; 
+
+            try {
+                const response = await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email, password: pass })
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    
+                    if (result.access === true) {
+                        localStorage.setItem('neiro_access', 'true');
+                        hasAccess = true;
+                        
+                        setBtnSuccess(btn, "ДОСТУП РАЗРЕШЕН!");
+                        
+                        setTimeout(() => {
+                            closeModals();
+                            location.reload(); 
+                        }, 1500);
+
+                    } else {
+                        // Показываем сообщение об ошибке (например "НЕВЕРНЫЙ ПАРОЛЬ")
+                        setBtnError(btn, (result.message || "ОШИБКА ВХОДА").toUpperCase(), originalText, originalColor);
+                    }
+                } else {
+                    setBtnError(btn, "ОШИБКА СЕРВЕРА", originalText, originalColor);
+                }
+            } catch (error) {
+                console.error(error);
+                setBtnError(btn, "СБОЙ СЕТИ", originalText, originalColor);
+            }
+        }
+
+        
+        // 4. ОТПРАВКА ЗАЯВКИ (БЕЗ ALERT, С КРАСИВОЙ КНОПКОЙ)
+        async function sendToN8N() {
+            const name = document.getElementById('pay-name').value.trim();
+            const email = document.getElementById('pay-email').value.trim();
+            const phone = document.getElementById('pay-phone').value.trim();
+            
+            // Находим кнопку ВНУТРИ модалки (ту, которую нажал пользователь)
+            const btn = document.querySelector('#modal-pay .modal-btn');
+            const originalText = btn.innerText;
+            const originalColor = btn.style.background;
+
+            // --- ВАЛИДАЦИЯ ---
+            if(!name || !email || !phone) {
+                setBtnError(btn, "ЗАПОЛНИТЕ ВСЕ ПОЛЯ", originalText, originalColor);
+                return;
+            }
+
+            // Проверка Email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                setBtnError(btn, "НЕКОРРЕКТНЫЙ EMAIL", originalText, originalColor);
+                return;
+            }
+
+            // Проверка Телефона
+            const digitsCount = phone.replace(/\D/g, '').length;
+            if (digitsCount < 7) {
+                setBtnError(btn, "НЕВЕРНЫЙ ТЕЛЕФОН", originalText, originalColor);
+                return;
+            }
+            // --- КОНЕЦ ВАЛИДАЦИИ ---
+
+            // Загрузка
+            btn.innerText = "ОФОРМЛЯЕМ...";
+            btn.disabled = true;
+
+            const data = {
+                name: name,
+                email: email,
+                phone: phone, 
+                date: new Date().toISOString(),
+                product: "Neiro Bistro Course"
+            };
+
+            // БОЕВАЯ ССЫЛКА N8N
+            const webhookUrl = 'https://n8n.biomedika.shop/webhook/create-order';
+
+            try {
+                const response = await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    
+                    if (result.payment_url) {
+                        setBtnSuccess(btn, "ПЕРЕХОД К ОПЛАТЕ...");
+                        setTimeout(() => {
+                            window.location.href = result.payment_url;
+                        }, 1000);
+                    } else {
+                        // Если ссылки нет, но успех (редкий случай)
+                        setBtnSuccess(btn, "ЗАЯВКА ПРИНЯТА!");
+                        setTimeout(() => {
+                            closeModals();
+                            // Очистка полей
+                            document.getElementById('pay-name').value = '';
+                            document.getElementById('pay-email').value = '';
+                            document.getElementById('pay-phone').value = '';
+                            // Возврат кнопки
+                            btn.innerText = originalText;
+                            btn.style.background = originalColor;
+                            btn.disabled = false;
+                        }, 2000);
+                    }
+                } else {
+                    setBtnError(btn, "ОШИБКА ЗАКАЗА", originalText, originalColor);
+                }
+            } catch (error) {
+                console.error("Ошибка сети:", error);
+                setBtnError(btn, "ОШИБКА СЕТИ", originalText, originalColor);
+            }
+        }
+    </script>
+</body>
+</html>
