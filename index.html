@@ -32,21 +32,25 @@
         body, html {
             margin: 0; padding: 0;
             width: 100%;
-            font-family: var(--font-main);
-            color: var(--color-dark);
+            font-family: 'Montserrat', sans-serif;
+            color: #000000;
             background-color: var(--color-dark);
-            line-height: 1.5;
+            line-height: 1.6;
+            font-weight: 400;
+            font-size: 18px;
             -webkit-font-smoothing: antialiased;
         }
         
         *, *:before, *:after { box-sizing: border-box; }
 
         h1, h2, h3, h4 {
-            font-family: var(--font-head);
+            font-family: 'Montserrat', sans-serif;
             margin: 0;
-            font-weight: 700;
+            font-weight: 900;
             text-transform: uppercase;
             letter-spacing: -0.02em;
+            color: #FFFFFF;
+            font-size: 64px;
         }
 
         img { display: block; width: 100%; height: auto; }
@@ -75,20 +79,24 @@
 
         .btn-primary {
             display: inline-block;
-            background-color: var(--color-blue);
+            background: rgba(122, 154, 209, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(122, 154, 209, 0.5);
             color: #fff;
             padding: 14px 28px;
             border-radius: var(--radius-btn);
-            font-family: var(--font-head);
+            font-family: 'Montserrat', sans-serif;
             font-weight: 600;
             font-size: 13px;
-            border: none;
             cursor: pointer;
-            transition: transform 0.2s, background-color 0.2s;
-            box-shadow: 0 8px 16px rgba(122, 154, 209, 0.25);
+            transition: all 0.3s ease;
             letter-spacing: 0.02em;
         }
-        .btn-primary:hover { background-color: var(--color-blue-dark); transform: translateY(-2px); }
+        .btn-primary:hover { 
+            background: rgba(122, 154, 209, 0.4);
+            border-color: rgba(122, 154, 209, 0.8);
+            transform: translateY(-2px);
+        }
 
         /* --- МОДАЛЬНЫЕ ОКНА --- */
         .custom-modal {
@@ -119,7 +127,7 @@
 
         /* --- BLOCK 1 (HERO) --- */
         .block-1 {
-            width: 100%; height: 25vh;
+            width: 100%; height: 41vh;
             background-image: url('images/fon1.jpg');
             background-size: cover; background-position: center;
             display: flex; justify-content: center; align-items: center;
@@ -139,67 +147,89 @@
         .block-2__content {
             display: grid; grid-template-columns: 200px 1fr; gap: 50px;
             align-items: center;
+            max-width: 1100px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 20px;
         }
         .block-2__text-box {
-            background: rgba(154, 189, 58, 0.88);
+            background: rgba(154, 189, 58, 0.38);
             backdrop-filter: blur(10px);
             color: #fff; padding: 32px; border-radius: 24px;
             font-size: 15px; line-height: 1.6; font-weight: 400;
             box-shadow: 0 16px 32px rgba(0,0,0,0.1);
+            border: 2px solid rgba(154, 189, 58, 0.88);
         }
-        .block-2__text-box p { margin-bottom: 16px; }
+        .block-2__text-box p { margin-bottom: 16px; color: #fff; }
         .block-2__text-box p:last-child { margin-bottom: 0; }
 
         /* --- BLOCK 3 (WHO WE ARE - CARDS) --- */
         .block-3 {
-            padding: 70px 0 0;
+            padding: 70px 0 200px;
             background-image: url('images/fon3.jpg');
             background-size: cover; background-position: center bottom;
             min-height: 700px;
             display: flex; flex-direction: column;
         }
         .block-3__header { padding-left: 10%; margin-bottom: 32px; }
-        .block-3__title { font-size: 40px; color: #fff; font-weight: 700; }
+        .block-3__title { font-size: 40px; color: #fff; font-weight: 900; font-family: 'Montserrat', sans-serif; text-transform: uppercase; }
         
         .block-3__people {
             display: flex; justify-content: center; gap: 32px; align-items: flex-end;
             height: 100%; flex-grow: 1;
         }
+        
         .person-card {
             width: 280px; position: relative; display: flex; flex-direction: column; align-items: center;
         }
         .card-visual { position: relative; width: 100%; }
-        .card-visual__arch { width: 100%; position: relative; z-index: 1; }
+        .card-visual__arch { width: 100%; position: relative; z-index: 1; opacity: 0.6;}
+        .arch-container {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 2;
+        }
         .card-visual__avatar {
-            position: absolute; top: 12%; left: 50%; transform: translateX(-50%);
-            width: 74%; border-radius: 50%; z-index: 2;
+            width: 75%; border-radius: 50%;
             box-shadow: inset 0 0 20px rgba(0,0,0,0.3);
+            margin-bottom: 8px;
         }
         .person-card__name {
-            position: absolute; bottom: 8%; left: 0; width: 100%;
-            text-align: center; color: #fff; z-index: 3;
-            font-size: 20px; text-shadow: 0 4px 8px rgba(0,0,0,0.4); font-weight: 600;
+            text-align: center; color: #fff;
+            font-size: 16px; text-shadow: 0 4px 8px rgba(0,0,0,0.4); font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
         }
 
         /* --- BLOCK 4 & 5 (DETAILED BIO) --- */
         .block-bio {
-            padding: 70px 0; background: #e0e0e0;
+            padding: 70px 0; background: #bfbfbf;
             display: flex; justify-content: center;
         }
         .block-container {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center;
+            display: flex; flex-direction: column; align-items: center; text-align: center; gap: 20px;
+        }
+        .block-container h1{
+            font-family: 'Montserrat', sans-serif !important;
+            font-weight: 900 !important;
+            text-transform: uppercase !important;
+            color: #FFFFFF !important;
+            font-size: 48px !important;
         }
         .block-bio__img-wrap {
             width: 340px; height: 340px; border-radius: 50%; overflow: hidden; margin: 0 auto;
-            border: 8px solid #fff; box-shadow: 0 16px 32px rgba(0,0,0,0.1);
+            box-shadow: 0 16px 32px rgba(0,0,0,0.1);
         }
         .block-bio__img { width: 100%; height: 100%; object-fit: cover; }
-        .block-bio__content h3 { font-size: 28px; margin-bottom: 20px; color: #1d1d1d; font-weight: 700; }
-        .block-bio__text { font-size: 14px; margin-bottom: 16px; color: #333; max-width: 450px; font-weight: 400; line-height: 1.6; }
-        .block-tag {
-            display: inline-block; background: var(--color-pink); color: #fff;
-            padding: 10px 20px; font-weight: 600; text-transform: uppercase; font-size: 12px;
-            margin-top: 16px; border-radius: 8px;
+        .block-bio__content h3 { font-size: 28px; margin-bottom: 20px; font-weight: 700; font-family: 'Montserrat', sans-serif; }
+        .block-bio__text { 
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px; 
+            margin-bottom: 16px; 
+            color: #000000; 
+            max-width: 450px; 
+            font-weight: 400; 
+            line-height: 1.6;
+            white-space: pre-line;
         }
 
         /* --- BLOCK 6 (SEPARATOR) --- */
@@ -211,7 +241,7 @@
         .block-6__content {
             display: flex; align-items: center; justify-content: center; gap: 36px;
         }
-        .block-6__title { font-size: 52px; color: #fff; line-height: 1; text-shadow: 0 8px 16px rgba(0,0,0,0.2); font-weight: 700; }
+        .block-6__title { font-size: 52px; color: #fff; line-height: 1; text-shadow: 0 8px 16px rgba(0,0,0,0.2); font-weight: 900; font-family: 'Montserrat', sans-serif; text-transform: uppercase; }
         .block-6__image { width: 260px; transform: rotate(-5deg); transition: 0.3s; }
         .block-6__image:hover { transform: rotate(0deg) scale(1.05); }
 
@@ -224,7 +254,7 @@
         .block-8 { background-image: url('images/fon8.jpg'); }
         
         .modules-layout {
-            display: flex; justify-content: space-between; align-items: flex-end;
+            display: flex; justify-content: flex-start; align-items: flex-end; gap: 40px;
         }
         .modules-logo { width: 260px; }
         .modules-grid {
@@ -237,7 +267,7 @@
             border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 16px;
             display: flex; justify-content: center; align-items: center; text-align: center;
-            font-family: var(--font-head); font-weight: 700; font-size: 14px; color: #fff;
+            font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 14px; color: #fff;
             padding: 12px; transition: 0.3s;
         }
         .module-card:hover { background: rgba(255, 255, 255, 0.25); transform: translateY(-4px); }
@@ -253,9 +283,12 @@
         .lesson-container {
             display: flex; justify-content: space-between; align-items: center; gap: 50px;
         }
+        .lesson-container .btn-primary {
+            margin-right: 20%;
+        }
         .lesson-content { color: #fff; max-width: 550px; }
-        .lesson-module { font-size: 36px; opacity: 0.7; margin-bottom: 8px; font-weight: 500; }
-        .lesson-title { font-size: 26px; margin-bottom: 20px; color: #fff; font-weight: 700; }
+        .lesson-module { font-size: 36px; opacity: 0.7; margin-bottom: 8px; font-weight: 700; font-family: 'Montserrat', sans-serif; }
+        .lesson-title { font-size: 26px; margin-bottom: 20px; color: #fff; font-weight: 700; font-family: 'Montserrat', sans-serif; }
         .lesson-desc { font-size: 16px; line-height: 1.5; font-weight: 500; margin-bottom: 16px; }
         .lesson-sub { font-size: 14px; opacity: 0.8; line-height: 1.5; margin-bottom: 32px; font-weight: 400; }
 
@@ -278,17 +311,19 @@
         .bg-grey { background-color: #bfbfbf; color: #fff; }
         
         .split-inner { max-width: 450px; }
-        .split-title { font-size: 36px; margin-bottom: 8px; font-weight: 700; }
+        .split-title { font-size: 36px; margin-bottom: 8px; font-weight: 700; font-family: 'Montserrat', sans-serif; }
         .split-sub { font-size: 20px; opacity: 0.9; margin-bottom: 32px; font-weight: 500; }
         .split-item { margin-bottom: 24px; }
-        .split-item h4 { font-size: 15px; margin-bottom: 4px; opacity: 0.8; font-weight: 600; }
+        .split-item h4 { font-size: 15px; margin-bottom: 4px; opacity: 0.8; font-weight: 700; font-family: 'Montserrat', sans-serif; }
         .split-item p { font-size: 14px; line-height: 1.5; font-weight: 400; }
 
         /* --- BLOCK 9 (MODULE 1 INTRO) --- */
         .block-9 { padding: 70px 0; background: #bfbfbf; }
         .block-9__wrap { display: flex; align-items: center; justify-content: center; gap: 40px; }
-        .block-9__img { max-width: 340px; }
+        .block-9__img { max-width: 450px; }
         .block-9__text { text-align: left; color: #fff; max-width: 450px; }
+        .block-9__text h2 { font-weight: 700; font-family: 'Montserrat', sans-serif; font-size: 48px; }
+        .block-9__text h4 { font-weight: 700; font-family: 'Montserrat', sans-serif; font-size: 20px; }
 
         /* --- BLOCK 38 (PRICING) --- */
         .block-38 {
@@ -320,7 +355,7 @@
         
         .badge { background: var(--color-green); color: #000; padding: 6px 16px; border-radius: 24px; font-weight: 600; display: inline-block; margin-bottom: 16px; font-size: 12px; }
         .price-old { text-decoration: line-through; color: #aaa; font-size: 20px; margin-right: 12px; font-weight: 400; }
-        .price-new { font-size: 44px; color: var(--color-pink); font-weight: 700; font-family: var(--font-head); }
+        .price-new { font-size: 44px; color: var(--color-pink); font-weight: 900; font-family: 'Montserrat', sans-serif; }
         
         .buy-btn {
             width: 100%; background: var(--color-pink); color: #fff; border: none;
@@ -335,7 +370,7 @@
             
             /* === ОБЩИЕ МОБИЛЬНЫЕ СТИЛИ === */
             /* Заголовки уменьшены в 3 раза */
-            h1 { font-size: 14px !important; font-weight: 600 !important; }
+            .block-container h1 { font-size: 24px !important; font-weight: 900 !important; color: #FFFFFF !important; }
             h2 { font-size: 12px !important; font-weight: 600 !important; }
             h3 { font-size: 10px !important; font-weight: 600 !important; }
             h4 { font-size: 9px !important; font-weight: 500 !important; }
@@ -343,8 +378,9 @@
             /* Легкий тонкий текст */
             p, li, span { 
                 font-size: 11px !important; 
-                font-weight: 300 !important;
-                line-height: 1.4 !important;
+                font-weight: 400 !important;
+                line-height: 1.6 !important;
+                color: #000000 !important;
             }
             
             /* Контент занимает 75% ширины */
@@ -367,6 +403,10 @@
                 text-align: center;
             }
             
+            .lesson-container .btn-primary {
+                margin: 0 auto;
+            }
+            
             .btn-access-fixed {
                 padding: 6px 14px;
                 font-size: 9px;
@@ -387,29 +427,46 @@
                 font-size: 11px !important;
                 line-height: 1.4 !important;
             }
-            .block-2__text-box p { margin-bottom: 10px; }
+            .block-2__text-box p { margin-bottom: 10px; color: #fff !important; }
 
             /* Block 3 (People) */
-            .block-3 { padding: 0 0 45px; min-height: 310px; }
+            .block-3 { padding: 0px 16px 82px 0px; min-height: 310px; }
             .block-3__header { margin: 50px 160px 0 0; text-align: center; margin-bottom: 20px; }
-            .block-3__title { font-size: 14px !important; }
+            .block-3__title { font-size: 24px !important; font-weight: 900 !important; text-transform: uppercase !important; }
             .block-3__people { flex-direction: row; gap: 8px; align-items: flex-end; }
-            .person-card { width: 32%; }
-            .person-card__name { font-size: 9px !important; bottom: 6%; font-weight: 500 !important; }
+            .person-card { width: 20%; }
+            .arch-container {
+                position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+                display: flex; flex-direction: column; align-items: center; justify-content: center;
+                z-index: 2;
+            }
+            .card-visual__avatar {
+                width: 75%; border-radius: 50%;
+                box-shadow: inset 0 0 20px rgba(0,0,0,0.3);
+                margin-bottom: 8px;
+            }
+            .person-card__name { font-size: 9px !important; font-weight: 500 !important; }
+            
+            /* Дополнительная адаптация для очень маленьких экранов */
+            @media (max-width: 420px) {
+                .person-card__name { font-size: 7px !important; }
+            }
+            
+            @media (max-width: 430px) {
+                .block-bio__text br:not(.br-keep) { display: none; }
+            }
 
             /* Bio Blocks */
             .block-bio { padding: 40px 0; }
-            .block-container { grid-template-columns: 1fr; text-align: center; gap: 20px; }
             .block-bio__img-wrap { width: 140px; height: 140px; border-width: 4px; }
             .block-bio__content { padding: 0; }
             .block-bio__content h3 { font-size: 12px !important; margin-bottom: 12px; }
             .block-bio__text { font-size: 10px !important; margin-bottom: 10px; max-width: 100%; }
-            .block-tag { padding: 6px 14px; font-size: 9px; margin-top: 10px; }
 
             /* Block 6 */
             .block-6 { padding: 50px 0; }
             .block-6__content { flex-direction: column; gap: 20px; }
-            .block-6__title { font-size: 16px !important; text-align: center; }
+            .block-6__title { font-size: 18px !important; text-align: center; font-weight: 900 !important; text-transform: uppercase !important; }
             .block-6__image { width: 45%; }
 
             /* Modules Grid */
@@ -452,7 +509,7 @@
             .block-9__text h2 { margin-bottom: 8px !important; }
             .block-9__text h4 { margin-bottom: 3px !important; opacity: 0.7; }
             .block-9__text p { margin-bottom: 10px !important; }
-            .block-9__img { width: 55%; max-width: 180px; }
+            .block-9__img { width: 75%; max-width: 240px; }
 
             /* Split Sections */
             .split-section { 
@@ -533,11 +590,13 @@
         /* === DESKTOP ENHANCEMENTS === */
         @media (min-width: 901px) {
             /* Refined typography */
-            h1 { font-size: 42px; }
+            .block-container h1 { font-size: 48px !important; font-weight: 900 !important; }
             h2 { font-size: 36px; }
             h3 { font-size: 28px; }
             
             p { font-weight: 400; }
+            
+            .block-bio__text { max-width: 570px; }
             
             /* Кнопки более компактные и овальные */
             .btn-primary {
@@ -583,15 +642,19 @@
             <div class="person-card">
                 <div class="card-visual">
                     <img src="images/arch3.png" class="card-visual__arch">
-                    <img src="images/alla3.png" class="card-visual__avatar">
-                    <h3 class="person-card__name">ALLA<br>LEONOVA</h3>
+                    <div class="arch-container">
+                        <img src="images/alla3.png" class="card-visual__avatar">
+                        <h3 class="person-card__name">ALLA<br>LEONOVA</h3>
+                    </div>
                 </div>
             </div>
             <div class="person-card">
                 <div class="card-visual">
                     <img src="images/arch3.png" class="card-visual__arch">
-                    <img src="images/asya3.png" class="card-visual__avatar">
-                    <h3 class="person-card__name">ASYA<br>BABKOVSKAIA</h3>
+                    <div class="arch-container">
+                        <img src="images/asya3.png" class="card-visual__avatar">
+                        <h3 class="person-card__name">ASYA<br>BABKOVSKAIA</h3>
+                    </div>
                 </div>
             </div>
         </div>
@@ -599,28 +662,26 @@
 
     <section class="block-bio block-4">
         <div class="container block-container">
+            <h1>АЛЛА ЛЕОНОВА</h1>
             <div class="block-bio__img-wrap">
                 <img src="images/alla4.png" alt="Alla" class="block-bio__img">
             </div>
             <div class="block-bio__content">
-                <h3>АЛЛА ЛЕОНОВА</h3>
-                <p class="block-bio__text">AI-артист, архитектор и сценарист. Создаю клипы на свои стихи, сотрудничаю с режиссерами и брендами по AI-визуализации.</p>
-                <p class="block-bio__text">Работала с режиссером Дарьей Лебедевой. Мою рекламу для BARRY GROUP транслировали на больших экранах.</p>
-                <span class="block-tag">КУРС ПО НЕЙРОСЕТЯМ</span>
+                
+                <p class="block-bio__text">AI-артист, архитектор и сценарист.<br> Создаю клипы на свои стихи, сотрудничаю с<br>режиссерами и брендами по ии-визуализации.<br>Работала с режиссером Дарьей Лебедевой, а мою<br>рекламу для BARRY GROUP, созданную в ai,<br>транслировали на больших экранах.</p>
             </div>
         </div>
     </section>
 
     <section class="block-bio block-5">
         <div class="container block-container">
+            <h1>АСЯ БАБКОВСКАЯ</h1>
             <div class="block-bio__img-wrap">
                 <img src="images/ASYA_BABKOVSKA5.png" alt="Asya" class="block-bio__img">
             </div>
             <div class="block-bio__content">
-                <h3>АСЯ БАБКОВСКАЯ</h3>
-                <p class="block-bio__text">ИИ-артист и креатор с 7-летним опытом. Направления: нейросети, генеративный арт, моушн, дизайн.</p>
-                <p class="block-bio__text">География проектов: Россия, ОАЭ (Дубай), Латинская Америка.</p>
-                <span class="block-tag">КУРС ПО НЕЙРОСЕТЯМ</span>
+                
+                <p class="block-bio__text">ИИ-артист и креатор с 7-летним опытом по созданию<br>визуала для брендов. Основные направления в моей<br> работе: нейросети/генеративный арт, моушн, графический<br> дизайн.Режисёрский опыт: постановка и режиссура<br> рекламных и творческих роликов.<br class="br-keep"><br>География проектов: Россия-Москва, Санкт-Петербург,<br> Крым, Пятигорск, Сочи, ОАЭ-Дубай, Латинская Америка.</p>
             </div>
         </div>
     </section>
@@ -628,7 +689,7 @@
     <section class="block-6">
         <div class="container block-6__content">
             <img src="images/vaza6.png" class="block-6__image" alt="Vase">
-            <h2 class="block-6__title">ЧТО БУДЕТ<br>НА КУРСЕ?</h2>
+            <h2 class="block-6__title">ЧТО БУДЕТ НА КУРСЕ?</h2>
         </div>
     </section>
 
@@ -664,14 +725,14 @@
         <div class="container block-9__wrap">
             <img src="images/tarelka9.png" class="block-9__img">
             <div class="block-9__text">
-                <h2>МОДУЛЬ 1</h2>
-                <p style="font-size: 18px; font-weight: 500; margin-bottom: 20px;">Чат GPT. Создание структуры промпта.</p>
+                <h2 style="font-weight: 700; font-family: 'Montserrat', sans-serif;">МОДУЛЬ 1</h2>
+                <p style="font-size: 18px; font-weight: 700; margin-bottom: 20px; font-family: 'Montserrat', sans-serif;">Чат GPT. Создание структуры промпта.</p>
                 <div style="margin-bottom: 14px;">
-                    <h4>Урок 1</h4>
+                    <h4 style="font-weight: 700; font-family: 'Montserrat', sans-serif; color: #FFFFFF;">Урок 1</h4>
                     <p>Навигация по syntx. Альтернативы. Какой GPT лучше?</p>
                 </div>
                 <div>
-                    <h4>Урок 2</h4>
+                    <h4 style="font-weight: 700; font-family: 'Montserrat', sans-serif; color: #FFFFFF;">Урок 2</h4>
                     <p>От идеи до сценария. GPT как сценарный ассистент.</p>
                 </div>
             </div>
@@ -1143,4 +1204,5 @@
     </script>
 </body>
 </html>
+
 
