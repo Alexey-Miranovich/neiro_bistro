@@ -163,7 +163,7 @@ a { text-decoration: none; }
 .block-2__text-box p { margin-bottom: 20px; color: #fff; }
 
 .block-3 {
-    padding: 70px 0 200px;
+    padding: 156px 0 200px;
     background-image: url('images/fon3.jpg');
     background-size: cover; background-position: center bottom;
     min-height: 700px;
@@ -176,7 +176,7 @@ a { text-decoration: none; }
     display: flex; justify-content: center; gap: 2%; align-items: flex-end;
     height: 100%; flex-grow: 1; flex-wrap: nowrap;
 }
-.person-card { width: 25%; max-width: 200px; min-width: 150px; position: relative; display: flex; flex-direction: column; align-items: center; }
+.person-card { width: 25%; max-width: 270px; min-width: 150px; position: relative; display: flex; flex-direction: column; align-items: center; }
 .card-visual { position: relative; width: 100%; }
 .card-visual__arch { width: 100%; position: relative; z-index: 1; opacity: 0.8; }
 .arch-container {
@@ -388,10 +388,10 @@ a { text-decoration: none; }
     .block-2__text-box { padding: 24px; font-size: 14px !important; }
 
     /* Люди */
-    .block-3 { padding-bottom: 100px; min-height: auto; }
+    .block-3 { padding-bottom: 165px; min-height: auto; }
     .block-3__header { padding: 0; text-align: center; margin-bottom: 30px; }
     .block-3__people { gap: 2%; }
-    .person-card { width: 40%; min-width: 120px; }
+    .person-card { width: 40%; min-width: 120px; max-width: 200px;}
     .person-card__name { font-size: 16px !important; }
 
     /* Био */
