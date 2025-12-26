@@ -1,0 +1,428 @@
+/* --- ПЕРЕМЕННЫЕ --- */
+:root {
+    --font-main: 'Montserrat', sans-serif;
+    --color-pink: #c75b8a;
+    --color-pink-hover: #a84670;
+    --color-green: #9abd3a;
+    --color-blue: #7a9ad1;
+    --color-blue-dark: #5f82c0;
+    --color-dark: #1d1d1d;
+    --color-light: #ffffff;
+    --radius-card: 24px;
+    --radius-btn: 50px;
+}
+
+/* --- БАЗОВЫЕ СТИЛИ --- */
+body, html {
+    margin: 0; padding: 0;
+    width: 100%;
+    font-family: 'Montserrat', sans-serif;
+    color: #000000;
+    background-color: var(--color-dark);
+    line-height: 1.6; /* Хороший интервал для десктопа */
+    font-weight: 500; /* Сделали чуть жирнее по умолчанию */
+    font-size: 18px;
+    -webkit-font-smoothing: antialiased;
+}
+
+*, *:before, *:after { box-sizing: border-box; }
+
+h1, h2, h3, h4 {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.01em; /* Чуть разрядил заголовки */
+    color: #FFFFFF;
+}
+
+h1 { font-size: 64px; margin-bottom: 24px; }
+h2 { font-size: 48px; }
+
+img { display: block; width: 100%; height: auto; }
+a { text-decoration: none; }
+
+.container {
+    max-width: 1100px;
+    width: 90%;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* --- УЛУЧШЕНИЕ ЧИТАЕМОСТИ ФОНА (ЗАТЕМНЕНИЕ) --- */
+.overlay-container {
+    position: relative;
+    /* Важно: z-index не задаем, чтобы не перекрыть модалки */
+}
+
+/* Создаем черную полупрозрачную подложку */
+.overlay-container::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.20); /* 20% затемнения - текст станет четким */
+    z-index: 1;
+}
+
+/* Этот класс кидаем на контент, чтобы он лежал ПОВЕРХ затемнения */
+.relative-z {
+    position: relative;
+    z-index: 2;
+}
+
+/* --- КНОПКИ --- */
+.btn-access-fixed {
+    position: fixed; top: 20px; right: 20px; z-index: 999;
+    background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #fff; padding: 10px 20px; border-radius: var(--radius-btn);
+    font-family: var(--font-main); font-weight: 600; font-size: 12px;
+    cursor: pointer; transition: 0.3s;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5); /* Тень для читаемости */
+}
+.btn-access-fixed:hover { background: var(--color-blue); border-color: transparent; }
+
+.btn-primary {
+    display: inline-block;
+    background: rgba(122, 154, 209, 0.3); /* Чуть ярче фон */
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(122, 154, 209, 0.6);
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: var(--radius-btn);
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.03em;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+.btn-primary:hover { 
+    background: rgba(122, 154, 209, 0.6);
+    transform: translateY(-2px);
+}
+
+/* --- МОДАЛЬНЫЕ ОКНА --- */
+.custom-modal {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
+    display: none; align-items: center; justify-content: center; z-index: 10000;
+}
+.modal-body {
+    background: #1a1a1a; padding: 36px; border-radius: 20px;
+    max-width: 360px; width: 90%; text-align: center; border: 1px solid #333;
+}
+.modal-body h2 { color: #fff; font-size: 20px; margin-bottom: 20px; font-weight: 600; }
+.modal-input {
+    width: 100%; padding: 12px 14px; margin-bottom: 10px;
+    border-radius: 10px; border: 1px solid #333; background: #000; color: #fff;
+    font-family: var(--font-main); font-size: 14px; outline: none;
+}
+.modal-input:focus { border-color: var(--color-blue); }
+.modal-btn {
+    width: 100%; padding: 12px; background: var(--color-blue);
+    border: none; color: #fff; font-weight: 700; border-radius: 10px; cursor: pointer; transition: 0.3s;
+    font-family: var(--font-main); font-size: 14px;
+}
+.modal-btn:hover { background: var(--color-blue-dark); }
+.modal-close { color:#777; margin-top:12px; cursor:pointer; font-size:12px; }
+
+
+/* ================= СТРУКТУРА БЛОКОВ ================= */
+.block-1 {
+    width: 100%; height: 41vh;
+    background-image: url('images/fon1.jpg');
+    background-size: cover; background-position: center;
+    display: flex; justify-content: center; align-items: center;
+}
+.block-1__logo {
+    max-width: 350px; width: 70%;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+}
+
+.block-2 {
+    padding: 70px 0;
+    background-image: url('images/fon2.jpg');
+    background-size: cover; background-position: center;
+}
+.block-2__content {
+    display: grid; grid-template-columns: 200px 1fr; gap: 50px;
+    align-items: center;
+}
+.block-2__text-box {
+    background: rgba(151, 248, 5, 0.4); /* Прозрачность 40% */
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(140, 170, 96, 0.4); /* Зеленая рамка тоньше */
+    color: #fff; padding: 40px; border-radius: 24px;
+    font-size: 16px; line-height: 1.7; font-weight: 400;
+    box-shadow: 0 16px 32px rgba(0,0,0,0.3);
+}
+.block-2__text-box p { margin-bottom: 20px; color: #fff; }
+
+.block-3 {
+    padding: 70px 0 200px;
+    background-image: url('images/fon3.jpg');
+    background-size: cover; background-position: center bottom;
+    min-height: 700px;
+    display: flex; flex-direction: column;
+}
+.block-3__header { padding-left: 10%; margin-bottom: 32px; }
+.block-3__title { font-size: 40px; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+
+.block-3__people {
+    display: flex; justify-content: center; gap: 32px; align-items: flex-end;
+    height: 100%; flex-grow: 1;
+}
+.person-card { width: 280px; position: relative; display: flex; flex-direction: column; align-items: center; }
+.card-visual { position: relative; width: 100%; }
+.card-visual__arch { width: 100%; position: relative; z-index: 1; opacity: 0.8; }
+.arch-container {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    z-index: 2;
+}
+.card-visual__avatar {
+    width: 75%; border-radius: 50%;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    margin-bottom: 12px;
+}
+.person-card__name {
+    text-align: center; color: #fff;
+    font-size: 18px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); 
+    font-weight: 700; line-height: 1.2;
+}
+
+/* БИОГРАФИЯ (Текст на сером фоне) */
+.block-bio {
+    padding: 80px 0; background: rgba(169,165,166);
+    display: flex; justify-content: center;
+}
+.block-container {
+    display: flex; flex-direction: column; align-items: center; text-align: center; gap: 24px;
+}
+.block-container h1 {
+    color: #ffffff !important;
+    text-shadow: none;
+    font-size: 48px;
+}
+.block-bio__img-wrap {
+    width: 340px; height: 340px; border-radius: 50%; overflow: hidden; margin: 0 auto;
+    box-shadow: 0 16px 32px rgba(0,0,0,0.15);
+}
+.block-bio__img { width: 100%; height: 100%; object-fit: cover; }
+.block-bio__text { 
+    font-size: 18px; 
+    margin-bottom: 16px; 
+    color: #111; /* Глубокий черный */
+    max-width: 600px; /* Чуть шире */
+    font-weight: 500; /* Жирнее! */
+    line-height: 1.7; /* Больше воздуха */
+    white-space: pre-line;
+}
+
+.block-6 {
+    padding: 80px 0;
+    background-image: url('images/fon6.jpg');
+    background-size: cover; background-position: center;
+}
+.block-6__content {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 36px;
+}
+.block-6__title { 
+    font-size: 52px; line-height: 1.1; 
+    text-shadow: 0 4px 12px rgba(0,0,0,0.6);
+    text-align: center;
+    order: 2;
+}
+.block-6__image { width: 260px; transform: rotate(-5deg); transition: 0.3s; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3)); order: 1; }
+
+/* МОДУЛИ */
+.block-modules {
+    padding: 80px 0;
+    background-size: cover; background-position: center;
+}
+.block-7 { background-image: url('images/fon7.jpg'); }
+.block-8 { background-image: url('images/fon8.jpg'); }
+
+.modules-layout { display: flex; justify-content: flex-start; align-items: flex-end; gap: 40px; }
+.modules-logo { width: 260px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5)); }
+.modules-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.module-card {
+    width: 160px; height: 110px;
+    background: rgba(0, 0, 0, 0.4); /* Темнее подложка */
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    display: flex; justify-content: center; align-items: center; text-align: center;
+    font-weight: 700; font-size: 15px; color: #fff;
+    padding: 12px; transition: 0.3s;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+.module-card:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-4px); }
+.module-card--active { background: var(--color-green); border: none; color: #fff; text-shadow: none; }
+.module-card--active-pink { background: var(--color-pink); border: none; color: #fff; text-shadow: none; }
+
+/* УРОКИ (Общие стили) */
+.lesson-section {
+    padding: 90px 0;
+    background-size: cover; background-position: center;
+}
+.lesson-container {
+    display: flex; justify-content: space-between; align-items: center; gap: 50px;
+}
+.lesson-content { 
+    color: #fff; max-width: 600px; 
+    text-shadow: 0 2px 8px rgba(0,0,0,0.8); /* Тень для текста обязательна */
+}
+.lesson-module { font-size: 24px; opacity: 0.9; margin-bottom: 8px; font-weight: 700; color: var(--color-green); }
+.lesson-title { font-size: 36px; margin-bottom: 24px; line-height: 1.2; }
+.lesson-desc { font-size: 18px; line-height: 1.6; font-weight: 500; margin-bottom: 16px; }
+
+/* ДВОЙНЫЕ БЛОКИ */
+.split-section { display: flex; width: 100%; min-height: 500px; }
+.split-image {
+    flex: 1;
+    background-size: cover; background-position: center;
+    position: relative; overflow: hidden;
+}
+.split-content {
+    flex: 1; display: flex; align-items: center; justify-content: center;
+    padding: 60px;
+}
+.bg-pink { background-color: var(--color-pink); color: #fff; }
+.bg-grey { background-color: #333; color: #fff; } /* Заменил серый на темно-серый для стиля */
+
+.split-inner { max-width: 500px; }
+.split-title { font-size: 42px; margin-bottom: 12px; font-weight: 900; }
+.split-sub { font-size: 22px; opacity: 0.9; margin-bottom: 32px; font-weight: 600; }
+.split-item { margin-bottom: 28px; }
+.split-item h4 { font-size: 18px; margin-bottom: 6px; opacity: 0.9; font-weight: 700; text-transform: uppercase; }
+.split-item p { font-size: 16px; line-height: 1.6; font-weight: 400; opacity: 0.9; }
+
+/* БЛОК 9 (Программа 1 модуля) */
+.block-9 { padding: 80px 0; background: #e0e0e0; } /* Светлый фон */
+.block-9__wrap { display: flex; align-items: center; justify-content: center; gap: 60px; }
+.block-9__img { max-width: 450px; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2)); }
+.block-9__text { text-align: left; color: #111; max-width: 480px; }
+.block-9__text h2 { color: #000; font-size: 48px; margin-bottom: 16px; }
+.module-subtitle { font-size: 20px; font-weight: 700; margin-bottom: 24px; line-height: 1.4; }
+.block-9__text h4 { color: var(--color-pink); font-size: 18px; margin-bottom: 8px; } /* Розовые подзаголовки */
+.block-9__text p { font-weight: 500; line-height: 1.6; }
+
+/* ЦЕНЫ И ФУТЕР */
+.block-38 {
+    padding: 100px 20px;
+    background-image: url('images/fon38.jpg');
+    background-size: cover; background-position: center;
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+}
+.block-38__content {
+    display: flex; flex-direction: column; align-items: center;
+}
+.price-card {
+    background: rgba(20, 20, 20, 0.8); /* Темная плашка */
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 50px 40px; border-radius: 32px;
+    text-align: center; max-width: 420px; width: 100%;
+    box-shadow: 0 24px 48px rgba(0,0,0,0.5);
+    transition: transform 0.3s;
+}
+.price-card:hover { transform: translateY(-8px); border-color: var(--color-pink); }
+.badge { background: var(--color-green); color: #000; padding: 8px 18px; border-radius: 24px; font-weight: 700; display: inline-block; margin-bottom: 20px; font-size: 13px; letter-spacing: 0.05em; }
+.price-label { color:#ccc; margin-bottom:12px; font-size:14px; }
+.price-old { text-decoration: line-through; color: #888; font-size: 24px; margin-right: 16px; font-weight: 500; }
+.price-new { font-size: 48px; color: var(--color-pink); font-weight: 900; }
+.buy-btn {
+    width: 100%; background: var(--color-pink); color: #fff; border: none;
+    padding: 18px; font-size: 16px; font-weight: 800; border-radius: 16px;
+    margin-top: 28px; cursor: pointer; transition: 0.3s;
+    letter-spacing: 0.05em;
+    font-family: var(--font-main);
+}
+.buy-btn:hover { background: var(--color-pink-hover); transform: scale(1.02); }
+
+.join-title { font-size: 24px; margin: 40px 0 20px; color: #fff; text-shadow: 0 2px 4px #000; }
+.social-links { display:flex; gap:24px; justify-content:center; }
+.link-tg { color:var(--color-blue); font-weight:700; font-size:16px; text-shadow: 0 1px 2px #000; }
+.link-insta { color:var(--color-pink); font-weight:700; font-size:16px; text-shadow: 0 1px 2px #000; }
+
+
+/* ================= АДАПТИВ (MOBILE) - ИСПРАВЛЕННЫЙ ================= */
+@media (max-width: 900px) {
+    
+    /* 1. Увеличиваем базовый шрифт для мобильных */
+    body, html {
+        font-size: 15px; /* Было 18px десктоп, но 15px достаточно для мобилы. Меньше 14 нельзя! */
+    }
+
+    h1 { font-size: 32px !important; line-height: 1.2; }
+    h2 { font-size: 26px !important; line-height: 1.3; margin-bottom: 16px; }
+    h3 { font-size: 20px !important; }
+    h4 { font-size: 16px !important; font-weight: 700 !important; }
+
+    /* 2. ИСПРАВЛЯЕМ МЕЖСТРОЧНЫЙ ИНТЕРВАЛ */
+    p, li, span, .block-bio__text { 
+        font-size: 14px !important; /* Читаемый размер */
+        line-height: 1.55 !important; /* Воздух между строками! Было 1.1 */
+        font-weight: 400 !important;
+    }
+
+    .container { max-width: 90%; padding: 0 16px; }
+
+    /* Кнопки */
+    .btn-primary {
+        display: block; width: 40%; max-width: 120px; margin: 0 auto;
+        padding: 6px 20px; font-size: 12px !important;
+    }
+    .btn-access-fixed { padding: 8px 16px; font-size: 10px; }
+
+    /* Блок 2 */
+    .block-2__content { grid-template-columns: 1fr; gap: 24px; }
+    .block-2__logo { display: none; }
+    .block-2__text-box { padding: 24px; font-size: 14px !important; }
+
+    /* Люди */
+    .block-3 { padding-bottom: 100px; min-height: auto; }
+    .block-3__header { padding: 0; text-align: center; margin-bottom: 30px; }
+    .block-3__people { flex-direction: column; align-items: center; gap: 40px; }
+    .person-card { width: 80%; max-width: 260px; }
+    .person-card__name { font-size: 20px !important; }
+
+    /* Био */
+    .block-bio { padding: 50px 0; }
+    .block-bio__img-wrap { width: 200px; height: 200px; margin-bottom: 24px; }
+    .block-bio__content { text-align: center; }
+
+    /* Модули */
+    .modules-layout { flex-direction: column; align-items: center; }
+    .modules-grid { grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; }
+    .module-card { width: 100%; height: 80px; font-size: 12px !important; }
+
+    /* Уроки */
+    .lesson-section { padding: 60px 0; text-align: center; }
+    .lesson-container { flex-direction: column; }
+    .lesson-content { max-width: 47%; }
+    .lesson-module { font-size: 18px !important; }
+    .lesson-title { font-size: 20px !important; }
+
+    /* Split блоки */
+    .split-section { flex-direction: column; height: auto; }
+    .split-image { height: 250px; order: -1; }
+    .split-content { padding: 40px 20px; }
+    .split-title { font-size: 28px !important; }
+    
+    /* Блок 9 */
+    .block-9__wrap { flex-direction: column; gap: 30px; }
+    .block-9__img { width: 80%; }
+    .block-9__text { text-align: center; }
+
+    /* Цена */
+    .price-card { padding: 30px 20px; }
+    .price-new { font-size: 36px; }
+}
