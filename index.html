@@ -4,627 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neiro Bistro | Курс по нейросетям</title>
-    <meta name="description" content="Курс по нейросетям от AI-артистов Аллы Леоновой и Аси Бабковской. Изучайте ChatGPT, Midjourney, FLUX, видеогенерацию и аудио с нуля.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta name="description" content="Курс по нейросетям от AI-артистов Аллы Леоновой и Аси Бабковской.">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
-
-    <style>
-        /* --- ПЕРЕМЕННЫЕ (ЦВЕТОВАЯ ПАЛИТРА) --- */
-        :root {
-            --font-main: 'Montserrat', sans-serif;
-            --font-head: 'Montserrat', sans-serif;
-            
-            --color-pink: #c75b8a;
-            --color-pink-hover: #a84670;
-            --color-green: #9abd3a;
-            --color-blue: #7a9ad1;
-            --color-blue-dark: #5f82c0;
-            --color-dark: #1d1d1d;
-            --color-light: #ffffff;
-            --color-grey-bg: #f4f4f4;
-            
-            --radius-card: 24px;
-            --radius-btn: 50px;
-        }
-
-        /* --- БАЗОВЫЕ СТИЛИ --- */
-        body, html {
-            margin: 0; padding: 0;
-            width: 100%;
-            font-family: 'Montserrat', sans-serif;
-            color: #000000;
-            background-color: var(--color-dark);
-            line-height: 1.6;
-            font-weight: 400;
-            font-size: 18px;
-            -webkit-font-smoothing: antialiased;
-        }
-        
-        *, *:before, *:after { box-sizing: border-box; }
-
-        h1, h2, h3, h4 {
-            font-family: 'Montserrat', sans-serif;
-            margin: 0;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: -0.02em;
-            color: #FFFFFF;
-            font-size: 64px;
-        }
-
-        img { display: block; width: 100%; height: auto; }
-        a { text-decoration: none; }
-        
-        /* Утилитные классы */
-        .container {
-            max-width: 1100px;
-            width: 100%;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* --- КНОПКИ И UI --- */
-        .btn-access-fixed {
-            position: fixed; top: 20px; right: 20px; z-index: 999;
-            background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: #fff; padding: 10px 20px; border-radius: var(--radius-btn);
-            font-family: var(--font-head); font-weight: 600; font-size: 11px;
-            cursor: pointer; transition: 0.3s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            letter-spacing: 0.02em;
-        }
-        .btn-access-fixed:hover { background: var(--color-blue); border-color: transparent; }
-
-        .btn-primary {
-            display: inline-block;
-            background: rgba(122, 154, 209, 0.2);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(122, 154, 209, 0.5);
-            color: #fff;
-            padding: 14px 28px;
-            border-radius: var(--radius-btn);
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            font-size: 13px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            letter-spacing: 0.02em;
-        }
-        .btn-primary:hover { 
-            background: rgba(122, 154, 209, 0.4);
-            border-color: rgba(122, 154, 209, 0.8);
-            transform: translateY(-2px);
-        }
-
-        /* --- МОДАЛЬНЫЕ ОКНА --- */
-        .custom-modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
-            display: none; align-items: center; justify-content: center; z-index: 10000;
-        }
-        .modal-body {
-            background: #1a1a1a; padding: 36px; border-radius: 20px;
-            max-width: 360px; width: 90%; text-align: center; border: 1px solid #333;
-        }
-        .modal-body h2 { color: #fff; font-size: 20px; margin-bottom: 20px; font-weight: 600; }
-        .modal-input {
-            width: 100%; padding: 12px 14px; margin-bottom: 10px;
-            border-radius: 10px; border: 1px solid #333; background: #000; color: #fff;
-            font-family: var(--font-main); font-size: 13px; outline: none; font-weight: 400;
-        }
-        .modal-input:focus { border-color: var(--color-blue); }
-        .modal-btn {
-            width: 100%; padding: 12px; background: var(--color-blue);
-            border: none; color: #fff; font-weight: 600; border-radius: 10px; cursor: pointer; transition: 0.3s;
-            font-family: var(--font-head); font-size: 13px;
-        }
-        .modal-btn:hover { background: var(--color-blue-dark); }
-
-
-        /* ================= СТРУКТУРА БЛОКОВ ================= */
-
-        /* --- BLOCK 1 (HERO) --- */
-        .block-1 {
-            width: 100%; height: 41vh;
-            background-image: url('images/fon1.jpg');
-            background-size: cover; background-position: center;
-            display: flex; justify-content: center; align-items: center;
-        }
-        .block-1__logo {
-            max-width: 350px; width: 70%;
-            object-fit: contain;
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
-        }
-
-        /* --- BLOCK 2 (INTRO) --- */
-        .block-2 {
-            padding: 70px 0;
-            background-image: url('images/fon2.jpg');
-            background-size: cover; background-position: center;
-        }
-        .block-2__content {
-            display: grid; grid-template-columns: 200px 1fr; gap: 50px;
-            align-items: center;
-            max-width: 1100px;
-            width: 100%;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        .block-2__text-box {
-            background: rgba(154, 189, 58, 0.38);
-            backdrop-filter: blur(10px);
-            color: #fff; padding: 32px; border-radius: 24px;
-            font-size: 15px; line-height: 1.6; font-weight: 400;
-            box-shadow: 0 16px 32px rgba(0,0,0,0.1);
-            border: 2px solid rgba(154, 189, 58, 0.88);
-        }
-        .block-2__text-box p { margin-bottom: 16px; color: #fff; }
-        .block-2__text-box p:last-child { margin-bottom: 0; }
-
-        /* --- BLOCK 3 (WHO WE ARE - CARDS) --- */
-        .block-3 {
-            padding: 70px 0 200px;
-            background-image: url('images/fon3.jpg');
-            background-size: cover; background-position: center bottom;
-            min-height: 700px;
-            display: flex; flex-direction: column;
-        }
-        .block-3__header { padding-left: 10%; margin-bottom: 32px; }
-        .block-3__title { font-size: 40px; color: #fff; font-weight: 900; font-family: 'Montserrat', sans-serif; text-transform: uppercase; }
-        
-        .block-3__people {
-            display: flex; justify-content: center; gap: 32px; align-items: flex-end;
-            height: 100%; flex-grow: 1;
-        }
-        
-        .person-card {
-            width: 280px; position: relative; display: flex; flex-direction: column; align-items: center;
-        }
-        .card-visual { position: relative; width: 100%; }
-        .card-visual__arch { width: 100%; position: relative; z-index: 1; opacity: 0.6;}
-        .arch-container {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            z-index: 2;
-        }
-        .card-visual__avatar {
-            width: 75%; border-radius: 50%;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.3);
-            margin-bottom: 8px;
-        }
-        .person-card__name {
-            text-align: center; color: #fff;
-            font-size: 16px; text-shadow: 0 4px 8px rgba(0,0,0,0.4); font-weight: 700;
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        /* --- BLOCK 4 & 5 (DETAILED BIO) --- */
-        .block-bio {
-            padding: 70px 0; background: #bfbfbf;
-            display: flex; justify-content: center;
-        }
-        .block-container {
-            display: flex; flex-direction: column; align-items: center; text-align: center; gap: 20px;
-        }
-        .block-container h1{
-            font-family: 'Montserrat', sans-serif !important;
-            font-weight: 900 !important;
-            text-transform: uppercase !important;
-            color: #FFFFFF !important;
-            font-size: 48px !important;
-        }
-        .block-bio__img-wrap {
-            width: 340px; height: 340px; border-radius: 50%; overflow: hidden; margin: 0 auto;
-            box-shadow: 0 16px 32px rgba(0,0,0,0.1);
-        }
-        .block-bio__img { width: 100%; height: 100%; object-fit: cover; }
-        .block-bio__content h3 { font-size: 28px; margin-bottom: 20px; font-weight: 700; font-family: 'Montserrat', sans-serif; }
-        .block-bio__text { 
-            font-family: 'Montserrat', sans-serif;
-            font-size: 18px; 
-            margin-bottom: 16px; 
-            color: #000000; 
-            max-width: 450px; 
-            font-weight: 400; 
-            line-height: 1.6;
-            white-space: pre-line;
-        }
-
-        /* --- BLOCK 6 (SEPARATOR) --- */
-        .block-6 {
-            padding: 80px 0;
-            background-image: url('images/fon6.jpg');
-            background-size: cover; background-position: center;
-        }
-        .block-6__content {
-            display: flex; align-items: center; justify-content: center; gap: 36px;
-        }
-        .block-6__title { font-size: 52px; color: #fff; line-height: 1; text-shadow: 0 8px 16px rgba(0,0,0,0.2); font-weight: 900; font-family: 'Montserrat', sans-serif; text-transform: uppercase; }
-        .block-6__image { width: 260px; transform: rotate(-5deg); transition: 0.3s; }
-        .block-6__image:hover { transform: rotate(0deg) scale(1.05); }
-
-        /* --- GRID MODULES (7 & 8) --- */
-        .block-modules {
-            padding: 80px 0;
-            background-size: cover; background-position: center;
-        }
-        .block-7 { background-image: url('images/fon7.jpg'); }
-        .block-8 { background-image: url('images/fon8.jpg'); }
-        
-        .modules-layout {
-            display: flex; justify-content: flex-start; align-items: flex-end; gap: 40px;
-        }
-        .modules-logo { width: 260px; }
-        .modules-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
-        }
-        .module-card {
-            width: 160px; height: 100px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 16px;
-            display: flex; justify-content: center; align-items: center; text-align: center;
-            font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 14px; color: #fff;
-            padding: 12px; transition: 0.3s;
-        }
-        .module-card:hover { background: rgba(255, 255, 255, 0.25); transform: translateY(-4px); }
-        .module-card--active { background: var(--color-green); border: none; color: #fff; }
-        .module-card--active-pink { background: var(--color-pink); border: none; color: #fff; }
-
-        /* --- LESSON BLOCKS (STANDARD) --- */
-        .lesson-section {
-            padding: 80px 0;
-            background-size: cover; background-position: center;
-            min-height: auto;
-        }
-        .lesson-container {
-            display: flex; justify-content: space-between; align-items: center; gap: 50px;
-        }
-        .lesson-container .btn-primary {
-            margin-right: 20%;
-        }
-        .lesson-content { color: #fff; max-width: 550px; }
-        .lesson-module { font-size: 36px; opacity: 0.7; margin-bottom: 8px; font-weight: 700; font-family: 'Montserrat', sans-serif; }
-        .lesson-title { font-size: 26px; margin-bottom: 20px; color: #fff; font-weight: 700; font-family: 'Montserrat', sans-serif; }
-        .lesson-desc { font-size: 16px; line-height: 1.5; font-weight: 500; margin-bottom: 16px; }
-        .lesson-sub { font-size: 14px; opacity: 0.8; line-height: 1.5; margin-bottom: 32px; font-weight: 400; }
-
-        /* --- SPLIT BLOCKS (IMAGE + TEXT) --- */
-        .split-section {
-            display: flex; width: 100%; min-height: 500px;
-        }
-        .split-image {
-            flex: 1;
-            background-size: cover; background-position: center;
-            position: relative; overflow: hidden;
-        }
-        .split-image img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .split-content {
-            flex: 1; display: flex; align-items: center; justify-content: center;
-            padding: 50px;
-        }
-        .bg-pink { background-color: var(--color-pink); color: #fff; }
-        .bg-grey { background-color: #bfbfbf; color: #fff; }
-        
-        .split-inner { max-width: 450px; }
-        .split-title { font-size: 36px; margin-bottom: 8px; font-weight: 700; font-family: 'Montserrat', sans-serif; }
-        .split-sub { font-size: 20px; opacity: 0.9; margin-bottom: 32px; font-weight: 500; }
-        .split-item { margin-bottom: 24px; }
-        .split-item h4 { font-size: 15px; margin-bottom: 4px; opacity: 0.8; font-weight: 700; font-family: 'Montserrat', sans-serif; }
-        .split-item p { font-size: 14px; line-height: 1.5; font-weight: 400; }
-
-        /* --- BLOCK 9 (MODULE 1 INTRO) --- */
-        .block-9 { padding: 70px 0; background: #bfbfbf; }
-        .block-9__wrap { display: flex; align-items: center; justify-content: center; gap: 40px; }
-        .block-9__img { max-width: 450px; }
-        .block-9__text { text-align: left; color: #fff; max-width: 450px; }
-        .block-9__text h2 { font-weight: 700; font-family: 'Montserrat', sans-serif; font-size: 48px; }
-        .block-9__text h4 { font-weight: 700; font-family: 'Montserrat', sans-serif; font-size: 20px; }
-
-        /* --- BLOCK 38 (PRICING) --- */
-        .block-38 {
-            padding: 80px 20px;
-            background-image: url('images/fon38.jpg');
-            background-size: cover; background-position: center;
-            min-height: 100vh;
-            display: flex; align-items: center; justify-content: center;
-            position: relative;
-        }
-        .block-38::before {
-            content: ''; position: absolute; top:0; left:0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.8)); z-index: 1;
-        }
-        .block-38__content {
-            position: relative; z-index: 2;
-            display: flex; flex-direction: column; align-items: center;
-        }
-        .price-card {
-            position: relative; z-index: 2;
-            background: rgba(255,255,255,0.05); backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.2);
-            padding: 48px 36px; border-radius: 32px;
-            text-align: center; max-width: 420px; width: 100%;
-            box-shadow: 0 24px 48px rgba(0,0,0,0.5);
-            transition: transform 0.3s;
-        }
-        .price-card:hover { transform: translateY(-8px); }
-        
-        .badge { background: var(--color-green); color: #000; padding: 6px 16px; border-radius: 24px; font-weight: 600; display: inline-block; margin-bottom: 16px; font-size: 12px; }
-        .price-old { text-decoration: line-through; color: #aaa; font-size: 20px; margin-right: 12px; font-weight: 400; }
-        .price-new { font-size: 44px; color: var(--color-pink); font-weight: 900; font-family: 'Montserrat', sans-serif; }
-        
-        .buy-btn {
-            width: 100%; background: var(--color-pink); color: #fff; border: none;
-            padding: 16px; font-size: 16px; font-weight: 700; border-radius: 16px;
-            margin-top: 24px; cursor: pointer; transition: 0.3s;
-            font-family: var(--font-head);
-        }
-        .buy-btn:hover { background: var(--color-pink-hover); }
-
-        /* ================= АДАПТИВ (MOBILE) ================= */
-        @media (max-width: 900px) {
-            
-            /* === ОБЩИЕ МОБИЛЬНЫЕ СТИЛИ === */
-            /* Заголовки уменьшены в 3 раза */
-            .block-container h1 { font-size: 24px !important; font-weight: 900 !important; color: #FFFFFF !important; }
-            h2 { font-size: 12px !important; font-weight: 600 !important; }
-            h3 { font-size: 10px !important; font-weight: 600 !important; }
-            h4 { font-size: 9px !important; font-weight: 500 !important; }
-            
-            /* Легкий тонкий текст */
-            p, li, span { 
-                font-size: 11px !important; 
-                font-weight: 400 !important;
-                line-height: 1.6 !important;
-                color: #000000 !important;
-            }
-            
-            /* Контент занимает 75% ширины */
-            .container { 
-                max-width: 75%; 
-                padding: 0;
-                margin: 0 auto;
-            }
-
-            /* === МИНИАТЮРНЫЕ ОВАЛЬНЫЕ КНОПКИ === */
-            .btn-primary {
-                display: block;
-                width: auto;
-                max-width: 140px;
-                margin: 0 auto;
-                padding: 8px 20px;
-                font-size: 12px !important;
-                font-weight: 500;
-                border-radius: 50px;
-                text-align: center;
-            }
-            
-            .lesson-container .btn-primary {
-                margin: 0 auto;
-            }
-            
-            .btn-access-fixed {
-                padding: 6px 14px;
-                font-size: 9px;
-                top: 12px;
-                right: 12px;
-            }
-
-            /* Block 1 - Hero */
-            .block-1__logo { width: 60%; max-width: 280px; }
-
-            /* Block 2 */
-            .block-2 { padding: 40px 0; }
-            .block-2__content { grid-template-columns: 1fr; gap: 20px; }
-            .block-2__logo { display: none; }
-            .block-2__text-box { 
-                padding: 20px 16px; 
-                border-radius: 16px; 
-                font-size: 11px !important;
-                line-height: 1.4 !important;
-            }
-            .block-2__text-box p { margin-bottom: 10px; color: #fff !important; }
-
-            /* Block 3 (People) */
-            .block-3 { padding: 0px 16px 82px 0px; min-height: 310px; }
-            .block-3__header { margin: 50px 160px 0 0; text-align: center; margin-bottom: 20px; }
-            .block-3__title { font-size: 24px !important; font-weight: 900 !important; text-transform: uppercase !important; }
-            .block-3__people { flex-direction: row; gap: 8px; align-items: flex-end; }
-            .person-card { width: 20%; }
-            .arch-container {
-                position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-                display: flex; flex-direction: column; align-items: center; justify-content: center;
-                z-index: 2;
-            }
-            .card-visual__avatar {
-                width: 75%; border-radius: 50%;
-                box-shadow: inset 0 0 20px rgba(0,0,0,0.3);
-                margin-bottom: 8px;
-            }
-            .person-card__name { font-size: 9px !important; font-weight: 500 !important; }
-            
-            /* Дополнительная адаптация для очень маленьких экранов */
-            @media (max-width: 420px) {
-                .person-card__name { font-size: 7px !important; }
-            }
-            
-            @media (max-width: 430px) {
-                .block-bio__text br:not(.br-keep) { display: none; }
-            }
-
-            /* Bio Blocks */
-            .block-bio { padding: 40px 0; }
-            .block-bio__img-wrap { width: 140px; height: 140px; border-width: 4px; }
-            .block-bio__content { padding: 0; }
-            .block-bio__content h3 { font-size: 12px !important; margin-bottom: 12px; }
-            .block-bio__text { font-size: 10px !important; margin-bottom: 10px; max-width: 100%; }
-
-            /* Block 6 */
-            .block-6 { padding: 50px 0; }
-            .block-6__content { flex-direction: column; gap: 20px; }
-            .block-6__title { font-size: 18px !important; text-align: center; font-weight: 900 !important; text-transform: uppercase !important; }
-            .block-6__image { width: 45%; }
-
-            /* Modules Grid */
-            .block-modules { padding: 50px 0; }
-            .modules-layout { flex-direction: column; align-items: center; gap: 20px; }
-            .modules-logo { width: 45%; max-width: 160px; }
-            .modules-grid { grid-template-columns: 1fr 1fr; gap: 6px; width: 100%; }
-            .module-card { 
-                width: 100%; 
-                height: 50px; 
-                font-size: 9px !important; 
-                font-weight: 500; 
-                border-radius: 10px;
-                padding: 8px;
-            }
-
-            /* === СЕКЦИИ 9+ : МИНИМАЛЬНЫЙ МЕЖСТРОЧНЫЙ ИНТЕРВАЛ === */
-            .block-9,
-            .lesson-section,
-            .split-section,
-            .block-38 {
-                line-height: 1.1 !important;
-            }
-            
-            .block-9 p,
-            .block-9 h4,
-            .lesson-section p,
-            .lesson-section h2,
-            .split-section p,
-            .split-section h2,
-            .split-section h4 {
-                line-height: 1.15 !important;
-                margin-bottom: 6px !important;
-            }
-
-            /* Block 9 */
-            .block-9 { padding: 30px 0; }
-            .block-9__wrap { flex-direction: column; gap: 16px; }
-            .block-9__text { text-align: center; max-width: 100%; }
-            .block-9__text h2 { margin-bottom: 8px !important; }
-            .block-9__text h4 { margin-bottom: 3px !important; opacity: 0.7; }
-            .block-9__text p { margin-bottom: 10px !important; }
-            .block-9__img { width: 75%; max-width: 240px; }
-
-            /* Split Sections */
-            .split-section { 
-                flex-direction: column; 
-                display: flex; 
-                height: auto; 
-                min-height: auto; 
-            }
-            .split-image { width: 100%; height: 180px; order: -1; }
-            .split-content { padding: 24px 0; }
-            .split-inner { max-width: 100%; text-align: center; }
-            .split-title { font-size: 14px !important; margin-bottom: 4px; }
-            .split-sub { font-size: 10px !important; margin-bottom: 16px; }
-            .split-item { margin-bottom: 10px; }
-            .split-item h4 { font-size: 9px !important; margin-bottom: 2px; }
-            .split-item p { font-size: 10px !important; }
-
-            /* Lesson Blocks */
-            .lesson-section { padding: 40px 0; }
-            .lesson-container { 
-                flex-direction: column; 
-                text-align: center; 
-                gap: 16px; 
-            }
-            .lesson-content { max-width: 51%; }
-            .lesson-module { font-size: 11px !important; margin-bottom: 4px; }
-            .lesson-title { font-size: 12px !important; margin-bottom: 8px; }
-            .lesson-desc { font-size: 10px !important; margin-bottom: 8px; }
-            .lesson-sub { margin-bottom: 16px; }
-            
-            /* Pricing */
-            .block-38 { padding: 50px 12.5%; min-height: auto; }
-            .block-38__content { width: 100%; }
-            .price-card { 
-                padding: 28px 20px; 
-                border-radius: 20px; 
-                max-width: 100%;
-            }
-            .badge { font-size: 9px; padding: 5px 12px; margin-bottom: 10px; }
-            .price-old { font-size: 14px; }
-            .price-new { font-size: 28px; }
-            .buy-btn { 
-                padding: 10px; 
-                font-size: 12px !important; 
-                border-radius: 50px;
-                margin-top: 16px;
-            }
-            
-            /* Social links */
-            .block-38__content h2 { 
-                font-size: 11px !important; 
-                margin: 24px 0 12px !important; 
-            }
-            .block-38__content a { 
-                font-size: 11px !important; 
-            }
-
-            /* Modals */
-            .modal-body { 
-                padding: 24px 20px; 
-                max-width: 280px;
-                border-radius: 16px;
-            }
-            .modal-body h2 { font-size: 14px !important; margin-bottom: 16px; }
-            .modal-input { 
-                padding: 10px 12px; 
-                font-size: 11px; 
-                margin-bottom: 8px;
-                border-radius: 8px;
-            }
-            .modal-btn { 
-                padding: 10px; 
-                font-size: 11px; 
-                border-radius: 8px;
-            }
-        }
-
-        /* === DESKTOP ENHANCEMENTS === */
-        @media (min-width: 901px) {
-            /* Refined typography */
-            .block-container h1 { font-size: 48px !important; font-weight: 900 !important; }
-            h2 { font-size: 36px; }
-            h3 { font-size: 28px; }
-            
-            p { font-weight: 400; }
-            
-            .block-bio__text { max-width: 570px; }
-            
-            /* Кнопки более компактные и овальные */
-            .btn-primary {
-                padding: 12px 28px;
-                font-size: 13px;
-            }
-            
-            /* Больше воздуха */
-            .container {
-                max-width: 1000px;
-            }
-            
-            section {
-                position: relative;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <button class="btn-access-fixed" onclick="openModal('modal-auth')">ВХОД ДЛЯ УЧЕНИКОВ</button>
 
-    <section class="block-1">
-        <img src="images/logo1.png" alt="Neiro Bistro" class="block-1__logo">
+    <section class="block-1 overlay-container" style="background-image: url('images/fon1.jpg');">
+        <img src="images/logo1.png" alt="Neiro Bistro" class="block-1__logo relative-z">
     </section>
 
-    <section class="block-2">
-        <div class="container block-2__content">
+    <section class="block-2 overlay-container" style="background-image: url('images/fon2.jpg');">
+        <div class="container block-2__content relative-z">
             <img src="images/logo2.png" alt="Logo Small" class="block-2__logo">
             <div class="block-2__text-box">
                 <p>Добро пожаловать на кухню <b>NEIRO BISTRO</b> — пространство для всех, кто хочет изучать нейросети с нуля и углублять свои знания в области искусственного интеллекта!</p>
@@ -634,11 +27,11 @@
         </div>
     </section>
 
-    <section class="block-3">
-        <div class="block-3__header">
+    <section class="block-3 overlay-container" style="background-image: url('images/fon3.jpg');">
+        <div class="block-3__header relative-z">
             <h2 class="block-3__title">КТО МЫ?</h2>
         </div>
-        <div class="block-3__people">
+        <div class="block-3__people relative-z">
             <div class="person-card">
                 <div class="card-visual">
                     <img src="images/arch3.png" class="card-visual__arch">
@@ -663,12 +56,9 @@
     <section class="block-bio block-4">
         <div class="container block-container">
             <h1>АЛЛА ЛЕОНОВА</h1>
-            <div class="block-bio__img-wrap">
-                <img src="images/alla4.png" alt="Alla" class="block-bio__img">
-            </div>
+            <div class="block-bio__img-wrap"><img src="images/alla4.png" alt="Alla" class="block-bio__img"></div>
             <div class="block-bio__content">
-                
-                <p class="block-bio__text">AI-артист, архитектор и сценарист.<br> Создаю клипы на свои стихи, сотрудничаю с<br>режиссерами и брендами по ии-визуализации.<br>Работала с режиссером Дарьей Лебедевой, а мою<br>рекламу для BARRY GROUP, созданную в ai,<br>транслировали на больших экранах.</p>
+                <p class="block-bio__text">AI-артист, архитектор и сценарист.<br>Создаю клипы на свои стихи, сотрудничаю с<br>режиссерами и брендами по ии-визуализации.<br>Работала с режиссером Дарьей Лебедевой, а мою<br>рекламу для BARRY GROUP, созданную в ai,<br>транслировали на больших экранах.</p>
             </div>
         </div>
     </section>
@@ -676,25 +66,22 @@
     <section class="block-bio block-5">
         <div class="container block-container">
             <h1>АСЯ БАБКОВСКАЯ</h1>
-            <div class="block-bio__img-wrap">
-                <img src="images/ASYA_BABKOVSKA5.png" alt="Asya" class="block-bio__img">
-            </div>
+            <div class="block-bio__img-wrap"><img src="images/ASYA_BABKOVSKA5.png" alt="Asya" class="block-bio__img"></div>
             <div class="block-bio__content">
-                
-                <p class="block-bio__text">ИИ-артист и креатор с 7-летним опытом по созданию<br>визуала для брендов. Основные направления в моей<br> работе: нейросети/генеративный арт, моушн, графический<br> дизайн.Режисёрский опыт: постановка и режиссура<br> рекламных и творческих роликов.<br class="br-keep"><br>География проектов: Россия-Москва, Санкт-Петербург,<br> Крым, Пятигорск, Сочи, ОАЭ-Дубай, Латинская Америка.</p>
+                <p class="block-bio__text">ИИ-артист и креатор с 7-летним опытом по созданию<br>визуала для брендов. Основные направления в моей<br> работе: нейросети/генеративный арт, моушн, графический<br> дизайн. Режисёрский опыт: постановка и режиссура<br> рекламных и творческих роликов.<br>География проектов: Россия-Москва, Санкт-Петербург,<br> Крым, Пятигорск, Сочи, ОАЭ-Дубай, Латинская Америка.</p>
             </div>
         </div>
     </section>
 
-    <section class="block-6">
-        <div class="container block-6__content">
+    <section class="block-6 overlay-container" style="background-image: url('images/fon6.jpg');">
+        <div class="container block-6__content relative-z">
             <img src="images/vaza6.png" class="block-6__image" alt="Vase">
             <h2 class="block-6__title">ЧТО БУДЕТ НА КУРСЕ?</h2>
         </div>
     </section>
 
-    <section class="block-modules block-7">
-        <div class="container modules-layout">
+    <section class="block-modules block-7 overlay-container" style="background-image: url('images/fon7.jpg');">
+        <div class="container modules-layout relative-z">
             <img src="images/logo7.png" class="modules-logo">
             <div class="modules-grid">
                 <div class="module-card module-card--active">МОДУЛЬ 1</div>
@@ -707,8 +94,8 @@
         </div>
     </section>
 
-    <section class="block-modules block-8">
-        <div class="container modules-layout">
+    <section class="block-modules block-8 overlay-container" style="background-image: url('images/fon8.jpg');">
+        <div class="container modules-layout relative-z">
             <img src="images/logo8.png" class="modules-logo">
             <div class="modules-grid">
                 <div class="module-card module-card--active-pink">GPT</div>
@@ -725,22 +112,16 @@
         <div class="container block-9__wrap">
             <img src="images/tarelka9.png" class="block-9__img">
             <div class="block-9__text">
-                <h2 style="font-weight: 700; font-family: 'Montserrat', sans-serif;">МОДУЛЬ 1</h2>
-                <p style="font-size: 18px; font-weight: 700; margin-bottom: 20px; font-family: 'Montserrat', sans-serif;">Чат GPT. Создание структуры промпта.</p>
-                <div style="margin-bottom: 14px;">
-                    <h4 style="font-weight: 700; font-family: 'Montserrat', sans-serif; color: #FFFFFF;">Урок 1</h4>
-                    <p>Навигация по syntx. Альтернативы. Какой GPT лучше?</p>
-                </div>
-                <div>
-                    <h4 style="font-weight: 700; font-family: 'Montserrat', sans-serif; color: #FFFFFF;">Урок 2</h4>
-                    <p>От идеи до сценария. GPT как сценарный ассистент.</p>
-                </div>
+                <h2>МОДУЛЬ 1</h2>
+                <p style="font-weight: 700;">Чат GPT. Создание структуры промпта.</p>
+                <div><h4>Урок 1</h4><p>Навигация по syntx. Альтернативы. Какой GPT лучше?</p></div>
+                <div><h4>Урок 2</h4><p>От идеи до сценария. GPT как сценарный ассистент.</p></div>
             </div>
         </div>
     </section>
 
-    <section class="lesson-section block-10" style="background-image: url('images/fon10.jpg');">
-        <div class="container lesson-container">
+    <section class="lesson-section overlay-container" style="background-image: url('images/fon10.jpg');">
+        <div class="container lesson-container relative-z">
             <div class="lesson-content">
                 <div class="lesson-module">МОДУЛЬ 1</div>
                 <h2 class="lesson-title">УРОК 1</h2>
@@ -750,8 +131,8 @@
         </div>
     </section>
 
-    <section class="lesson-section block-11" style="background-image: url('images/fon11.jpg');">
-        <div class="container lesson-container">
+    <section class="lesson-section overlay-container" style="background-image: url('images/fon11.jpg');">
+        <div class="container lesson-container relative-z">
             <div class="lesson-content">
                 <div class="lesson-module">МОДУЛЬ 1</div>
                 <h2 class="lesson-title">УРОК 2 | ЧАСТЬ 1</h2>
@@ -761,8 +142,8 @@
         </div>
     </section>
 
-    <section class="lesson-section block-12" style="background-image: url('images/fon12.jpg');">
-        <div class="container lesson-container">
+    <section class="lesson-section overlay-container" style="background-image: url('images/fon12.jpg');">
+        <div class="container lesson-container relative-z">
             <div class="lesson-content">
                 <div class="lesson-module">МОДУЛЬ 1</div>
                 <h2 class="lesson-title">УРОК 2 | ЧАСТЬ 2</h2>
@@ -772,125 +153,82 @@
         </div>
     </section>
 
-    <section class="split-section block-13">
+    <section class="split-section">
         <div class="split-image">
-            <img src="images/foto13.png" alt="Module 2">
+            <img src="images/foto13.png" alt="Module 2 Photo">
         </div>
         <div class="split-content bg-pink">
             <div class="split-inner">
                 <h2 class="split-title">МОДУЛЬ 2</h2>
                 <p class="split-sub">Нейрофотосессия</p>
-                <div class="split-item">
-                    <h4>Урок 1</h4>
-                    <p>Создание LORA во FLUX</p>
-                </div>
-                <div class="split-item">
-                    <h4>Урок 2</h4>
-                    <p>Создание LORA в Higsfield</p>
-                </div>
+                <div class="split-item"><h4>Урок 1</h4><p>Создание LORA во FLUX</p></div>
+                <div class="split-item"><h4>Урок 2</h4><p>Создание LORA в Higsfield</p></div>
             </div>
         </div>
     </section>
 
-    <section class="lesson-section block-14" style="background-image: url('images/fon14.jpg');">
-        <div class="container lesson-container">
-            <div class="lesson-content">
-                <div class="lesson-module">МОДУЛЬ 2</div>
-                <h2 class="lesson-title">УРОК 1 | Ч.1</h2>
-                <p class="lesson-desc">Создание LORA во FLUX</p>
-            </div>
+    <section class="lesson-section overlay-container" style="background-image: url('images/fon14.jpg');">
+        <div class="container lesson-container relative-z">
+            <div class="lesson-content"><div class="lesson-module">МОДУЛЬ 2</div><h2 class="lesson-title">УРОК 1 | Ч.1</h2><p class="lesson-desc">Создание LORA во FLUX</p></div>
             <a href="https://mail.google.com/" class="btn-primary">СМОТРЕТЬ</a>
         </div>
     </section>
-    <section class="lesson-section block-15" style="background-image: url('images/fon15.jpg');">
-        <div class="container lesson-container">
-            <div class="lesson-content">
-                <div class="lesson-module">МОДУЛЬ 2</div>
-                <h2 class="lesson-title">УРОК 1 | Ч.2</h2>
-                <p class="lesson-desc">Практика создания LORA во FLUX</p>
-            </div>
+    <section class="lesson-section overlay-container" style="background-image: url('images/fon15.jpg');">
+        <div class="container lesson-container relative-z">
+            <div class="lesson-content"><div class="lesson-module">МОДУЛЬ 2</div><h2 class="lesson-title">УРОК 1 | Ч.2</h2><p class="lesson-desc">Практика создания LORA во FLUX</p></div>
             <a href="https://mail.google.com/" class="btn-primary">СМОТРЕТЬ</a>
         </div>
     </section>
-    <section class="lesson-section block-16" style="background-image: url('images/fon16.jpg');">
-        <div class="container lesson-container">
-            <div class="lesson-content">
-                <div class="lesson-module">МОДУЛЬ 2</div>
-                <h2 class="lesson-title">УРОК 2 | Ч.1</h2>
-                <p class="lesson-desc">Создание LORA в HIGSFIELD</p>
-            </div>
+    <section class="lesson-section overlay-container" style="background-image: url('images/fon16.jpg');">
+        <div class="container lesson-container relative-z">
+            <div class="lesson-content"><div class="lesson-module">МОДУЛЬ 2</div><h2 class="lesson-title">УРОК 2 | Ч.1</h2><p class="lesson-desc">Создание LORA в HIGSFIELD</p></div>
             <a href="https://mail.google.com/" class="btn-primary">СМОТРЕТЬ</a>
         </div>
     </section>
-    <section class="lesson-section block-17" style="background-image: url('images/fon17.jpg');">
-        <div class="container lesson-container">
-            <div class="lesson-content">
-                <div class="lesson-module">МОДУЛЬ 2</div>
-                <h2 class="lesson-title">УРОК 2 | Ч.2</h2>
-                <p class="lesson-desc">Практика в HIGSFIELD</p>
-            </div>
+    <section class="lesson-section overlay-container" style="background-image: url('images/fon17.jpg');">
+        <div class="container lesson-container relative-z">
+            <div class="lesson-content"><div class="lesson-module">МОДУЛЬ 2</div><h2 class="lesson-title">УРОК 2 | Ч.2</h2><p class="lesson-desc">Практика в HIGSFIELD</p></div>
             <a href="https://mail.google.com/" class="btn-primary">СМОТРЕТЬ</a>
         </div>
     </section>
 
-    <section class="split-section block-18">
+    <section class="split-section">
         <div class="split-image">
-            <img src="images/foto18.png" alt="Midjourney">
+            <img src="images/foto18.png" alt="Module 3 Photo">
         </div>
         <div class="split-content bg-grey">
             <div class="split-inner">
                 <h2 class="split-title">МОДУЛЬ 3</h2>
                 <p class="split-sub">Midjourney — нейронка, которая задает стиль</p>
-                <div class="split-item">
-                    <h4>Урок 1</h4>
-                    <p>Навигация, редактор, описатель.</p>
-                </div>
-                <div class="split-item">
-                    <h4>Урок 2</h4>
-                    <p>Структура промпта. Коды стиля.</p>
-                </div>
-                <div class="split-item">
-                    <h4>Урок 3</h4>
-                    <p>Персонаж на базе Omnireference.</p>
-                </div>
+                <div class="split-item"><h4>Урок 1</h4><p>Навигация, редактор, описатель.</p></div>
+                <div class="split-item"><h4>Урок 2</h4><p>Структура промпта. Коды стиля.</p></div>
+                <div class="split-item"><h4>Урок 3</h4><p>Персонаж на базе Omnireference.</p></div>
             </div>
         </div>
     </section>
 
-    <section class="lesson-section block-19" style="background-image: url('images/fon19.jpg');">
-        <div class="container lesson-container">
-            <div class="lesson-content">
-                <div class="lesson-module">МОДУЛЬ 3</div>
-                <h2 class="lesson-title">УРОК 1</h2>
-                <p class="lesson-desc">Навигация по MJ. Редактор и описатель.</p>
-            </div>
+    <section class="lesson-section overlay-container" style="background-image: url('images/fon19.jpg');">
+        <div class="container lesson-container relative-z">
+            <div class="lesson-content"><div class="lesson-module">МОДУЛЬ 3</div><h2 class="lesson-title">УРОК 1</h2><p class="lesson-desc">Навигация по MJ. Редактор и описатель.</p></div>
             <a href="https://mail.google.com/" class="btn-primary">СМОТРЕТЬ</a>
         </div>
     </section>
-    <section class="lesson-section block-20" style="background-image: url('images/fon20.jpg');">
-        <div class="container lesson-container">
-            <div class="lesson-content">
-                <div class="lesson-module">МОДУЛЬ 3</div>
-                <h2 class="lesson-title">УРОК 2</h2>
-                <p class="lesson-desc">Структура промпта. Уникальный стиль.</p>
-            </div>
+    <section class="lesson-section overlay-container" style="background-image: url('images/fon20.jpg');">
+        <div class="container lesson-container relative-z">
+            <div class="lesson-content"><div class="lesson-module">МОДУЛЬ 3</div><h2 class="lesson-title">УРОК 2</h2><p class="lesson-desc">Структура промпта. Уникальный стиль.</p></div>
             <a href="https://mail.google.com/" class="btn-primary">СМОТРЕТЬ</a>
         </div>
     </section>
-    <section class="lesson-section block-21" style="background-image: url('images/fon21.jpg');">
-        <div class="container lesson-container">
-            <div class="lesson-content">
-                <div class="lesson-module">МОДУЛЬ 3</div>
-                <h2 class="lesson-title">УРОК 3</h2>
-                <p class="lesson-desc">Создание персонажа. Omnireference.</p>
-            </div>
+    <section class="lesson-section overlay-container" style="background-image: url('images/fon21.jpg');">
+        <div class="container lesson-container relative-z">
+            <div class="lesson-content"><div class="lesson-module">МОДУЛЬ 3</div><h2 class="lesson-title">УРОК 3</h2><p class="lesson-desc">Создание персонажа. Omnireference.</p></div>
             <a href="https://mail.google.com/" class="btn-primary">СМОТРЕТЬ</a>
         </div>
     </section>
 
-    <section class="split-section block-22">
+    <section class="split-section">
         <div class="split-image">
-            <img src="images/foto22.png" alt="Module 4">
+            <img src="images/foto22.png" alt="Module 4 Photo">
         </div>
         <div class="split-content bg-pink">
             <div class="split-inner">
@@ -901,50 +239,34 @@
         </div>
     </section>
 
-    <section class="lesson-section block-23" style="background-image: url('images/fon23.jpg');">
-        <div class="container lesson-container">
-            <div class="lesson-content">
-                <div class="lesson-module">МОДУЛЬ 4</div>
-                <h2 class="lesson-title">УРОК 1</h2>
-                <p class="lesson-desc">Навигация, бесплатные альтернативы, коммерческие заказы.</p>
-            </div>
+    <section class="lesson-section overlay-container" style="background-image: url('images/fon23.jpg');">
+        <div class="container lesson-container relative-z">
+            <div class="lesson-content"><div class="lesson-module">МОДУЛЬ 4</div><h2 class="lesson-title">УРОК 1</h2><p class="lesson-desc">Навигация, бесплатные альтернативы, коммерческие заказы.</p></div>
             <a href="https://mail.google.com/" class="btn-primary">СМОТРЕТЬ</a>
         </div>
     </section>
-    <section class="lesson-section block-24" style="background-image: url('images/fon24.jpg');">
-        <div class="container lesson-container">
-            <div class="lesson-content">
-                <div class="lesson-module">МОДУЛЬ 4</div>
-                <h2 class="lesson-title">УРОК 2</h2>
-                <p class="lesson-desc">Фотосессии с множеством героев пошагово.</p>
-            </div>
+    <section class="lesson-section overlay-container" style="background-image: url('images/fon24.jpg');">
+        <div class="container lesson-container relative-z">
+            <div class="lesson-content"><div class="lesson-module">МОДУЛЬ 4</div><h2 class="lesson-title">УРОК 2</h2><p class="lesson-desc">Фотосессии с множеством героев пошагово.</p></div>
             <a href="https://mail.google.com/" class="btn-primary">СМОТРЕТЬ</a>
         </div>
     </section>
-    <section class="lesson-section block-25" style="background-image: url('images/fon25.jpg');">
-        <div class="container lesson-container">
-            <div class="lesson-content">
-                <div class="lesson-module">МОДУЛЬ 4</div>
-                <h2 class="lesson-title">УРОК 3</h2>
-                <p class="lesson-desc">Смена ракурсов, изменение фона с сохранением героя.</p>
-            </div>
+    <section class="lesson-section overlay-container" style="background-image: url('images/fon25.jpg');">
+        <div class="container lesson-container relative-z">
+            <div class="lesson-content"><div class="lesson-module">МОДУЛЬ 4</div><h2 class="lesson-title">УРОК 3</h2><p class="lesson-desc">Смена ракурсов, изменение фона с сохранением героя.</p></div>
             <a href="https://mail.google.com/" class="btn-primary">СМОТРЕТЬ</a>
         </div>
     </section>
-    <section class="lesson-section block-26" style="background-image: url('images/fon26.jpg');">
-        <div class="container lesson-container">
-            <div class="lesson-content">
-                <div class="lesson-module">МОДУЛЬ 4</div>
-                <h2 class="lesson-title">УРОК 4</h2>
-                <p class="lesson-desc">Альтернативный способ сохранения: Runway Frames.</p>
-            </div>
+    <section class="lesson-section overlay-container" style="background-image: url('images/fon26.jpg');">
+        <div class="container lesson-container relative-z">
+            <div class="lesson-content"><div class="lesson-module">МОДУЛЬ 4</div><h2 class="lesson-title">УРОК 4</h2><p class="lesson-desc">Альтернативный способ сохранения: Runway Frames.</p></div>
             <a href="https://mail.google.com/" class="btn-primary">СМОТРЕТЬ</a>
         </div>
     </section>
 
-    <section class="split-section block-27">
+    <section class="split-section">
         <div class="split-image">
-            <img src="images/foto27.png" alt="Video Block">
+            <img src="images/foto27.png" alt="Module 5 Photo">
         </div>
         <div class="split-content bg-grey">
             <div class="split-inner">
@@ -955,64 +277,46 @@
         </div>
     </section>
 
-    <section class="lesson-section block-28" style="background-image: url('images/fon28.jpg');">
-        <div class="container lesson-container">
-            <div class="lesson-content">
-                <h2 class="lesson-title">МОДУЛЬ 5 | УРОК 1</h2>
-                <p class="lesson-desc">Навигация по видео-нейросетям.</p>
-            </div>
+    <section class="lesson-section overlay-container" style="background-image: url('images/fon28.jpg');">
+        <div class="container lesson-container relative-z">
+            <div class="lesson-content"><h2 class="lesson-title">МОДУЛЬ 5 | УРОК 1</h2><p class="lesson-desc">Навигация по видео-нейросетям.</p></div>
             <a href="https://mail.google.com/" class="btn-primary">СМОТРЕТЬ</a>
         </div>
     </section>
-    <section class="lesson-section block-29" style="background-image: url('images/fon29.jpg');">
-        <div class="container lesson-container">
-            <div class="lesson-content">
-                <h2 class="lesson-title">МОДУЛЬ 5 | УРОК 2</h2>
-                <p class="lesson-desc">Veo 3.1 - Text to Video. Видео без референса.</p>
-            </div>
+    <section class="lesson-section overlay-container" style="background-image: url('images/fon29.jpg');">
+        <div class="container lesson-container relative-z">
+            <div class="lesson-content"><h2 class="lesson-title">МОДУЛЬ 5 | УРОК 2</h2><p class="lesson-desc">Veo 3.1 - Text to Video. Видео без референса.</p></div>
             <a href="https://mail.google.com/" class="btn-primary">СМОТРЕТЬ</a>
         </div>
     </section>
-    <section class="lesson-section block-30" style="background-image: url('images/fon30.jpg');">
-        <div class="container lesson-container">
-            <div class="lesson-content">
-                <h2 class="lesson-title">МОДУЛЬ 5 | УРОК 3</h2>
-                <p class="lesson-desc">Kling. Морфинг, пролеты камеры, оживление.</p>
-            </div>
+    <section class="lesson-section overlay-container" style="background-image: url('images/fon30.jpg');">
+        <div class="container lesson-container relative-z">
+            <div class="lesson-content"><h2 class="lesson-title">МОДУЛЬ 5 | УРОК 3</h2><p class="lesson-desc">Kling. Морфинг, пролеты камеры, оживление.</p></div>
             <a href="https://mail.google.com/" class="btn-primary">СМОТРЕТЬ</a>
         </div>
     </section>
-    <section class="lesson-section block-31" style="background-image: url('images/fon31.jpg');">
-        <div class="container lesson-container">
-            <div class="lesson-content">
-                <h2 class="lesson-title">МОДУЛЬ 5 | УРОК 4</h2>
-                <p class="lesson-desc">Sora, Seedance, Luma. Танцы и реклама.</p>
-            </div>
+    <section class="lesson-section overlay-container" style="background-image: url('images/fon31.jpg');">
+        <div class="container lesson-container relative-z">
+            <div class="lesson-content"><h2 class="lesson-title">МОДУЛЬ 5 | УРОК 4</h2><p class="lesson-desc">Sora, Seedance, Luma. Танцы и реклама.</p></div>
             <a href="https://mail.google.com/" class="btn-primary">СМОТРЕТЬ</a>
         </div>
     </section>
-    <section class="lesson-section block-32" style="background-image: url('images/fon32.jpg');">
-        <div class="container lesson-container">
-            <div class="lesson-content">
-                <h2 class="lesson-title">МОДУЛЬ 5 | УРОК 5</h2>
-                <p class="lesson-desc">Midjourney Video.</p>
-            </div>
+    <section class="lesson-section overlay-container" style="background-image: url('images/fon32.jpg');">
+        <div class="container lesson-container relative-z">
+            <div class="lesson-content"><h2 class="lesson-title">МОДУЛЬ 5 | УРОК 5</h2><p class="lesson-desc">Midjourney Video.</p></div>
             <a href="https://mail.google.com/" class="btn-primary">СМОТРЕТЬ</a>
         </div>
     </section>
-    <section class="lesson-section block-33" style="background-image: url('images/fon33.jpg');">
-        <div class="container lesson-container">
-            <div class="lesson-content">
-                <h2 class="lesson-title">МОДУЛЬ 5 | УРОК 6</h2>
-                <p class="lesson-desc">Липсинг. Говорящие аватары.</p>
-            </div>
+    <section class="lesson-section overlay-container" style="background-image: url('images/fon33.jpg');">
+        <div class="container lesson-container relative-z">
+            <div class="lesson-content"><h2 class="lesson-title">МОДУЛЬ 5 | УРОК 6</h2><p class="lesson-desc">Липсинг. Говорящие аватары.</p></div>
             <a href="https://mail.google.com/" class="btn-primary">СМОТРЕТЬ</a>
         </div>
     </section>
 
-    <section class="split-section block-34">
+    <section class="split-section">
         <div class="split-image">
-            <img src="images/foto34.png" alt="Sound">
+            <img src="images/foto34.png" alt="Module 6 Photo">
         </div>
         <div class="split-content bg-grey">
             <div class="split-inner">
@@ -1023,36 +327,27 @@
         </div>
     </section>
 
-    <section class="lesson-section block-35" style="background-image: url('images/fon35.jpg');">
-        <div class="container lesson-container">
-            <div class="lesson-content">
-                <h2 class="lesson-title">МОДУЛЬ 6 | УРОК 1</h2>
-                <p class="lesson-desc">Синтез речи, озвучка текста, генератор звуков.</p>
-            </div>
+    <section class="lesson-section overlay-container" style="background-image: url('images/fon35.jpg');">
+        <div class="container lesson-container relative-z">
+            <div class="lesson-content"><h2 class="lesson-title">МОДУЛЬ 6 | УРОК 1</h2><p class="lesson-desc">Синтез речи, озвучка текста, генератор звуков.</p></div>
             <a href="https://mail.google.com/" class="btn-primary">СМОТРЕТЬ</a>
         </div>
     </section>
-    <section class="lesson-section block-36" style="background-image: url('images/fon36.jpg');">
-        <div class="container lesson-container">
-            <div class="lesson-content">
-                <h2 class="lesson-title">МОДУЛЬ 6 | УРОК 2</h2>
-                <p class="lesson-desc">Suno. Создание песен и музыки для кино.</p>
-            </div>
+    <section class="lesson-section overlay-container" style="background-image: url('images/fon36.jpg');">
+        <div class="container lesson-container relative-z">
+            <div class="lesson-content"><h2 class="lesson-title">МОДУЛЬ 6 | УРОК 2</h2><p class="lesson-desc">Suno. Создание песен и музыки для кино.</p></div>
             <a href="https://mail.google.com/" class="btn-primary">СМОТРЕТЬ</a>
         </div>
     </section>
-    <section class="lesson-section block-37" style="background-image: url('images/fon37.jpg');">
-        <div class="container lesson-container">
-            <div class="lesson-content">
-                <h2 class="lesson-title">МОДУЛЬ 6 | УРОК 3</h2>
-                <p class="lesson-desc">Финальный монтаж. От старта до продакшна.</p>
-            </div>
+    <section class="lesson-section overlay-container" style="background-image: url('images/fon37.jpg');">
+        <div class="container lesson-container relative-z">
+            <div class="lesson-content"><h2 class="lesson-title">МОДУЛЬ 6 | УРОК 3</h2><p class="lesson-desc">Финальный монтаж. От старта до продакшна.</p></div>
             <a href="https://mail.google.com/" class="btn-primary">СМОТРЕТЬ</a>
         </div>
     </section>
 
-    <section class="block-38" id="section-pay">
-        <div class="block-38__content">
+    <section class="block-38 overlay-container" id="section-pay" style="background-image: url('images/fon38.jpg');">
+        <div class="block-38__content relative-z">
             <div class="price-card" onclick="openModal('modal-pay')">
                 <div class="badge">СТАРТ: 29 ДЕКАБРЯ</div>
                 <p style="color:#bbb; margin-bottom:8px; font-size:13px;">Цена до конца января:</p>
@@ -1092,117 +387,6 @@
         </div>
     </div>
 
-    <script>
-        // ЛОГИКА ОСТАЛАСЬ ПРЕЖНЕЙ
-        let hasAccess = localStorage.getItem('neiro_access') === 'true';
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const allLessonBtns = document.querySelectorAll('.btn-primary');
-            allLessonBtns.forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    if (!hasAccess) {
-                        e.preventDefault();
-                        document.getElementById('section-pay').scrollIntoView({ behavior: 'smooth' });
-                    }
-                });
-            });
-        });
-
-        function openModal(id) { document.getElementById(id).style.display = 'flex'; }
-        function closeModals() { document.querySelectorAll('.custom-modal').forEach(m => m.style.display = 'none'); }
-
-        function setBtnError(btn, text, originalText, originalColor) {
-            btn.innerText = text;
-            btn.style.background = "#ff4444";
-            setTimeout(() => {
-                btn.innerText = originalText;
-                btn.style.background = originalColor;
-                btn.disabled = false;
-            }, 2000);
-        }
-
-        function setBtnSuccess(btn, text) {
-            btn.innerText = text;
-            btn.style.background = "#00C851";
-        }
-
-        async function checkPass() {
-            const email = document.getElementById('auth-email').value.trim();
-            const pass = document.getElementById('auth-pass').value.trim();
-            const btn = document.querySelector('#modal-auth .modal-btn');
-            const originalText = btn.innerText;
-            const originalColor = btn.style.background;
-
-            if (!email || !pass) { setBtnError(btn, "ЗАПОЛНИТЕ ПОЛЯ", originalText, originalColor); return; }
-
-            btn.innerText = "ПРОВЕРКА...";
-            btn.disabled = true;
-
-            const webhookUrl = 'https://n8n.biomedika.shop/webhook/check-access';
-            try {
-                const response = await fetch(webhookUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email: email, password: pass })
-                });
-                if (response.ok) {
-                    const result = await response.json();
-                    if (result.access === true) {
-                        localStorage.setItem('neiro_access', 'true');
-                        hasAccess = true;
-                        setBtnSuccess(btn, "ДОСТУП РАЗРЕШЕН!");
-                        setTimeout(() => { closeModals(); location.reload(); }, 1500);
-                    } else {
-                        setBtnError(btn, (result.message || "НЕВЕРНО").toUpperCase(), originalText, originalColor);
-                    }
-                } else { setBtnError(btn, "ОШИБКА СЕРВЕРА", originalText, originalColor); }
-            } catch (error) { console.error(error); setBtnError(btn, "СБОЙ СЕТИ", originalText, originalColor); }
-        }
-
-        async function sendToN8N() {
-            const name = document.getElementById('pay-name').value.trim();
-            const email = document.getElementById('pay-email').value.trim();
-            const phone = document.getElementById('pay-phone').value.trim();
-            const btn = document.querySelector('#modal-pay .modal-btn');
-            const originalText = btn.innerText;
-            const originalColor = btn.style.background;
-
-            if(!name || !email || !phone) { setBtnError(btn, "ЗАПОЛНИТЕ ВСЕ", originalText, originalColor); return; }
-            
-            btn.innerText = "ОФОРМЛЯЕМ...";
-            btn.disabled = true;
-
-            const data = { name: name, email: email, phone: phone, date: new Date().toISOString(), product: "Neiro Bistro Course" };
-            const webhookUrl = 'https://n8n.biomedika.shop/webhook/create-order';
-            
-            try {
-                const response = await fetch(webhookUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                });
-                if (response.ok) {
-                    const result = await response.json();
-                    if (result.payment_url) {
-                        setBtnSuccess(btn, "ПЕРЕХОД К ОПЛАТЕ...");
-                        setTimeout(() => window.location.href = result.payment_url, 1000);
-                    } else {
-                        setBtnSuccess(btn, "ЗАЯВКА ПРИНЯТА!");
-                        setTimeout(() => {
-                            closeModals();
-                            document.getElementById('pay-name').value = '';
-                            document.getElementById('pay-email').value = '';
-                            document.getElementById('pay-phone').value = '';
-                            btn.innerText = originalText;
-                            btn.style.background = originalColor;
-                            btn.disabled = false;
-                        }, 2000);
-                    }
-                } else { setBtnError(btn, "ОШИБКА", originalText, originalColor); }
-            } catch (error) { console.error(error); setBtnError(btn, "ОШИБКА СЕТИ", originalText, originalColor); }
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
-
-
