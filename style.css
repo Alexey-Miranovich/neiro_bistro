@@ -173,10 +173,10 @@ a { text-decoration: none; }
 .block-3__title { font-size: 40px; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
 
 .block-3__people {
-    display: flex; justify-content: center; gap: 32px; align-items: flex-end;
-    height: 100%; flex-grow: 1;
+    display: flex; justify-content: center; gap: 2%; align-items: flex-end;
+    height: 100%; flex-grow: 1; flex-wrap: nowrap;
 }
-.person-card { width: 200px; position: relative; display: flex; flex-direction: column; align-items: center; }
+.person-card { width: 25%; max-width: 200px; min-width: 150px; position: relative; display: flex; flex-direction: column; align-items: center; }
 .card-visual { position: relative; width: 100%; }
 .card-visual__arch { width: 100%; position: relative; z-index: 1; opacity: 0.8; }
 .arch-container {
@@ -390,9 +390,9 @@ a { text-decoration: none; }
     /* Люди */
     .block-3 { padding-bottom: 100px; min-height: auto; }
     .block-3__header { padding: 0; text-align: center; margin-bottom: 30px; }
-    .block-3__people { flex-direction: column; align-items: center; gap: 40px; }
-    .person-card { width: 80%; max-width: 260px; }
-    .person-card__name { font-size: 20px !important; }
+    .block-3__people { gap: 2%; }
+    .person-card { width: 40%; min-width: 120px; }
+    .person-card__name { font-size: 16px !important; }
 
     /* Био */
     .block-bio { padding: 50px 0; }
@@ -425,5 +425,4 @@ a { text-decoration: none; }
     /* Цена */
     .price-card { padding: 30px 20px; }
     .price-new { font-size: 36px; }
-
 }
