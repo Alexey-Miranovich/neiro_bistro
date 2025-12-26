@@ -153,9 +153,9 @@ a { text-decoration: none; }
     align-items: center;
 }
 .block-2__text-box {
-    background: rgba(151, 248, 5, 0.4); /* Прозрачность 40% */
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(140, 170, 96, 0.4); /* Зеленая рамка тоньше */
+    background: rgba(151, 248, 5, 0.3); /* Прозрачность 30% */
+    backdrop-filter: blur(2px);
+    border: 1px solid rgba(140, 170, 96, 0.4);
     color: #fff; padding: 40px; border-radius: 24px;
     font-size: 16px; line-height: 1.7; font-weight: 400;
     box-shadow: 0 16px 32px rgba(0,0,0,0.3);
@@ -177,7 +177,7 @@ a { text-decoration: none; }
     height: 100%; flex-grow: 1; flex-wrap: nowrap;
 }
 .person-card { width: 25%; max-width: 270px; min-width: 150px; position: relative; display: flex; flex-direction: column; align-items: center; }
-.card-visual { position: relative; width: 100%; }
+.card-visual { position: relative; width: 95%; }
 .card-visual__arch { width: 100%; position: relative; z-index: 1; opacity: 0.8; }
 .arch-container {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
