@@ -454,7 +454,7 @@ a { text-decoration: none; }
     .lesson-container { flex-direction: column; }
     .lesson-content { max-width: 60%; }
     .lesson-module { font-size: 18px !important; }
-    .lesson-title { font-size: 20px !important; }
+    .lesson-title { font-size: 18px !important; }
 
     /* Split блоки */
     .split-section { flex-direction: column; height: auto; }
@@ -480,5 +480,6 @@ a { text-decoration: none; }
         display: none;
     }
 }
+
 
 
