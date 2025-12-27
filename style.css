@@ -86,12 +86,12 @@ a { text-decoration: none; }
 
 .btn-primary {
     display: inline-block;
-    background: rgba(122, 154, 209, 0.3); /* Чуть ярче фон */
+    background-color: #8fa8db;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(122, 154, 209, 0.6);
     color: #fff;
     padding: 14px 28px;
-    border-radius: var(--radius-btn);
+    border-radius: 50px;
     font-weight: 700;
     font-size: 14px;
     cursor: pointer;
@@ -279,9 +279,25 @@ a { text-decoration: none; }
 }
 .lesson-module { font-size: 24px; opacity: 0.9; margin-bottom: 8px; font-weight: 700; color: var(--color-green); }
 .lesson-title { font-size: 36px; margin-bottom: 24px; line-height: 1.2; }
-.lesson-promo { font-size: 18px; font-weight: 700;}
+.lesson-promo { font-size: 24px; font-weight: 700; line-height: 1.2; margin-bottom: 15px; }
 
 .lesson-desc { font-size: 14px; line-height: 1.6; font-weight: 600; margin-bottom: 16px; }
+
+.lesson-link {
+    display: block;
+    color: #cddc39;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    border-bottom: 1px dashed #cddc39;
+    margin-top: 20px;
+    transition: 0.3s;
+}
+
+.lesson-link:hover {
+    color: #fff;
+    border-bottom-color: #fff;
+}
 
 /* ДВОЙНЫЕ БЛОКИ */
 .split-section { display: flex; width: 100%; min-height: 500px; }
@@ -295,7 +311,34 @@ a { text-decoration: none; }
     padding: 60px;
 }
 .bg-pink { background-color: var(--color-pink); color: #fff; }
-.bg-grey { background-color: #333; color: #fff; } /* Заменил серый на темно-серый для стиля */
+.bg-grey { background-color: #333; color: #fff; }
+
+.split-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 40px;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    z-index: 5;
+}
+
+.split-module-label {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 40px;
+    color: #cddc39;
+    text-transform: uppercase;
+    line-height: 1;
+}
+
+.split-main-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    color: #fff;
+    margin-top: 10px;
+}
 
 .split-inner { max-width: 500px; }
 .split-title { font-size: 42px; margin-bottom: 12px; font-weight: 900; }
@@ -409,15 +452,18 @@ a { text-decoration: none; }
     /* Уроки */
     .lesson-section { padding: 60px 0; text-align: center; }
     .lesson-container { flex-direction: column; }
-    .lesson-content { max-width: 47%; }
+    .lesson-content { max-width: 60%; }
     .lesson-module { font-size: 18px !important; }
     .lesson-title { font-size: 20px !important; }
 
     /* Split блоки */
     .split-section { flex-direction: column; height: auto; }
-    .split-image { height: 250px; order: -1; }
+    .split-image { min-height: 300px; order: -1; }
     .split-content { padding: 40px 20px; }
     .split-title { font-size: 28px !important; }
+    .split-overlay { padding: 20px; }
+    .split-module-label { font-size: 24px; }
+    .split-main-title { font-size: 20px; }
     
     /* Блок 9 */
     .block-9__wrap { flex-direction: column; gap: 30px; }
@@ -427,4 +473,10 @@ a { text-decoration: none; }
     /* Цена */
     .price-card { padding: 30px 20px; }
     .price-new { font-size: 36px; }
+}
+
+@media (max-width: 550px) {
+    .block-bio__content br {
+        display: none;
+    }
 }
