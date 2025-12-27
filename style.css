@@ -462,7 +462,7 @@ a { text-decoration: none; }
     .split-content { padding: 40px 20px; }
     .split-title { font-size: 28px !important; }
     .split-overlay { padding: 50px; }
-    .split-module-label { font-size: 24px; }
+    .split-module-label { font-size: 34px; }
     .split-main-title { font-size: 20px; }
     
     /* Блок 9 */
@@ -480,4 +480,5 @@ a { text-decoration: none; }
         display: none;
     }
 }
+
 
