@@ -88,7 +88,7 @@ a { text-decoration: none; }
     display: inline-block;
     background-color: #8fa8db;
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(122, 154, 209, 0.6);
+    border: 1px solid rgba(122, 154, 209, 0.3);
     color: #fff;
     padding: 14px 28px;
     border-radius: 50px;
@@ -98,10 +98,12 @@ a { text-decoration: none; }
     transition: all 0.3s ease;
     letter-spacing: 0.03em;
     text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    opacity: 0.6;
 }
 .btn-primary:hover { 
     background: rgba(122, 154, 209, 0.6);
     transform: translateY(-2px);
+    opacity: 1;
 }
 
 /* --- МОДАЛЬНЫЕ ОКНА --- */
@@ -178,7 +180,7 @@ a { text-decoration: none; }
 }
 .person-card { width: 25%; max-width: 270px; min-width: 150px; position: relative; display: flex; flex-direction: column; align-items: center; }
 .card-visual { position: relative; width: 95%; }
-.card-visual__arch { width: 100%; position: relative; z-index: 1; opacity: 0.8; }
+.card-visual__arch { width: 100%; position: relative; z-index: 1; opacity: 0.5; }
 .arch-container {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -186,12 +188,11 @@ a { text-decoration: none; }
 }
 .card-visual__avatar {
     width: 75%; border-radius: 50%;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
     margin-bottom: 12px;
 }
 .person-card__name {
     text-align: center; color: #fff;
-    font-size: 18px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); 
+    font-size: 18px; 
     font-weight: 700; line-height: 1.2;
 }
 
@@ -274,10 +275,10 @@ a { text-decoration: none; }
     display: flex; justify-content: space-between; align-items: center; gap: 50px;
 }
 .lesson-content { 
-    color: #fff; max-width: 600px; 
+    color: #fff; max-width: 630px; 
     text-shadow: 0 2px 8px rgba(0,0,0,0.8); /* Тень для текста обязательна */
 }
-.lesson-module { font-size: 24px; opacity: 0.9; margin-bottom: 8px; font-weight: 700; color: var(--color-green); }
+.lesson-module { font-size: 24px; opacity: 0.9; margin-bottom: 8px; font-weight: 700; color: var(--color-white); }
 .lesson-title { font-size: 36px; margin-bottom: 24px; line-height: 1.2; }
 .lesson-promo { font-size: 24px; font-weight: 700; line-height: 1.2; margin-bottom: 15px; }
 
@@ -285,11 +286,10 @@ a { text-decoration: none; }
 
 .lesson-link {
     display: block;
-    color: #cddc39;
+    color: #ffffff;
     font-weight: 600;
     font-size: 15px;
     text-decoration: none;
-    border-bottom: 1px dashed #cddc39;
     margin-top: 20px;
     transition: 0.3s;
 }
@@ -327,7 +327,7 @@ a { text-decoration: none; }
     font-family: 'Montserrat', sans-serif;
     font-weight: 900;
     font-size: 34px;
-    color: #fff;
+    color: #ffffff;
     text-transform: uppercase;
     line-height: 1;
 }
@@ -352,9 +352,9 @@ a { text-decoration: none; }
 .block-9__wrap { display: flex; align-items: center; justify-content: center; gap: 60px; }
 .block-9__img { max-width: 450px; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2)); }
 .block-9__text { text-align: left; color: #111; max-width: 480px; }
-.block-9__text h2 { color: #000; font-size: 48px; margin-bottom: 16px; }
+.block-9__text h2 { color: #ffffff; font-size: 48px; margin-bottom: 16px; }
 .module-subtitle { font-size: 20px; font-weight: 700; margin-bottom: 24px; line-height: 1.4; }
-.block-9__text h4 { color: var(--color-pink); font-size: 18px; margin-bottom: 8px; } /* Розовые подзаголовки */
+.block-9__text h4 { color: #ffffff; font-size: 18px; margin-bottom: 8px; }
 .block-9__text p { font-weight: 500; line-height: 1.6; }
 
 /* ЦЕНЫ И ФУТЕР */
@@ -415,14 +415,14 @@ a { text-decoration: none; }
     p, li, span, .block-bio__text { 
         font-size: 14px !important; /* Читаемый размер */
         line-height: 1.55 !important; /* Воздух между строками! Было 1.1 */
-        font-weight: 400 !important;
+        font-weight: 500 !important;
     }
 
     .container { max-width: 90%; padding: 0 16px; }
 
     /* Кнопки */
     .btn-primary {
-        display: block; width: 40%; max-width: 120px; margin: 0 auto;
+        display: block; width: 44%; max-width: 120px; margin: 0 auto;
         padding: 6px 20px; font-size: 12px !important;
     }
     .btn-access-fixed { padding: 8px 16px; font-size: 10px; }
@@ -452,9 +452,9 @@ a { text-decoration: none; }
     /* Уроки */
     .lesson-section { padding: 60px 0; text-align: center; }
     .lesson-container { flex-direction: column; }
-    .lesson-content { max-width: 60%; }
+   
     .lesson-module { font-size: 18px !important; }
-    .lesson-title { font-size: 18px !important; }
+    .lesson-title { font-size: 16px !important; }
 
     /* Split блоки */
     .split-section { flex-direction: column; height: auto; }
@@ -481,5 +481,96 @@ a { text-decoration: none; }
     }
 }
 
+@media (max-width: 900px) {
+    .lesson-content.w-170 { max-width: 170px; }
+    .lesson-content.w-180 { max-width: 180px; }
+    .lesson-content.w-190 { max-width: 190px; }
+    .lesson-content.w-200 { max-width: 200px; }
+    .lesson-content.w-230 { max-width: 230px; }
+    .lesson-content.w-240 { max-width: 240px; }
+    .lesson-content.w-250 { max-width: 250px; }
+    .lesson-content.w-260 { max-width: 260px; }
+    .lesson-content.w-275 { max-width: 275px; }
+    .lesson-content.w-340 { max-width: 340px; }
+}
 
+/* --- БАЗОВЫЕ НАСТРОЙКИ (для самых маленьких экранов < 330px) --- */
+.person-card {
+    /* --pos-x: двигает ВЛЕВО (-) / ВПРАВО (+)
+       --pos-y: двигает ВВЕРХ (-) / ВНИЗ (+)
+    */
+    --pos-x: 0px; 
+    --pos-y: 0px;
 
+    /* Эту строку не трогай, она применяет твои цифры */
+    transform: translate(var(--pos-x), var(--pos-y));
+    
+    /* Плавность, чтобы при изменении экрана не дергалось резко */
+    transition: transform 0.2s ease-out; 
+}
+
+/* --- НАСТРОЙКИ ПОД РАЗНЫЕ ЭКРАНЫ --- */
+
+/* Старые телефоны и узкие Android */
+@media (min-width: 330px) {
+    .person-card {
+        --pos-x: -4px;
+        --pos-y: 30px;
+    }
+}
+
+/* Большие телефоны (iPhone Pro Max и др.) */
+@media (min-width: 480px) {
+    .person-card {
+        --pos-x: -17px;
+        --pos-y: 0px;
+    }
+}
+
+/* Планшеты (вертикально) */
+@media (min-width: 768px) {
+    .person-card {
+        --pos-x: -16px;
+        --pos-y: 2px;
+    }
+}
+
+/* Планшеты (горизонтально) и маленькие ноутбуки */
+@media (min-width: 1024px) {
+    .person-card {
+        --pos-x: -22px;
+        --pos-y: 5px;
+    }
+}
+
+/* Стандартные ноутбуки (MacBook Air 13" и т.д.) */
+@media (min-width: 1280px) {
+    .person-card {
+        --pos-x: -22px;
+        --pos-y: -2px;
+    }
+}
+
+/* Большие ноутбуки и ПК (1440p) */
+@media (min-width: 1440px) {
+    .person-card {
+        --pos-x: -22px;
+        --pos-y: -10px;
+    }
+}
+
+/* Широкие мониторы (Full HD и больше) */
+@media (min-width: 1600px) {
+    .person-card {
+        --pos-x: -24px; /* Здесь можно, например, 50px */
+        --pos-y: -30px; /* А тут -20px */
+    }
+}
+
+/* Очень большие экраны (iMac, 4K) */
+@media (min-width: 1920px) {
+    .person-card {
+        --pos-x: -28px;
+        --pos-y: -70px;
+    }
+}
