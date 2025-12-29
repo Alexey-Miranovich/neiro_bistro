@@ -44,7 +44,7 @@ async function checkPass() {
     btn.disabled = true;
 
     try {
-        const response = await fetch('https://n8n.biomedika.shop/webhook/check-access', {
+        const response = await fetch('https://n8n.neirobistro.ru/webhook/check-access', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password: pass })
@@ -75,7 +75,7 @@ async function sendToN8N() {
     btn.disabled = true;
 
     try {
-        const response = await fetch('https://n8n.biomedika.shop/webhook/create-order', {
+        const response = await fetch('https://n8n.neirobistro.ru/webhook/create-order', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, email, phone, date: new Date().toISOString(), product: "Neiro Bistro Course" })
@@ -91,4 +91,5 @@ async function sendToN8N() {
             }
         } else { setBtnError(btn, "ОШИБКА", originalText, originalColor); }
     } catch { setBtnError(btn, "ОШИБКА СЕТИ", originalText, originalColor); }
+
 }
