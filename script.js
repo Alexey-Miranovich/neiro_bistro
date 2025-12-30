@@ -87,7 +87,27 @@ async function sendToN8N() {
     const originalText = btn.innerText;
     const originalColor = window.getComputedStyle(btn).backgroundColor;
 
-    if(!name || !email || !phone) { setBtnError(btn, "ЗАПОЛНИТЕ ВСЕ", originalText, originalColor); return; }
+    // 1. Проверка на пустоту
+    if(!name || !email || !phone) { 
+        setBtnError(btn, "ЗАПОЛНИТЕ ВСЕ ПОЛЯ", originalText, originalColor); 
+        return; 
+    }
+
+    // 2. Валидация Email (наличие @ и точки)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        setBtnError(btn, "ОШИБКА В EMAIL", originalText, originalColor);
+        return;
+    }
+
+    // 3. Валидация Телефона (минимум 7 цифр, разрешены +, -, скобки)
+    // Убираем все лишнее, оставляем только цифры
+    const phoneDigits = phone.replace(/\D/g, ''); 
+    // Проверяем длину (обычно номера от 7 до 15 цифр)
+    if (phoneDigits.length < 7 || phoneDigits.length > 15) {
+        setBtnError(btn, "НЕВЕРНЫЙ НОМЕР", originalText, originalColor);
+        return;
+    }
     
     btn.innerText = "ОФОРМЛЯЕМ...";
     btn.disabled = true;
@@ -102,7 +122,7 @@ async function sendToN8N() {
         if (response.ok) {
             const result = await response.json();
             
-            // ЗАДАЧА 2: Проверка на повторную покупку
+            // Проверка на повторную покупку
             if (result.status === 'exists') {
                 setBtnError(btn, "УЖЕ КУПЛЕНО! ПРОВЕРЬТЕ ПОЧТУ", originalText, originalColor);
                 return;
@@ -117,3 +137,4 @@ async function sendToN8N() {
         } else { setBtnError(btn, "ОШИБКА ЗАПРОСА", originalText, originalColor); }
     } catch { setBtnError(btn, "ОШИБКА СЕТИ", originalText, originalColor); }
 }
+
