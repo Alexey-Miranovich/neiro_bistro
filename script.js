@@ -1,6 +1,19 @@
 let hasAccess = localStorage.getItem('neiro_access') === 'true';
 
 document.addEventListener('DOMContentLoaded', () => {
+    // ЗАДАЧА 1: Проверка статуса после оплаты
+    const urlParams = new URLSearchParams(window.location.search);
+    const status = urlParams.get('status');
+
+    if (status === 'success') {
+        openModal('modal-success');
+        // Очищаем URL от параметров, чтобы при обновлении окно не вылезало снова
+        window.history.replaceState({}, document.title, window.location.pathname);
+    } else if (status === 'fail') {
+        alert("Оплата не прошла или была отменена.");
+    }
+
+    // Блокировка кнопок уроков
     const allLessonBtns = document.querySelectorAll('.btn-primary');
     allLessonBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -23,7 +36,7 @@ function setBtnError(btn, text, originalText, originalColor) {
         btn.innerText = originalText;
         btn.style.background = originalColor;
         btn.disabled = false;
-    }, 2000);
+    }, 3000);
 }
 
 function setBtnSuccess(btn, text) {
@@ -31,6 +44,7 @@ function setBtnSuccess(btn, text) {
     btn.style.background = "#00C851";
 }
 
+// ЗАДАЧА 3: Доступ только здесь
 async function checkPass() {
     const email = document.getElementById('auth-email').value.trim();
     const pass = document.getElementById('auth-pass').value.trim();
@@ -49,6 +63,7 @@ async function checkPass() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password: pass })
         });
+        
         if (response.ok) {
             const result = await response.json();
             if (result.access) {
@@ -56,8 +71,11 @@ async function checkPass() {
                 hasAccess = true;
                 setBtnSuccess(btn, "ДОСТУП РАЗРЕШЕН!");
                 setTimeout(() => { closeModals(); location.reload(); }, 1500);
-            } else { setBtnError(btn, "НЕВЕРНО", originalText, originalColor); }
-        } else { setBtnError(btn, "ОШИБКА СЕРВЕРА", originalText, originalColor); }
+            } else { setBtnError(btn, "НЕВЕРНЫЙ ПАРОЛЬ", originalText, originalColor); }
+        } else { 
+            // Обработка случая, когда пользователя нет
+            setBtnError(btn, "НЕТ ТАКОГО УЧЕНИКА", originalText, originalColor); 
+        }
     } catch { setBtnError(btn, "СБОЙ СЕТИ", originalText, originalColor); }
 }
 
@@ -80,16 +98,22 @@ async function sendToN8N() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, email, phone, date: new Date().toISOString(), product: "Neiro Bistro Course" })
         });
+        
         if (response.ok) {
             const result = await response.json();
+            
+            // ЗАДАЧА 2: Проверка на повторную покупку
+            if (result.status === 'exists') {
+                setBtnError(btn, "УЖЕ КУПЛЕНО! ПРОВЕРЬТЕ ПОЧТУ", originalText, originalColor);
+                return;
+            }
+
             if (result.payment_url) {
                 setBtnSuccess(btn, "ПЕРЕХОД К ОПЛАТЕ...");
                 setTimeout(() => window.location.href = result.payment_url, 1000);
             } else {
-                setBtnSuccess(btn, "ЗАЯВКА ПРИНЯТА!");
-                setTimeout(() => { closeModals(); btn.innerText = originalText; btn.style.background = originalColor; btn.disabled = false; }, 2000);
+                setBtnError(btn, "ОШИБКА ПОЛУЧЕНИЯ ССЫЛКИ", originalText, originalColor);
             }
-        } else { setBtnError(btn, "ОШИБКА", originalText, originalColor); }
+        } else { setBtnError(btn, "ОШИБКА ЗАПРОСА", originalText, originalColor); }
     } catch { setBtnError(btn, "ОШИБКА СЕТИ", originalText, originalColor); }
-
 }
