@@ -40,6 +40,14 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+
+function handleBuyClick() {
+    if (hasAccess) {
+        openModal('modal-already-purchased');
+    } else {
+        openModal('modal-pay');
+    }
+}
 function closeModals() { 
     // Проверяем, закрывается ли модальное окно оплаты
     const payModal = document.getElementById('modal-pay');
