@@ -425,7 +425,6 @@
     <section class="block-38 overlay-container" id="section-pay" style="background-image: url('images/fon38.jpg');">
         <div class="block-38__content relative-z">
             <div class="price-card" onclick="openModal('modal-pay')">
-                <div class="badge">СТАРТ: 1 ЯНВАРЯ</div>
                 <p style="color:#bbb; margin-bottom:8px; font-size:13px;">Цена до конца января:</p>
                 <div>
                     <span class="price-old">7.000</span>
@@ -448,7 +447,34 @@
             <input type="text" id="pay-name" class="modal-input" placeholder="Имя">
             <input type="tel" id="pay-phone" class="modal-input" placeholder="Телефон (напр. +79990000000)">
             <input type="email" id="pay-email" class="modal-input" placeholder="Email">
-            <button class="modal-btn" onclick="sendToN8N()">ОПЛАТИТЬ</button>
+            <button class="modal-btn" id="pay-btn" onclick="sendToN8N()">ОПЛАТИТЬ</button>
+            
+            <div class="agreement-section">
+    <label class="checkbox-label">
+        <input type="checkbox" id="agreement-1" class="required-checkbox">
+        <span class="checkmark"></span>
+        <span class="label-text">
+            Нажимая кнопку, я принимаю условия <a href="https://ipv4.google.com/intl/ru/docs/about/" target="_blank">Публичной оферты</a>
+        </span>
+    </label>
+
+    <label class="checkbox-label">
+        <input type="checkbox" id="agreement-2" class="required-checkbox">
+        <span class="checkmark"></span>
+        <span class="label-text">
+            Даю согласие на обработку моих персональных данных в соответствии с <a href="https://ipv4.google.com/intl/ru/docs/about/" target="_blank">Политикой конфиденциальности</a>
+        </span>
+    </label>
+
+    <label class="checkbox-label">
+        <input type="checkbox" id="agreement-3">
+        <span class="checkmark"></span>
+        <span class="label-text">
+            Даю согласие на получение рекламной рассылки (необязательно)
+        </span>
+    </label>
+</div>
+            
             <p style="color:#777; margin-top:12px; cursor:pointer; font-size:11px;" onclick="closeModals()">Закрыть</p>
         </div>
     </div>
@@ -466,19 +492,36 @@
     <div class="custom-modal" id="modal-success">
         <div class="modal-body" style="text-align: center;">
             <h2 style="color: #00C851;">ОБРАБОТКА ЗАКАЗА</h2>
-            <p style="margin: 16px 0; color: #fff; font-size: 14px; line-height: 1.5;">
+            <p style="margin: 16px 0; color: #333; font-size: 14px; line-height: 1.5;">
                 Мы ожидаем подтверждение от банка.<br><br>
                 <b>Если вы оплатили заказ:</b><br>
-                Письмо с паролем придет на вашу почту в течение 30 минут.
+                Письмо с паролем придет на вашу почту в течение 1-2 минут.
             </p>
             <button class="modal-btn" onclick="closeModals()">ПОНЯТНО</button>
         </div>
     </div>
+
+    <!-- Блок техподдержки -->
+    <section class="support-section">
+        <div class="container">
+            <div class="support-content">
+                <div class="support-info">
+                    <h3>Нужна помощь?</h3>
+                    <p>Наша команда поддержки готова ответить на все ваши вопросы</p>
+                </div>
+                <a href="https://t.me/go43434" target="_blank" class="support-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0C5.374 0 0 5.373 0 12s5.374 12 12 12 12-5.373 12-12S18.626 0 12 0zm5.568 8.16l-1.61 7.59c-.12.54-.44.67-.89.42l-2.46-1.81-1.19 1.14c-.13.13-.24.24-.49.24l.17-2.43 4.47-4.03c.19-.17-.04-.27-.3-.1L9.28 13.47l-2.38-.75c-.52-.16-.53-.52.11-.77l9.28-3.58c.43-.16.81.11.67.73z"/>
+                    </svg>
+                    Написать в поддержку
+                </a>
+            </div>
+        </div>
+    </section>
     
     <script src="script.js"></script>
 </body>
 </html>
-
 
 
 
