@@ -110,7 +110,14 @@ async function checkPass() {
                 localStorage.setItem('neiro_access', 'true');
                 hasAccess = true;
                 setBtnSuccess(btn, "ДОСТУП РАЗРЕШЕН!");
-                setTimeout(() => { closeModals(); location.reload(); }, 1500);
+                
+                setTimeout(() => { 
+                    closeModals(); 
+                    // ВОТ ЗДЕСЬ ИЗМЕНЕНИЕ:
+                    // Перезагружаем страницу, очищая адресную строку от ?status=success
+                    window.location.href = window.location.pathname;
+                }, 1500);
+                
             } else { 
                 setBtnError(btn, "НЕВЕРНЫЙ ПАРОЛЬ", originalText, originalColor); 
             }
@@ -196,3 +203,4 @@ async function sendToN8N() {
         setBtnError(btn, "ОШИБКА СЕТИ", originalText, originalColor); 
     }
 }
+
