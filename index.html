@@ -1,535 +1,703 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neiro Bistro | Курс по нейросетям</title>
-    <meta name="description" content="Курс по нейросетям от AI-артистов Аллы Леоновой и Аси Бабковской.">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="responsive-width.css">
-</head>
-<body>
+/* --- ПЕРЕМЕННЫЕ --- */
+:root {
+    --font-main: 'Montserrat', sans-serif;
+    --color-pink: #c75b8a;
+    --color-pink-hover: #a84670;
+    --color-green: #9abd3a;
+    --color-blue: #7a9ad1;
+    --color-blue-dark: #5f82c0;
+    --color-dark: #1d1d1d;
+    --color-light: #ffffff;
+    --radius-card: 24px;
+    --radius-btn: 50px;
+}
 
-    <button class="btn-access-fixed" onclick="openModal('modal-auth')">ВХОД ДЛЯ УЧЕНИКОВ</button>
+/* --- БАЗОВЫЕ СТИЛИ --- */
+body, html {
+    margin: 0; padding: 0;
+    width: 100%;
+    font-family: 'Montserrat', sans-serif;
+    color: #000000;
+    background-color: var(--color-dark);
+    line-height: 1.6; /* Хороший интервал для десктопа */
+    font-weight: 500; /* Сделали чуть жирнее по умолчанию */
+    font-size: 18px;
+    -webkit-font-smoothing: antialiased;
+}
 
-    <section class="block-1 overlay-container" style="background-image: url('images/fon1.jpg');">
-        <img src="images/logo1.png" alt="Neiro Bistro" class="block-1__logo relative-z">
-    </section>
+*, *:before, *:after { box-sizing: border-box; }
 
-    <section class="block-2 overlay-container" style="background-image: url('images/fon2.jpg');">
-        <div class="container block-2__content relative-z">
-            <img src="images/logo2.png" alt="Logo Small" class="block-2__logo">
-            <div class="block-2__text-box">
-                <p>Добро пожаловать на кухню <b>NEIRO BISTRO</b> — пространство для всех, кто хочет изучать нейросети с нуля и углублять свои знания в области искусственного интеллекта!</p>
-                <p>Мы — AI-артисты Алла Леонова и Ася Бабковская.</p>
-                <p>Здесь вы найдёте понятные объяснения и пошаговые инструкции по созданию визуала в ИИ. Курс содержит только самый СОК.</p>
-            </div>
-        </div>
-    </section>
+h1, h2, h3, h4 {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.01em; /* Чуть разрядил заголовки */
+    color: #FFFFFF;
+}
 
-    <section class="block-3 overlay-container" style="background-image: url('images/fon3.jpg');">
-        <div class="block-3__header relative-z">
-            <h2 class="block-3__title">КТО МЫ?</h2>
-        </div>
-        <div class="block-3__people relative-z">
-            <div class="person-card">
-                <div class="card-visual">
-                    <img src="images/arch3.png" class="card-visual__arch">
-                    <div class="arch-container">
-                        <img src="images/alla3.png" class="card-visual__avatar">
-                        <h3 class="person-card__name">ALLA<br>LEONOVA</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="person-card">
-                <div class="card-visual">
-                    <img src="images/arch3.png" class="card-visual__arch">
-                    <div class="arch-container">
-                        <img src="images/asya3.png" class="card-visual__avatar">
-                        <h3 class="person-card__name">ASYA<br>BABKOVSKAIA</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+h1 { font-size: 64px; margin-bottom: 24px; }
+h2 { font-size: 48px; }
 
-    <section class="block-bio block-4">
-        <div class="container block-container">
-            <h1>АЛЛА ЛЕОНОВА</h1>
-            <div class="block-bio__img-wrap"><img src="images/alla4.png" alt="Alla" class="block-bio__img"></div>
-            <div class="block-bio__content">
-                <p class="block-bio__text">AI-артист, архитектор и сценарист.<br> Создаю клипы на свои стихи, сотрудничаю с<br> режиссерами и брендами по ии-визуализации.<br> Работала с режиссером Дарьей Лебедевой, а мою<br> рекламу для BARRY GROUP, созданную в ai,<br> транслировали на больших экранах.</p>
-            </div>
-        </div>
-    </section>
+img { display: block; width: 100%; height: auto; }
+a { text-decoration: none; }
 
-    <section class="block-bio block-5">
-        <div class="container block-container">
-            <h1>АСЯ БАБКОВСКАЯ</h1>
-            <div class="block-bio__img-wrap"><img src="images/ASYA_BABKOVSKA5.png" alt="Asya" class="block-bio__img"></div>
-            <div class="block-bio__content">
-                <p class="block-bio__text">ИИ-артист и креатор с 7-летним опытом по созданию<br> визуала для брендов. Основные направления в моей<br> работе: нейросети/генеративный арт, моушн, графический<br> дизайн. Режисёрский опыт: постановка и режиссура<br> рекламных и творческих роликов.<br><br> География проектов: Россия-Москва, Санкт-Петербург,<br> Крым, Пятигорск, Сочи, ОАЭ-Дубай, Латинская Америка.</p>
-            </div>
-        </div>
-    </section>
+.container {
+    max-width: 1100px;
+    width: 90%;
+    margin: 0 auto;
+    padding: 0 20px;
+}
 
-    <section class="block-6 overlay-container" style="background-image: url('images/fon6.jpg');">
-        <div class="container block-6__content relative-z">
-            <img src="images/vaza6.png" class="block-6__image" alt="Vase">
-            <h2 class="block-6__title">ЧТО БУДЕТ НА КУРСЕ?</h2>
-        </div>
-    </section>
+/* --- УЛУЧШЕНИЕ ЧИТАЕМОСТИ ФОНА (ЗАТЕМНЕНИЕ) --- */
+.overlay-container {
+    position: relative;
+    /* Важно: z-index не задаем, чтобы не перекрыть модалки */
+}
 
-    <section class="block-modules block-7 overlay-container" style="background-image: url('images/fon7.jpg');">
-        <div class="container modules-layout relative-z">
-            <img src="images/logo7.png" class="modules-logo">
-            <div class="modules-grid">
-                <div class="module-card module-card--active">МОДУЛЬ 1</div>
-                <div class="module-card">МОДУЛЬ 2</div>
-                <div class="module-card">МОДУЛЬ 3</div>
-                <div class="module-card">МОДУЛЬ 4</div>
-                <div class="module-card">МОДУЛЬ 5</div>
-                <div class="module-card">МОДУЛЬ 6</div>
-            </div>
-        </div>
-    </section>
+/* Создаем черную полупрозрачную подложку */
+.overlay-container::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.20); /* 20% затемнения - текст станет четким */
+    z-index: 1;
+}
 
-    <section class="block-modules block-8 overlay-container" style="background-image: url('images/fon8.jpg');">
-        <div class="container modules-layout relative-z">
-            <img src="images/logo8.png" class="modules-logo">
-            <div class="modules-grid">
-                <div class="module-card module-card--active-pink">GPT</div>
-                <div class="module-card">FLUX /<br>HIGSFIELD</div>
-                <div class="module-card">MIDJOURNEY</div>
-                <div class="module-card">NANO /<br>RUNWAY</div>
-                <div class="module-card">VIDEO</div>
-                <div class="module-card">AUDIO</div>
-            </div>
-        </div>
-    </section>
+/* Этот класс кидаем на контент, чтобы он лежал ПОВЕРХ затемнения */
+.relative-z {
+    position: relative;
+    z-index: 2;
+}
 
-    <section class="block-9">
-        <div class="container block-9__wrap">
-            <img src="images/tarelka9.png" class="block-9__img">
-            <div class="block-9__text">
-                <h2>МОДУЛЬ 1</h2>
-                <p style="font-weight: 500;">Чат GPT. Создание структуры промпта.</p>
-                <div><h4>Урок 1</h4><p>Навигация по syntx. Альтернативы. Какой GPT лучше?</p></div>
-                <div><h4>Урок 2</h4><p>От идеи до сценария. GPT как сценарный ассистент.</p></div>
-            </div>
-        </div>
-    </section>
+/* --- КНОПКИ --- */
+.btn-access-fixed {
+    position: fixed; top: 20px; right: 20px; z-index: 999;
+    background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #fff; padding: 10px 20px; border-radius: var(--radius-btn);
+    font-family: var(--font-main); font-weight: 600; font-size: 12px;
+    cursor: pointer; transition: 0.3s;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5); /* Тень для читаемости */
+}
+.btn-access-fixed:hover { background: var(--color-blue); border-color: transparent; }
 
-    <section class="lesson-section overlay-container" style="background-image: url('images/fon10.jpg');">
-        <div class="container lesson-container relative-z">
-            <div class="lesson-content w-200">
-                <div class="lesson-module">МОДУЛЬ 1</div>
-                <h2 class="lesson-title">УРОК 1</h2>
-                <p class="lesson-desc">Навигация по платформе Syntx. Альтернативы.<br>Какой GPT лучше использовать и почему.</p>
-                <a href="https://t.me/syntxaibot?start=aff_325696676" target="_blank" class="lesson-link">Перейти в Syntx AI Bot</a>
-            </div>
-            <a href="https://s3.ru1.storage.beget.cloud/ea682f4fd8a3-mesmerizing-phoenix/neiro_bistro_video/m1_y1.mp4" class="btn-primary">СМОТРЕТЬ</a>
-        </div>
-    </section>
+.btn-primary {
+    display: inline-block;
+    background-color: #8fa8db;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(122, 154, 209, 0.3);
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.03em;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    opacity: 0.6;
+}
+.btn-primary:hover { 
+    background: rgba(122, 154, 209, 0.6);
+    transform: translateY(-2px);
+    opacity: 1;
+}
 
-    <section class="lesson-section overlay-container" style="background-image: url('images/fon11.jpg');">
-        <div class="container lesson-container relative-z">
-            <div class="lesson-content w-190">
-                <div class="lesson-module">МОДУЛЬ 1</div>
-                <h2 class="lesson-title">УРОК 2 | Ч.1</h2>
-                <p class="lesson-desc">От идеи до сценария - как использовать GPT для рекламы, мультика или истории.</p>
-            </div>
-            <a href="https://s3.ru1.storage.beget.cloud/ea682f4fd8a3-mesmerizing-phoenix/neiro_bistro_video/m1_y2_1.mp4" class="btn-primary">СМОТРЕТЬ</a>
-        </div>
-    </section>
-
-    <section class="lesson-section overlay-container" style="background-image: url('images/fon12.jpg');">
-        <div class="container lesson-container relative-z">
-            <div class="lesson-content w-200">
-                <div class="lesson-module">МОДУЛЬ 1</div>
-                <h2 class="lesson-title">УРОК 2 | Ч.2</h2>
-                <p class="lesson-desc">Продолжение работы со сценариями и промптами.</p>
-            </div>
-            <a href="https://s3.ru1.storage.beget.cloud/ea682f4fd8a3-mesmerizing-phoenix/neiro_bistro_video/m1_y2_2.mp4" class="btn-primary">СМОТРЕТЬ</a>
-        </div>
-    </section>
-
-    <section class="split-section">
-        <div class="split-image">
-            <img src="images/foto13.png" alt="Module 2 Photo">
-            <div class="split-overlay">
-                <div class="split-module-label">МОДУЛЬ 2</div>
-                <div class="split-main-title">Нейрофотосессия</div>
-            </div>
-        </div>
-        <div class="split-content bg-pink">
-            <div class="split-inner">
-                <h2 class="split-title">МОДУЛЬ 2</h2>
-                <p class="split-sub">Нейрофотосессия</p>
-                <div class="split-item"><h4>Урок 1</h4><p>Создание LORA во FLUX</p></div>
-                <div class="split-item"><h4>Урок 2</h4><p>Создание LORA в Higsfield</p></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="lesson-section overlay-container" style="background-image: url('images/fon14.jpg');">
-        <div class="container lesson-container relative-z">
-            <div class="lesson-content"><div class="lesson-module">МОДУЛЬ 2</div><h2 class="lesson-title">УРОК 1 | Ч.1</h2><p class="lesson-desc">Создание LORA во FLUX</p></div>
-            <a href="https://s3.ru1.storage.beget.cloud/ea682f4fd8a3-mesmerizing-phoenix/neiro_bistro_video/m2_y1_1.mp4" class="btn-primary">СМОТРЕТЬ</a>
-        </div>
-    </section>
-    <section class="lesson-section overlay-container" style="background-image: url('images/fon15.jpg');">
-        <div class="container lesson-container relative-z">
-            <div class="lesson-content w-180"><div class="lesson-module">МОДУЛЬ 2</div><h2 class="lesson-title">УРОК 1 | Ч.2</h2><p class="lesson-desc">Практика создания LORA во FLUX</p></div>
-            <a href="https://s3.ru1.storage.beget.cloud/ea682f4fd8a3-mesmerizing-phoenix/neiro_bistro_video/m2_y1_2.mp4" class="btn-primary">СМОТРЕТЬ</a>
-        </div>
-    </section>
-    <section class="lesson-section overlay-container" style="background-image: url('images/fon16.jpg');">
-        <div class="container lesson-container relative-z">
-            <div class="lesson-content"><div class="lesson-module">МОДУЛЬ 2</div><h2 class="lesson-title">УРОК 2 | Ч.1</h2><p class="lesson-desc">Создание LORA в HIGSFIELD</p></div>
-            <a href="https://s3.ru1.storage.beget.cloud/ea682f4fd8a3-mesmerizing-phoenix/neiro_bistro_video/m2_y2_1.mp4" class="btn-primary">СМОТРЕТЬ</a>
-        </div>
-    </section>
-    <section class="lesson-section overlay-container" style="background-image: url('images/fon17.jpg');">
-        <div class="container lesson-container relative-z">
-            <div class="lesson-content"><div class="lesson-module">МОДУЛЬ 2</div><h2 class="lesson-title">УРОК 2 | Ч.2</h2><p class="lesson-desc">Практика в HIGSFIELD</p></div>
-            <a href="https://s3.ru1.storage.beget.cloud/ea682f4fd8a3-mesmerizing-phoenix/neiro_bistro_video/m2_y2_2.mp4" class="btn-primary">СМОТРЕТЬ</a>
-        </div>
-    </section>
-
-    <section class="split-section">
-        <div class="split-image">
-            <img src="images/foto18.png" alt="Module 3 Photo">
-            <div class="split-overlay">
-                <div class="split-module-label">МОДУЛЬ 3</div>
-                <div class="split-main-title">Midjourney - нейронка,<br>которая задает стиль.</div>
-            </div>
-        </div>
-        <div class="split-content bg-grey">
-            <div class="split-inner">
-                <h2 class="split-title">МОДУЛЬ 3</h2>
-                <p class="split-sub">Midjourney — нейронка,<br>которая задает стиль</p>
-                <div class="split-item"><h4>Урок 1</h4><p>Навигация, редактор, описатель.</p></div>
-                <div class="split-item"><h4>Урок 2</h4><p>Структура промпта. Коды стиля.</p></div>
-                <div class="split-item"><h4>Урок 3</h4><p>Персонаж на базе Omnireference.</p></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="lesson-section overlay-container" style="background-image: url('images/fon19.jpg');">
-        <div class="container lesson-container relative-z">
-            <div class="lesson-content w-200"><div class="lesson-module">МОДУЛЬ 3</div><h2 class="lesson-title">УРОК 1</h2><p class="lesson-desc">Навигация по MJ. Редактор и описатель.</p></div>
-            <a href="https://s3.ru1.storage.beget.cloud/ea682f4fd8a3-mesmerizing-phoenix/neiro_bistro_video/m3_y1.mp4" class="btn-primary">СМОТРЕТЬ</a>
-        </div>
-    </section>
+/* --- МОДАЛЬНЫЕ ОКНА --- */
+.custom-modal {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
+    display: none; align-items: center; justify-content: center; z-index: 10000;
+}
+.modal-body {
+    background: #1a1a1a; padding: 36px; border-radius: 20px;
+    max-width: 360px; width: 90%; text-align: center; border: 1px solid #333;
+}
+.modal-body h2 { color: #fff; font-size: 20px; margin-bottom: 20px; font-weight: 600; }
+.modal-input {
+    width: 100%; padding: 12px 14px; margin-bottom: 10px;
+    border-radius: 10px; border: 1px solid #333; background: #000; color: #fff;
+    font-family: var(--font-main); font-size: 14px; outline: none;
+}
+.modal-input:focus { border-color: var(--color-blue); }
+.modal-btn {
+    width: 100%; padding: 12px; background: var(--color-blue);
+    border: none; color: #fff; font-weight: 700; border-radius: 10px; cursor: pointer; transition: 0.3s;
+    font-family: var(--font-main); font-size: 14px;
+}
+.modal-btn:hover { background: var(--color-blue-dark); }
+.modal-close { color:#777; margin-top:12px; cursor:pointer; font-size:12px; }
 
 
-   <section class="lesson-section overlay-container" style="background-image: url('images/fon20.jpg');">
-    <div class="container lesson-container relative-z">
-        <div class="lesson-content w-230">
-            <div class="lesson-module">МОДУЛЬ 3</div>
-            <h2 class="lesson-title">УРОК 2 | Ч.1</h2>
-            <p class="lesson-promo">Midjourney — нейронка,<br>которая задает стиль.</p>
-            <p class="lesson-desc">
-                Структура промпта.<br>
-                Создание вашего уникального стильного<br>
-                контента на базе кодов стиля,<br>
-                референсов стиля.
-            </p>
-        </div>
-        <a href="https://s3.ru1.storage.beget.cloud/ea682f4fd8a3-mesmerizing-phoenix/neiro_bistro_video/m3_y2_1.mp4" class="btn-primary">СМОТРЕТЬ</a>
-    </div>
-</section>
+/* ================= СТРУКТУРА БЛОКОВ ================= */
+.block-1 {
+    width: 100%; height: 41vh;
+    background-image: url('images/fon1.jpg');
+    background-size: cover; background-position: center;
+    display: flex; justify-content: center; align-items: center;
+}
+.block-1__logo {
+    max-width: 350px; width: 70%;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+}
 
-<section class="lesson-section overlay-container" style="background-image: url('images/fon20.jpg');">
-    <div class="container lesson-container relative-z">
-        <div class="lesson-content w-230">
-            <div class="lesson-module">МОДУЛЬ 3</div>
-            <h2 class="lesson-title">УРОК 2 | Ч.2</h2>
-            <p class="lesson-promo">Midjourney — нейронка,<br>которая задает стиль.</p>
-            <p class="lesson-desc">
-                Структура промпта.<br>
-                Создание вашего уникального стильного<br>
-                контента на базе кодов стиля,<br>
-                референсов стиля.
-            </p>
-        </div>
-        <a href="https://s3.ru1.storage.beget.cloud/ea682f4fd8a3-mesmerizing-phoenix/neiro_bistro_video/m3_y2_2.mp4" class="btn-primary">СМОТРЕТЬ</a>
-    </div>
-</section>
+.block-2 {
+    padding: 70px 0;
+    background-image: url('images/fon2.jpg');
+    background-size: cover; background-position: center;
+}
+.block-2__content {
+    display: grid; grid-template-columns: 200px 1fr; gap: 50px;
+    align-items: center;
+}
+.block-2__text-box {
+    background: rgba(151, 248, 5, 0.3); /* Прозрачность 30% */
+    backdrop-filter: blur(2px);
+    border: 1px solid rgba(140, 170, 96, 0.4);
+    color: #fff; padding: 40px; border-radius: 24px;
+    font-size: 16px; line-height: 1.7; font-weight: 400;
+    box-shadow: 0 16px 32px rgba(0,0,0,0.3);
+}
+.block-2__text-box p { margin-bottom: 20px; color: #fff; }
 
-<section class="lesson-section overlay-container" style="background-image: url('images/fon20.jpg');">
-    <div class="container lesson-container relative-z">
-        <div class="lesson-content w-230">
-            <div class="lesson-module">МОДУЛЬ 3</div>
-            <h2 class="lesson-title">УРОК 2 | Ч.3</h2>
-            <p class="lesson-promo">Midjourney — нейронка,<br>которая задает стиль.</p>
-            <p class="lesson-desc">
-                Структура промпта.<br>
-                Создание вашего уникального стильного<br>
-                контента на базе кодов стиля,<br>
-                референсов стиля.
-            </p>
-            <a href="https://chatgpt.com/g/g-69431b8e650081919f68555edbef8db3-midzhornei-vasilevich" target="_blank" class="lesson-link">Миджорней Васильевич</a>
-        </div>
-        <a href="https://s3.ru1.storage.beget.cloud/ea682f4fd8a3-mesmerizing-phoenix/neiro_bistro_video/m3_y2_3.mp4" class="btn-primary">СМОТРЕТЬ</a>
-    </div>
-</section>
+.block-3 {
+    padding: 156px 0 200px;
+    background-image: url('images/fon3.jpg');
+    background-size: cover; background-position: center bottom;
+    min-height: 700px;
+    display: flex; flex-direction: column;
+}
+.block-3__header { padding-left: 10%; margin-bottom: 32px; }
+.block-3__title { font-size: 40px; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+
+.block-3__people {
+    display: flex; justify-content: center; gap: 2%; align-items: flex-end;
+    height: 100%; flex-grow: 1; flex-wrap: nowrap;
+}
+.person-card { width: 25%; max-width: 270px; min-width: 150px; position: relative; display: flex; flex-direction: column; align-items: center; }
+.card-visual { position: relative; width: 95%; }
+.card-visual__arch { width: 100%; position: relative; z-index: 1; opacity: 0.5; }
+.arch-container {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    z-index: 2;
+}
+.card-visual__avatar {
+    width: 75%; border-radius: 50%;
+    margin-bottom: 12px;
+}
+.person-card__name {
+    text-align: center; color: #fff;
+    font-size: 18px; 
+    font-weight: 700; line-height: 1.2;
+}
+
+/* БИОГРАФИЯ (Текст на сером фоне) */
+.block-bio {
+    padding: 80px 0; background: rgba(169,165,166);
+    display: flex; justify-content: center;
+}
+.block-container {
+    display: flex; flex-direction: column; align-items: center; text-align: center; gap: 24px;
+}
+.block-container h1 {
+    color: #ffffff !important;
+    text-shadow: none;
+    font-size: 48px;
+}
+.block-bio__img-wrap {
+    width: 340px; height: 340px; border-radius: 50%; overflow: hidden; margin: 0 auto;
+    box-shadow: 0 16px 32px rgba(0,0,0,0.15);
+}
+.block-bio__img { width: 100%; height: 100%; object-fit: cover; }
+.block-bio__text { 
+    font-size: 18px; 
+    margin-bottom: 16px; 
+    color: #111; /* Глубокий черный */
+    max-width: 600px; /* Чуть шире */
+    font-weight: 500; /* Жирнее! */
+    line-height: 1.7; /* Больше воздуха */
+    white-space: pre-line;
+}
+
+.block-6 {
+    padding: 80px 0;
+    background-image: url('images/fon6.jpg');
+    background-size: cover; background-position: center;
+}
+.block-6__content {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 36px;
+}
+.block-6__title { 
+    font-size: 52px; line-height: 1.1; 
+    text-shadow: 0 4px 12px rgba(0,0,0,0.6);
+    text-align: center;
+    order: 2;
+}
+.block-6__image { width: 260px; transform: rotate(-5deg); transition: 0.3s; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3)); order: 1; }
+
+/* МОДУЛИ */
+.block-modules {
+    padding: 80px 0;
+    background-size: cover; background-position: center;
+}
+.block-7 { background-image: url('images/fon7.jpg'); }
+.block-8 { background-image: url('images/fon8.jpg'); }
+
+.modules-layout { display: flex; justify-content: flex-start; align-items: flex-end; gap: 40px; }
+.modules-logo { width: 260px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5)); }
+.modules-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.module-card {
+    width: 160px; height: 110px;
+    background: rgba(0, 0, 0, 0.4); /* Темнее подложка */
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    display: flex; justify-content: center; align-items: center; text-align: center;
+    font-weight: 700; font-size: 15px; color: #fff;
+    padding: 12px; transition: 0.3s;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+.module-card:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-4px); }
+.module-card--active { background: var(--color-green); border: none; color: #fff; text-shadow: none; }
+.module-card--active-pink { background: var(--color-pink); border: none; color: #fff; text-shadow: none; }
+
+/* УРОКИ (Общие стили) */
+.lesson-section {
+    padding: 90px 0;
+    background-size: cover; background-position: center;
+}
+.lesson-container {
+    display: flex; justify-content: space-between; align-items: center; gap: 50px;
+}
+.lesson-content { 
+    color: #fff; max-width: 630px; 
+    text-shadow: 0 2px 8px rgba(0,0,0,0.8); /* Тень для текста обязательна */
+}
+.lesson-module { font-size: 24px; opacity: 0.9; margin-bottom: 8px; font-weight: 700; color: var(--color-white); }
+.lesson-title { font-size: 36px; margin-bottom: 24px; line-height: 1.2; }
+.lesson-promo { font-size: 24px; font-weight: 700; line-height: 1.2; margin-bottom: 15px; }
+
+.lesson-desc { font-size: 14px; line-height: 1.6; font-weight: 600; margin-bottom: 16px; }
+
+.lesson-link {
+    display: block;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    margin-top: 20px;
+    transition: 0.3s;
+}
+
+.lesson-link:hover {
+    color: #fff;
+    border-bottom-color: #fff;
+}
+
+/* ДВОЙНЫЕ БЛОКИ */
+.split-section { display: flex; width: 100%; min-height: 500px; }
+.split-image {
+    flex: 1;
+    background-size: cover; background-position: center;
+    position: relative; overflow: hidden;
+}
+.split-content {
+    flex: 1; display: flex; align-items: center; justify-content: center;
+    padding: 60px;
+}
+.bg-pink { background-color: var(--color-pink); color: #fff; }
+.bg-grey { background-color: #333; color: #fff; }
+
+.split-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 50px;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    z-index: 5;
+}
+
+.split-module-label {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 34px;
+    color: #ffffff;
+    text-transform: uppercase;
+    line-height: 1;
+}
+
+.split-main-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: #fff;
+    margin-top: 10px;
+}
+
+.split-inner { max-width: 500px; }
+.split-title { font-size: 42px; margin-bottom: 12px; font-weight: 900; }
+.split-sub { font-size: 22px; opacity: 0.9; margin-bottom: 32px; font-weight: 600; }
+.split-item { margin-bottom: 28px; }
+.split-item h4 { font-size: 18px; margin-bottom: 6px; opacity: 0.9; font-weight: 700; text-transform: uppercase; }
+.split-item p { font-size: 16px; line-height: 1.6; font-weight: 400; opacity: 0.9; }
+
+/* БЛОК 9 (Программа 1 модуля) */
+.block-9 { padding: 80px 0; background: #e0e0e0; } /* Светлый фон */
+.block-9__wrap { display: flex; align-items: center; justify-content: center; gap: 60px; }
+.block-9__img { max-width: 450px; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2)); }
+.block-9__text { text-align: left; color: #111; max-width: 480px; }
+.block-9__text h2 { color: #ffffff; font-size: 48px; margin-bottom: 16px; }
+.module-subtitle { font-size: 20px; font-weight: 700; margin-bottom: 24px; line-height: 1.4; }
+.block-9__text h4 { color: #ffffff; font-size: 18px; margin-bottom: 8px; }
+.block-9__text p { font-weight: 500; line-height: 1.6; }
+
+/* ЦЕНЫ И ФУТЕР */
+.block-38 {
+    padding: 100px 20px;
+    background-image: url('images/fon38.jpg');
+    background-size: cover; background-position: center;
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+}
+.block-38__content {
+    display: flex; flex-direction: column; align-items: center;
+}
+.price-card {
+    background: rgba(20, 20, 20, 0.8); /* Темная плашка */
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 50px 40px; border-radius: 32px;
+    text-align: center; max-width: 420px; width: 100%;
+    box-shadow: 0 24px 48px rgba(0,0,0,0.5);
+    transition: transform 0.3s;
+}
+.price-card:hover { transform: translateY(-8px); border-color: var(--color-pink); }
+.price-label { color:#ccc; margin-bottom:12px; font-size:14px; }
+.price-old { text-decoration: line-through; color: #888; font-size: 24px; margin-right: 16px; font-weight: 500; }
+.price-new { font-size: 36px; color: var(--color-pink); font-weight: 800; }
+.buy-btn {
+    width: 100%; background: var(--color-pink); color: #fff; border: none;
+    padding: 18px; font-size: 16px; font-weight: 800; border-radius: 16px;
+    margin-top: 28px; cursor: pointer; transition: 0.3s;
+    letter-spacing: 0.05em;
+    font-family: var(--font-main);
+}
+.buy-btn:hover { background: var(--color-pink-hover); transform: scale(1.02); }
+
+.join-title { font-size: 24px; margin: 40px 0 20px; color: #fff; text-shadow: 0 2px 4px #000; }
+.social-links { display:flex; gap:24px; justify-content:center; }
+.link-tg { color:var(--color-blue); font-weight:700; font-size:16px; text-shadow: 0 1px 2px #000; }
+.link-insta { color:var(--color-pink); font-weight:700; font-size:16px; text-shadow: 0 1px 2px #000; }
+
+/* СТИЛИ ДЛЯ ЧЕКБОКСОВ В МОДАЛЬНОМ ОКНЕ */
+.agreement-section {
+    margin: 20px 0;
+    text-align: left;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    font-size: 12px;
+    color: #ccc;
+    cursor: pointer;
+    line-height: 1.4;
+}
+
+.checkbox-label input[type="checkbox"] {
+    display: none;
+}
+
+.checkmark {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #555;
+    border-radius: 3px;
+    margin-right: 8px;
+    flex-shrink: 0;
+    position: relative;
+    transition: all 0.3s;
+    margin-top: 1px;
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkmark {
+    background-color: var(--color-blue);
+    border-color: var(--color-blue);
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkmark::after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.checkbox-label a {
+    color: var(--color-blue);
+    text-decoration: underline;
+}
+
+.checkbox-label a:hover {
+    color: var(--color-blue-dark);
+}
+
+/* БЛОК ТЕХПОДДЕРЖКИ */
+.support-section {
+    background: #1a1a1a;
+    padding: 40px 0;
+    border-top: 1px solid #333;
+}
+
+.support-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+}
+
+.support-info h3 {
+    color: #fff;
+    font-size: 24px;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.support-info p {
+    color: #ccc;
+    font-size: 14px;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.support-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--color-blue);
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s;
+    white-space: nowrap;
+}
+
+.support-btn:hover {
+    background: var(--color-blue-dark);
+    transform: translateY(-2px);
+}
+
+.support-btn svg {
+    flex-shrink: 0;
+}
 
 
-
-
-
-
-    <section class="lesson-section overlay-container" style="background-image: url('images/fon21.jpg');">
-        <div class="container lesson-container relative-z">
-            <div class="lesson-content w-230"><div class="lesson-module">МОДУЛЬ 3</div><h2 class="lesson-title">УРОК 3</h2><p class="lesson-desc">Создание персонажа. Omnireference.</p></div>
-            <a href="https://s3.ru1.storage.beget.cloud/ea682f4fd8a3-mesmerizing-phoenix/neiro_bistro_video/m3_y3.mp4" class="btn-primary">СМОТРЕТЬ</a>
-        </div>
-    </section>
-
-    <section class="split-section">
-        <div class="split-image">
-            <img src="images/foto22.png" alt="Module 4 Photo">
-            <div class="split-overlay">
-                <div class="split-module-label">МОДУЛЬ 4</div>
-                <div class="split-main-title">Сохранение персонажа,<br>коммерческие возможности.<br>Nano banano, SeeDream, Runway.</div>
-            </div>
-        </div>
-        <div class="split-content bg-pink">
-            <div class="split-inner">
-                <h2 class="split-title">МОДУЛЬ 4</h2>
-                <p class="split-sub">Сохранение персонажа. Коммерция.</p>
-                <p>Nano Banana, SeeDream, Runway</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="lesson-section overlay-container" style="background-image: url('images/fon23.jpg');">
-        <div class="container lesson-container relative-z">
-            <div class="lesson-content w-275"><div class="lesson-module">МОДУЛЬ 4</div><h2 class="lesson-title">УРОК 1</h2><p class="lesson-desc">Навигация, бесплатные альтернативы, коммерческие заказы.</p></div>
-            <a href="https://s3.ru1.storage.beget.cloud/ea682f4fd8a3-mesmerizing-phoenix/neiro_bistro_video/m4_y1.mp4" class="btn-primary">СМОТРЕТЬ</a>
-        </div>
-    </section>
-    <section class="lesson-section overlay-container" style="background-image: url('images/fon24.jpg');">
-        <div class="container lesson-container relative-z">
-            <div class="lesson-content w-240"><div class="lesson-module">МОДУЛЬ 4</div><h2 class="lesson-title">УРОК 2</h2><p class="lesson-desc">Фотосессии с множеством героев пошагово.</p></div>
-            <a href="https://s3.ru1.storage.beget.cloud/ea682f4fd8a3-mesmerizing-phoenix/neiro_bistro_video/m4_y2.mp4" class="btn-primary">СМОТРЕТЬ</a>
-        </div>
-    </section>
-    <section class="lesson-section overlay-container" style="background-image: url('images/fon25.jpg');">
-        <div class="container lesson-container relative-z">
-            <div class="lesson-content w-240"><div class="lesson-module">МОДУЛЬ 4</div><h2 class="lesson-title">УРОК 3</h2><p class="lesson-desc">Смена ракурсов, изменение фона с сохранением героя.</p></div>
-            <a href="https://s3.ru1.storage.beget.cloud/ea682f4fd8a3-mesmerizing-phoenix/neiro_bistro_video/m4_y3.mp4" class="btn-primary">СМОТРЕТЬ</a>
-        </div>
-    </section>
-    <section class="lesson-section overlay-container" style="background-image: url('images/fon26.jpg');">
-        <div class="container lesson-container relative-z">
-            <div class="lesson-content w-240"><div class="lesson-module">МОДУЛЬ 4</div><h2 class="lesson-title">УРОК 4</h2><p class="lesson-desc">Альтернативный способ сохранения: Runway Frames.</p></div>
-            <a href="https://s3.ru1.storage.beget.cloud/ea682f4fd8a3-mesmerizing-phoenix/neiro_bistro_video/m4_y4.mp4" class="btn-primary">СМОТРЕТЬ</a>
-        </div>
-    </section>
-
-    <section class="split-section">
-        <div class="split-image">
-            <img src="images/foto27.png" alt="Module 5 Photo">
-            <div class="split-overlay">
-                <div class="split-module-label">МОДУЛЬ 5</div>
-                <div class="split-main-title">Видео блок</div>
-            </div>
-        </div>
-        <div class="split-content bg-grey">
-            <div class="split-inner">
-                <h2 class="split-title">МОДУЛЬ 5</h2>
-                <p class="split-sub">Видео блок</p>
-                <div class="split-item"><p>Veo 3.1, Kling, Sora, Luma, Midjourney Video</p></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="lesson-section overlay-container" style="background-image: url('images/fon28.jpg');">
-        <div class="container lesson-container relative-z">
-            <div class="lesson-content w-260"><h2 class="lesson-title">МОДУЛЬ 5 | УРОК 1</h2><p class="lesson-desc">Навигация по видео-нейросетям.</p></div>
-            <a href="https://s3.ru1.storage.beget.cloud/ea682f4fd8a3-mesmerizing-phoenix/neiro_bistro_video/m5_y1.mp4" class="btn-primary">СМОТРЕТЬ</a>
-        </div>
-    </section>
-    <section class="lesson-section overlay-container" style="background-image: url('images/fon29.jpg');">
-        <div class="container lesson-container relative-z">
-            <div class="lesson-content w-250"><h2 class="lesson-title">МОДУЛЬ 5 | УРОК 2</h2><p class="lesson-desc">Veo 3.1 - Text to Video.<br>Видео без референса.</p>
-            <a href="https://s3.ru1.storage.beget.cloud/5c700d161bd9-infinite-sabina/neiro_bistro_failes/новый 1.txt" target="_blank" class="lesson-link">ИНСТРУКЦИЯ ДЛЯ ChatGPT</a></div>
-            <a href="https://s3.ru1.storage.beget.cloud/ea682f4fd8a3-mesmerizing-phoenix/neiro_bistro_video/m5_y2.mp4" class="btn-primary">СМОТРЕТЬ</a>
-        </div>
-    </section>
-    <section class="lesson-section overlay-container" style="background-image: url('images/fon30.jpg');">
-        <div class="container lesson-container relative-z">
-            <div class="lesson-content w-200"><h2 class="lesson-title">МОДУЛЬ 5 | УРОК 3</h2><p class="lesson-desc">Kling. Морфинг, пролеты камеры, оживление.</p></div>
-            <a href="https://s3.ru1.storage.beget.cloud/ea682f4fd8a3-mesmerizing-phoenix/neiro_bistro_video/m5_y3.mp4" class="btn-primary">СМОТРЕТЬ</a>
-        </div>
-    </section>
-    <section class="lesson-section overlay-container" style="background-image: url('images/fon31.jpg');">
-        <div class="container lesson-container relative-z">
-            <div class="lesson-content w-200"><h2 class="lesson-title">МОДУЛЬ 5 | УРОК 4</h2><p class="lesson-desc">Sora, Seedance, Luma. Танцы и реклама.</p></div>
-            <a href="https://s3.ru1.storage.beget.cloud/ea682f4fd8a3-mesmerizing-phoenix/neiro_bistro_video/m5_y4.mp4" class="btn-primary">СМОТРЕТЬ</a>
-        </div>
-    </section>
-    <section class="lesson-section overlay-container" style="background-image: url('images/fon32.jpg');">
-        <div class="container lesson-container relative-z">
-            <div class="lesson-content"><h2 class="lesson-title">МОДУЛЬ 5 | УРОК 5</h2><p class="lesson-desc">Midjourney Video.</p></div>
-            <a href="https://s3.ru1.storage.beget.cloud/ea682f4fd8a3-mesmerizing-phoenix/neiro_bistro_video/m5_y5.mp4" class="btn-primary">СМОТРЕТЬ</a>
-        </div>
-    </section>
-    <section class="lesson-section overlay-container" style="background-image: url('images/fon33.jpg');">
-        <div class="container lesson-container relative-z">
-            <div class="lesson-content"><h2 class="lesson-title">МОДУЛЬ 5 | УРОК 6</h2><p class="lesson-desc">Липсинг. Говорящие аватары.</p></div>
-            <a href="https://s3.ru1.storage.beget.cloud/ea682f4fd8a3-mesmerizing-phoenix/neiro_bistro_video/m5_y6.mp4" class="btn-primary">СМОТРЕТЬ</a>
-        </div>
-    </section>
-
-    <section class="split-section">
-        <div class="split-image">
-            <img src="images/foto34.png" alt="Module 6 Photo">
-            <div class="split-overlay">
-                <div class="split-module-label">МОДУЛЬ 6</div>
-                <div class="split-main-title">Озвучка, финальный монтаж,<br>выход на продакшн.</div>
-            </div>
-        </div>
-        <div class="split-content bg-grey">
-            <div class="split-inner">
-                <h2 class="split-title">МОДУЛЬ 6</h2>
-                <p class="split-sub">Озвучка, монтаж, продакшн</p>
-                <div class="split-item"><p>Suno, генерация звуков, финальный монтаж.</p></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="lesson-section overlay-container" style="background-image: url('images/fon35.jpg');">
-        <div class="container lesson-container relative-z">
-            <div class="lesson-content w-200"><h2 class="lesson-title">МОДУЛЬ 6 | УРОК 1</h2><p class="lesson-desc">Синтез речи, озвучка текста, генератор звуков.</p></div>
-            <a href="https://s3.ru1.storage.beget.cloud/ea682f4fd8a3-mesmerizing-phoenix/neiro_bistro_video/m6_y1.mp4" class="btn-primary">СМОТРЕТЬ</a>
-        </div>
-    </section>
-    <section class="lesson-section overlay-container" style="background-image: url('images/fon36.jpg');">
-        <div class="container lesson-container relative-z">
-            <div class="lesson-content w-170"><h2 class="lesson-title">МОДУЛЬ 6 | УРОК 2</h2><p class="lesson-desc">Suno. Создание песен и музыки для кино.</p></div>
-            <a href="https://s3.ru1.storage.beget.cloud/ea682f4fd8a3-mesmerizing-phoenix/neiro_bistro_video/m6_y2.mp4" class="btn-primary">СМОТРЕТЬ</a>
-        </div>
-    </section>
-    <section class="lesson-section overlay-container" style="background-image: url('images/fon37.jpg');">
-        <div class="container lesson-container relative-z">
-            <div class="lesson-content w-200"><h2 class="lesson-title">МОДУЛЬ 6 | УРОК 3</h2><p class="lesson-desc">Финальный монтаж.<br>От старта до продакшна.</p></div>
-            <a href="https://s3.ru1.storage.beget.cloud/ea682f4fd8a3-mesmerizing-phoenix/neiro_bistro_video/m6_y3.mp4" class="btn-primary">СМОТРЕТЬ</a>
-        </div>
-    </section>
-
-    <section class="block-38 overlay-container" id="section-pay" style="background-image: url('images/fon38.jpg');">
-        <div class="block-38__content relative-z">
-            <div class="price-card" onclick="openModal('modal-pay')">
-                <p style="color:#bbb; margin-bottom:8px; font-size:13px;">Цена до конца января:</p>
-                <div>
-                    <span class="price-old">7.000</span>
-                    <span class="price-new">4.999 ₽</span>
-                </div>
-                <button class="buy-btn">КУПИТЬ КУРС</button>
-            </div>
-            
-            <h2 style="font-size: 20px; margin: 32px 0 16px; color: #fff;">ПРИСОЕДИНЯЙТЕСЬ</h2>
-            <div style="display:flex; gap:24px; justify-content:center;">
-                <a href="https://t.me/NEIRO_BISTRO_bot" target="_blank" style="color:var(--color-blue); font-weight:600; font-size:15px;">TELEGRAM</a>
-                <a href="https://www.instagram.com/neirobistro/" target="_blank" style="color:var(--color-pink); font-weight:600; font-size:15px;">INSTAGRAM</a>
-            </div>
-        </div>
-    </section>
-
-    <div class="custom-modal" id="modal-pay">
-        <div class="modal-body">
-            <h2>ОФОРМЛЕНИЕ</h2>
-            <input type="text" id="pay-name" class="modal-input" placeholder="Имя">
-            <input type="tel" id="pay-phone" class="modal-input" placeholder="Телефон (напр. +79990000000)">
-            <input type="email" id="pay-email" class="modal-input" placeholder="Email">
-            <button class="modal-btn" id="pay-btn" onclick="sendToN8N()">ОПЛАТИТЬ</button>
-            
-            <div class="agreement-section">
-    <label class="checkbox-label">
-        <input type="checkbox" id="agreement-1" class="required-checkbox">
-        <span class="checkmark"></span>
-        <span class="label-text">
-            Нажимая кнопку, я принимаю условия <a href="https://ipv4.google.com/intl/ru/docs/about/" target="_blank">Публичной оферты</a>
-        </span>
-    </label>
-
-    <label class="checkbox-label">
-        <input type="checkbox" id="agreement-2" class="required-checkbox">
-        <span class="checkmark"></span>
-        <span class="label-text">
-            Даю согласие на обработку моих персональных данных в соответствии с <a href="https://ipv4.google.com/intl/ru/docs/about/" target="_blank">Политикой конфиденциальности</a>
-        </span>
-    </label>
-
-    <label class="checkbox-label">
-        <input type="checkbox" id="agreement-3">
-        <span class="checkmark"></span>
-        <span class="label-text">
-            Даю согласие на получение рекламной рассылки (необязательно)
-        </span>
-    </label>
-</div>
-            
-            <p style="color:#777; margin-top:12px; cursor:pointer; font-size:11px;" onclick="closeModals()">Закрыть</p>
-        </div>
-    </div>
-
-    <div class="custom-modal" id="modal-auth">
-        <div class="modal-body">
-            <h2>ЛИЧНЫЙ КАБИНЕТ</h2>
-            <input type="email" id="auth-email" class="modal-input" placeholder="Ваш Email">
-            <input type="text" id="auth-pass" class="modal-input" placeholder="Пароль из письма">
-            <button class="modal-btn" onclick="checkPass()">ВОЙТИ</button>
-            <p style="color:#777; margin-top:12px; cursor:pointer; font-size:11px;" onclick="closeModals()">Закрыть</p>
-        </div>
-    </div>
-
-    <div class="custom-modal" id="modal-success">
-        <div class="modal-body" style="text-align: center;">
-            <h2 style="color: #00C851;">ОБРАБОТКА ЗАКАЗА</h2>
-            <p style="margin: 16px 0; color: #333; font-size: 14px; line-height: 1.5;">
-                Мы ожидаем подтверждение от банка.<br><br>
-                <b>Если вы оплатили заказ:</b><br>
-                Письмо с паролем придет на вашу почту в течение 1-2 минут.
-            </p>
-            <button class="modal-btn" onclick="closeModals()">ПОНЯТНО</button>
-        </div>
-    </div>
-
-    <!-- Блок техподдержки -->
-    <section class="support-section">
-        <div class="container">
-            <div class="support-content">
-                <div class="support-info">
-                    <h3>Нужна помощь?</h3>
-                    <p>Наша команда поддержки готова ответить на все ваши вопросы</p>
-                </div>
-                <a href="https://t.me/go43434" target="_blank" class="support-btn">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 0C5.374 0 0 5.373 0 12s5.374 12 12 12 12-5.373 12-12S18.626 0 12 0zm5.568 8.16l-1.61 7.59c-.12.54-.44.67-.89.42l-2.46-1.81-1.19 1.14c-.13.13-.24.24-.49.24l.17-2.43 4.47-4.03c.19-.17-.04-.27-.3-.1L9.28 13.47l-2.38-.75c-.52-.16-.53-.52.11-.77l9.28-3.58c.43-.16.81.11.67.73z"/>
-                    </svg>
-                    Написать в поддержку
-                </a>
-            </div>
-        </div>
-    </section>
+/* ================= АДАПТИВ (MOBILE) - ИСПРАВЛЕННЫЙ ================= */
+@media (max-width: 900px) {
     
-    <script src="script.js"></script>
-</body>
-</html>
+    /* 1. Увеличиваем базовый шрифт для мобильных */
+    body, html {
+        font-size: 15px; /* Было 18px десктоп, но 15px достаточно для мобилы. Меньше 14 нельзя! */
+    }
 
+    h1 { font-size: 32px !important; line-height: 1.2; }
+    h2 { font-size: 20px !important; line-height: 1.3; margin-bottom: 16px; }
+    h3 { font-size: 20px !important; }
+    h4 { font-size: 16px !important; font-weight: 700 !important; }
 
+    /* 2. ИСПРАВЛЯЕМ МЕЖСТРОЧНЫЙ ИНТЕРВАЛ */
+    p, li, .block-bio__text { 
+        font-size: 14px !important; /* Читаемый размер */
+        line-height: 1.55 !important; /* Воздух между строками! Было 1.1 */
+        font-weight: 500 !important;
+    }
 
+    .container { max-width: 90%; padding: 0 16px; }
 
+    /* Кнопки */
+    .btn-primary {
+        display: block; width: 44%; max-width: 120px; margin: 0 auto;
+        padding: 6px 20px; font-size: 12px !important;
+    }
+    .btn-access-fixed { padding: 8px 16px; font-size: 10px; }
 
+    /* Блок 2 */
+    .block-2__content { grid-template-columns: 1fr; gap: 24px; }
+    .block-2__logo { display: none; }
+    .block-2__text-box { padding: 24px; font-size: 14px !important; }
 
+    /* Люди */
+    .block-3 { padding-bottom: 165px; min-height: auto; }
+    .block-3__header { padding: 0; text-align: center; margin-bottom: 30px; }
+    .block-3__people { gap: 2%; }
+    .person-card { width: 40%; min-width: 120px; max-width: 200px;}
+    .person-card__name { font-size: 16px !important; }
 
+    /* Био */
+    .block-bio { padding: 50px 0; }
+    .block-bio__img-wrap { width: 200px; height: 200px; margin-bottom: 24px; }
+    .block-bio__content { text-align: center; }
 
+    /* Модули */
+    .modules-layout { flex-direction: column; align-items: center; }
+    .modules-grid { grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; }
+    .module-card { width: 100%; height: 80px; font-size: 12px !important; }
 
+    /* Уроки */
+    .lesson-section { padding: 60px 0; text-align: center; }
+    .lesson-container { flex-direction: column; }
+   
+    .lesson-module { font-size: 18px !important; }
+    .lesson-title { font-size: 16px !important; }
 
+    /* Split блоки */
+    .split-section { flex-direction: column; height: auto; }
+    .split-image { min-height: 300px; order: -1; }
+    .split-content { padding: 40px 20px; }
+    .split-title { font-size: 28px !important; }
+    .split-overlay { padding: 50px; }
+    .split-module-label { font-size: 34px; }
+    .split-main-title { font-size: 20px; }
+    
+    /* Блок 9 */
+    .block-9__wrap { flex-direction: column; gap: 30px; }
+    .block-9__img { width: 80%; }
+    .block-9__text { text-align: center; }
+
+    /* Цена */
+    .price-card { padding: 30px 20px; }
+    .price-new { font-size: 28px; }
+    .price-old { font-size: 18px; }
+    
+    /* Техподдержка */
+    .support-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+    
+    .support-info h3 {
+        font-size: 20px;
+    }
+    
+    .support-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 550px) {
+    .block-bio__content br {
+        display: none;
+    }
+}
+
+@media (max-width: 900px) {
+    .lesson-content.w-170 { max-width: 170px; }
+    .lesson-content.w-180 { max-width: 180px; }
+    .lesson-content.w-190 { max-width: 190px; }
+    .lesson-content.w-200 { max-width: 200px; }
+    .lesson-content.w-230 { max-width: 230px; }
+    .lesson-content.w-240 { max-width: 240px; }
+    .lesson-content.w-250 { max-width: 250px; }
+    .lesson-content.w-260 { max-width: 260px; }
+    .lesson-content.w-275 { max-width: 275px; }
+    .lesson-content.w-340 { max-width: 340px; }
+}
+
+/* --- БАЗОВЫЕ НАСТРОЙКИ (для самых маленьких экранов < 330px) --- */
+.person-card {
+    /* --pos-x: двигает ВЛЕВО (-) / ВПРАВО (+)
+       --pos-y: двигает ВВЕРХ (-) / ВНИЗ (+)
+    */
+    --pos-x: 0px; 
+    --pos-y: 0px;
+
+    /* Эту строку не трогай, она применяет твои цифры */
+    transform: translate(var(--pos-x), var(--pos-y));
+    
+    /* Плавность, чтобы при изменении экрана не дергалось резко */
+    transition: transform 0.2s ease-out; 
+}
+
+/* --- НАСТРОЙКИ ПОД РАЗНЫЕ ЭКРАНЫ --- */
+
+/* Старые телефоны и узкие Android */
+@media (min-width: 330px) {
+    .person-card {
+        --pos-x: -4px;
+        --pos-y: 30px;
+    }
+}
+
+/* Большие телефоны (iPhone Pro Max и др.) */
+@media (min-width: 480px) {
+    .person-card {
+        --pos-x: -17px;
+        --pos-y: 0px;
+    }
+}
+
+/* Планшеты (вертикально) */
+@media (min-width: 768px) {
+    .person-card {
+        --pos-x: -16px;
+        --pos-y: 2px;
+    }
+}
+
+/* Планшеты (горизонтально) и маленькие ноутбуки */
+@media (min-width: 1024px) {
+    .person-card {
+        --pos-x: -22px;
+        --pos-y: 5px;
+    }
+}
+
+/* Стандартные ноутбуки (MacBook Air 13" и т.д.) */
+@media (min-width: 1280px) {
+    .person-card {
+        --pos-x: -22px;
+        --pos-y: -2px;
+    }
+}
+
+/* Большие ноутбуки и ПК (1440p) */
+@media (min-width: 1440px) {
+    .person-card {
+        --pos-x: -22px;
+        --pos-y: -10px;
+    }
+}
+
+/* Широкие мониторы (Full HD и больше) */
+@media (min-width: 1600px) {
+    .person-card {
+        --pos-x: -24px; /* Здесь можно, например, 50px */
+        --pos-y: -30px; /* А тут -20px */
+    }
+}
+
+/* Очень большие экраны (iMac, 4K) */
+@media (min-width: 1920px) {
+    .person-card {
+        --pos-x: -28px;
+        --pos-y: -70px;
+    }
+}
 
