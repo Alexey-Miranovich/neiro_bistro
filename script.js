@@ -125,8 +125,27 @@ async function sendToN8N() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, email, phone, date: new Date().toISOString(), product: "Neiro Bistro Course" })
         });
+        
         if (response.ok) {
             const result = await response.json();
+            
+            // --- ВОТ ЭТОГО КУСКА НЕ ХВАТАЛО ---
+            if (result.status === 'exists') {
+                // Если n8n говорит, что курс уже куплен
+                closeModals(); // Закрываем форму оплаты
+                setTimeout(() => {
+                     // Открываем ваше новое окно "УЖЕ КУПЛЕНО"
+                    document.getElementById('modal-already-purchased').style.display = 'flex';
+                }, 300);
+                
+                // Возвращаем кнопку в исходное состояние
+                btn.innerText = originalText;
+                btn.style.background = originalColor;
+                btn.disabled = false;
+                return; // Останавливаем выполнение, чтобы не идти дальше
+            }
+            // ----------------------------------
+
             if (result.payment_url) {
                 setBtnSuccess(btn, "ПЕРЕХОД К ОПЛАТЕ...");
                 // Сохраняем флаг для показа уведомления при возврате
@@ -147,7 +166,6 @@ async function sendToN8N() {
             }
         } else { setBtnError(btn, "ОШИБКА", originalText, originalColor); }
     } catch { setBtnError(btn, "ОШИБКА СЕТИ", originalText, originalColor); }
-
 }
 
 
