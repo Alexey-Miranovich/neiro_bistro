@@ -1,16 +1,4 @@
-Без паники. Я собрал **полный** файл `script.js` из всех частей, которые мы утверждали.
-
-В этом коде есть всё:
-
-1. **Проверка доступа** (открытие уроков).
-2. **Валидация чекбоксов** (кнопка не нажмется без галочек).
-3. **Обработка возврата с оплаты** (показ окна "Обработка заказа").
-4. **Вход в личный кабинет**.
-5. **Исправленная оплата**: если курс куплен — кнопка краснеет и пишет "КУРС УЖЕ КУПЛЕН" (без лишних окон).
-
-Просто скопируйте этот код целиком и вставьте в `script.js`, заменив там всё содержимое.
-
-```javascript
+// Глобальная переменная доступа
 let hasAccess = localStorage.getItem('neiro_access') === 'true';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -36,10 +24,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const allLessonBtns = document.querySelectorAll('.btn-primary');
     allLessonBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
+            // Если доступа нет — блокируем переход и скроллим к оплате
             if (!hasAccess) {
-                e.preventDefault(); // Запрещаем переход
+                e.preventDefault(); // Самая важная строчка: запрещает открытие ссылки
                 const paySection = document.getElementById('section-pay');
-                if (paySection) paySection.scrollIntoView({ behavior: 'smooth' }); // Скроллим к оплате
+                if (paySection) paySection.scrollIntoView({ behavior: 'smooth' });
             }
         });
     });
@@ -61,11 +50,11 @@ document.addEventListener('DOMContentLoaded', () => {
         checkbox.addEventListener('change', checkAgreements);
     });
     
-    // Запускаем проверку при загрузке (чтобы кнопка была серой сразу)
+    // Запускаем проверку при загрузке
     checkAgreements();
 });
 
-// --- Вспомогательные функции ---
+// --- Вспомогательные функции (Глобальные) ---
 
 function openModal(id) { 
     const modal = document.getElementById(id);
@@ -78,17 +67,17 @@ function closeModals() {
 
 function setBtnError(btn, text, originalText, originalColor) {
     btn.innerText = text;
-    btn.style.background = "#ff4444"; // Красный цвет ошибки
+    btn.style.background = "#ff4444"; // Красный цвет
     setTimeout(() => {
         btn.innerText = originalText;
         btn.style.background = originalColor;
         btn.disabled = false;
-    }, 3000); // Возвращаем через 3 секунды
+    }, 3000); 
 }
 
 function setBtnSuccess(btn, text) {
     btn.innerText = text;
-    btn.style.background = "#00C851"; // Зеленый цвет успеха
+    btn.style.background = "#00C851"; // Зеленый цвет
 }
 
 // --- Логика Входа (Личный кабинет) ---
@@ -126,7 +115,6 @@ async function checkPass() {
                 setBtnError(btn, "НЕВЕРНЫЙ ПАРОЛЬ", originalText, originalColor); 
             }
         } else { 
-            // Если пользователя нет в базе
             setBtnError(btn, "НЕТ ТАКОГО УЧЕНИКА", originalText, originalColor); 
         }
     } catch { 
@@ -144,7 +132,7 @@ async function sendToN8N() {
     const originalText = btn.innerText;
     const originalColor = window.getComputedStyle(btn).backgroundColor;
     
-    // 1. Проверка галочек (на всякий случай дублируем)
+    // Проверка галочек
     const requiredCheckboxes = document.querySelectorAll('.required-checkbox');
     const allChecked = Array.from(requiredCheckboxes).every(checkbox => checkbox.checked);
     
@@ -153,7 +141,7 @@ async function sendToN8N() {
         return;
     }
 
-    // 2. Проверка заполнения полей
+    // Проверка полей
     if(!name || !email || !phone) { 
         setBtnError(btn, "ЗАПОЛНИТЕ ВСЕ", originalText, originalColor); 
         return; 
@@ -180,28 +168,22 @@ async function sendToN8N() {
             
             // --- ПРОВЕРКА: ЕСЛИ КУРС УЖЕ КУПЛЕН ---
             if (result.status === 'exists') {
-                // Красим кнопку в красный и пишем сообщение
                 setBtnError(btn, "КУРС УЖЕ КУПЛЕН", originalText, originalColor);
-                return; // Останавливаем выполнение, никуда не переходим
+                return; 
             }
             // ---------------------------------------
 
             if (result.payment_url) {
                 setBtnSuccess(btn, "ПЕРЕХОД К ОПЛАТЕ...");
-                // Сохраняем флаг, чтобы показать окно при возврате (если редирект сработает криво)
                 localStorage.setItem('show_payment_notification', 'true');
-                // Перенаправляем на ЮКассу
                 setTimeout(() => window.location.href = result.payment_url, 1000);
             } else {
-                // Если ссылка не пришла (редкий случай, но бывает)
                 setBtnSuccess(btn, "ЗАЯВКА ПРИНЯТА!");
                 setTimeout(() => { 
                     closeModals(); 
-                    // Показываем окно "Обработка", так как ссылка не пришла, но заказ создан
                     setTimeout(() => {
                         openModal('modal-success');
                     }, 300);
-                    // Возвращаем кнопку в норму
                     btn.innerText = originalText; 
                     btn.style.background = originalColor; 
                     btn.disabled = false; 
@@ -214,5 +196,3 @@ async function sendToN8N() {
         setBtnError(btn, "ОШИБКА СЕТИ", originalText, originalColor); 
     }
 }
-
-```
