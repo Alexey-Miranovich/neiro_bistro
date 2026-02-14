@@ -137,7 +137,11 @@ a { text-decoration: none; }
     width: 100%; height: 41vh;
     background-image: url('images/fon1.jpg');
     background-size: cover; background-position: center;
-    display: flex; justify-content: center; align-items: center;
+    display: flex; 
+    flex-direction: column; /* Выстраивает элементы в колонку (сверху вниз) */
+    justify-content: center; 
+    align-items: center;
+    gap: 30px; /* Добавляет отступ между логотипом и кнопкой, чтобы они не слипались */
 }
 .block-1__logo {
     max-width: 350px; width: 70%;
@@ -700,4 +704,5 @@ a { text-decoration: none; }
         --pos-y: -70px;
     }
 }
+
 
