@@ -26,8 +26,14 @@
 
     <button class="btn-access-fixed" onclick="openModal('modal-auth')">ВХОД ДЛЯ УЧЕНИКОВ</button>
 
-    <section class="block-1 overlay-container" style="background-image: url('images/fon1.jpg');">
+    <section class="block-1 overlay-container" style="background-image: url('images/fon1.jpg'); position: relative;">
         <img src="images/logo1.png" alt="Neiro Bistro" class="block-1__logo relative-z">
+        
+        <button class="buy-btn relative-z" 
+                style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); width: max-content; padding: 15px 40px;" 
+                onclick="ym(106501455, 'reachGoal', 'payment_click'); openModal('modal-pay');">
+            КУПИТЬ КУРС
+        </button>
     </section>
 
     <section class="block-2 overlay-container" style="background-image: url('images/fon2.jpg');">
@@ -536,6 +542,7 @@
     <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
