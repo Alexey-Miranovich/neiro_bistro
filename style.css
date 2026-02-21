@@ -705,4 +705,32 @@ a { text-decoration: none; }
     }
 }
 
+/* ================= ФУТЕР С РЕКВИЗИТАМИ ================= */
+.site-footer {
+    background: #1a1a1a; /* Чуть темнее блока поддержки (#1a1a1a) для красивого перехода */
+    text-align: center;
+    padding: 24px 0;
+    border-top: 1px solid #222222;
+}
+
+.footer-requisites {
+    color: #777777; /* Неброский серый цвет, чтобы не отвлекал внимание */
+    font-size: 13px;
+    font-weight: 500;
+    margin: 0;
+    line-height: 1.5;
+    font-family: var(--font-main);
+    letter-spacing: 0.02em;
+}
+
+/* Адаптив для мобильных устройств */
+@media (max-width: 900px) {
+    .site-footer {
+        padding: 20px 0;
+    }
+    .footer-requisites {
+        font-size: 11px !important; /* Уменьшаем шрифт на телефонах */
+        padding: 0 15px; /* Защита от прилипания к краям экрана */
+    }
+}
 
